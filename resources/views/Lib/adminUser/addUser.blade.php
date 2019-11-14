@@ -95,8 +95,8 @@
         </tr>
     </table>
     <div id="box3">
-        <input type="submit" name="submit" value="確認" class="submit">
-        <input type="button" name="cancel" value="キャンセル" class="submit">       
+        <button type="submit" name="submit" value="go">確認</button>
+        <button type="button" name="submit" onclick="location.href='ad'">キャンセル</button>       
     </div>
 </form>
 @endsection

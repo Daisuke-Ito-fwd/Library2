@@ -33,7 +33,6 @@
 
     <div id="left">
         @yield('footerL')
-        <p><input type="button" onclick="location.href='logout'" value="ログアウト"></p>
     </div>
 </footer>
 </body>

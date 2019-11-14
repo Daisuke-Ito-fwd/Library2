@@ -36,7 +36,7 @@ Route::get('lib/ad', 'LoginRouteController@admin')->name('Route');
 
 //  管理画面 #################################
 // to addUser
-Route::get('lib/addUser', 'adminController@addUser');//->middleware('auth');
+Route::get('lib/addUser', 'adminController@addUser')->name('re');//->middleware('auth');
 // to addBook
 Route::get('lib/addBook', 'adminController@addBook');//->middleware('auth');
 // to searchUsers
@@ -47,5 +47,7 @@ Route::get('lib/searchBooks', 'adminController@searchBooks');//->middleware('aut
 // ユーザー追加画面
 // to confPage
 Route::post('lib/addUserConf', 'addUserController@post');
+// to insert&fin Page
+Route::post('lib/insert', 'addUserController@insert');
 // ログアウト
 Route::get('lib/logout', 'LogOutController@logout');

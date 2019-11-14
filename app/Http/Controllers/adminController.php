@@ -16,7 +16,7 @@ class AdminController extends Controller
     // go to addBook
     public function addBook(){
         $user=Auth::user();
-        return view("Lib.addBook", ['user'=>$user]);
+        return view("Lib.adminBook.addBook", ['user'=>$user]);
     }
 
     // go to searcUsers

@@ -34,7 +34,7 @@
         <tr>
             <td>
                 <a href="/lib/addUser"><img src="{{ asset('img/addHuman.png') }}" alt=""></a>
-                <p>アカウント登録<br> </p>
+                <p>アカウント<br>登録<br> </p>
             </td>
             <td>
                 <a href="/lib/searchUsers"><img src="{{ asset('img/searchHuman.png') }}" alt=""></a>

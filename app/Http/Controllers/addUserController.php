@@ -16,12 +16,13 @@ class addUserController extends Controller
     //  registPage
     public function post(addUserRequest $request){
         $reqPost=$request->all();
+        
         $user=Auth::user();
         return view('Lib.adminUser.addUserConf',['reqPost'=>$reqPost, 'user'=>$user]);
     }
 
     //  confPage
-    public function regist(Request $request){
+    public function insert(Request $request){
 
         $userInput = $request->all();
         if($userInput['submit'] == 'back') {
@@ -29,7 +30,6 @@ class addUserController extends Controller
             return redirect()->route('re')->withInput($userInput);
         }
 
-        // $request->session()->regenerateToken();
         $insert=[
             'id'       =>0,
             'name2'    =>$userInput['name2'],
@@ -41,7 +41,7 @@ class addUserController extends Controller
             'typ'      =>$userInput['typ'],
         ];
 $request->session()->regenerateToken();
-        return view('Lib.adminTop', User::create([
+    User::create([
             'typ'  =>  $insert['typ'],
             'name2' => $insert['name2'],
             'name1' => $insert['name1'],
@@ -49,7 +49,15 @@ $request->session()->regenerateToken();
             'kana1' => $insert['kana1'],
             'email' => $insert['email'],
             'password' => Hash::make($insert['password']),
-        ]));
+        ]);
+
+        // lastInsertID取得
+        $id = DB::getPdo()->lastInsertId();
+        $re=DB::table('users')->where('id', $id)->first();
+        $abtUser=(array)$re;
+        $logUser=Auth::user();
+
+        return view('Lib.adminUser.finInsertUser',['abtUser'=>$abtUser, 'user'=>$logUser] );
     }
     
 

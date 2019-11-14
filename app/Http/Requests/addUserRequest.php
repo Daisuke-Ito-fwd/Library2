@@ -13,17 +13,16 @@ class addUserRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
-        if($this->path() == 'lib/addUserConf'){
-            return true;
-        }else{
-            return true;
-        }
-    }
+    // public function authorize()
+    // {
+    //     if($this->path() == 'lib/addUserConf'){
+    //         return true;
+    //     }else{
+    //         return true;
+    //     }
+    // }
 
     /**
-     * 使う場合、ルールを設定。
      * 連想配列の形で作成。
      * @return array
      */
