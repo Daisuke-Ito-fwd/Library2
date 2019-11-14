@@ -10,7 +10,7 @@ class AdminController extends Controller
     // go to addUser
     public function addUser(){
         $user=Auth::user();
-        return view("Lib.admin_user.addUser", ['user'=>$user]);
+        return view("Lib.adminUser.addUser", ['user'=>$user]);
     }
 
     // go to addBook

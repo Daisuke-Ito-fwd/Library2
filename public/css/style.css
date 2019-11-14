@@ -161,10 +161,11 @@ width: 333px;
     justify-content: space-around;
 }
 
-.error{
+#error, .error{
     font-size: 11px;
     color: red;
     font-family: 'Noto Sans JP', sans-serif;
+    text-align: center;
     margin: -2.5px;
 }
 
@@ -179,4 +180,9 @@ width: 333px;
 
 .air{
     width: 5%;
+}
+
+hr{
+    margin-top:20px;
+    margin-bottom:20px;
 }

@@ -18,6 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Route::any('orgLogin', 'orgLoginController@login');
+Route::any('orgLogin', 'LoginController@authenticate');
 
 
 
@@ -29,7 +31,7 @@ Route::get('lib','LibController@index')->name('first');
 
 
 //  承認後アクセス #############################
-Route::get('lib/ad', 'LoginRouteController@admin')->name('admin');
+Route::get('lib/ad', 'LoginRouteController@admin')->name('Route');
 
 
 //  管理画面 #################################
@@ -42,6 +44,8 @@ Route::get('lib/searchUsers', 'adminController@searchUsers');//->middleware('aut
 // to searchBooks
 Route::get('lib/searchBooks', 'adminController@searchBooks');//->middleware('auth');
 
-
-// 
-Route::get('lib/logout', 'LogOutController@logout');//->middleware('auth');
+// ユーザー追加画面
+// to confPage
+Route::post('lib/addUserConf', 'addUserController@post');
+// ログアウト
+Route::get('lib/logout', 'LogOutController@logout');

@@ -10,7 +10,7 @@ class LibController extends Controller
     public function login(){
         return view("auth.login");
     }
-// origin
+    // origin
     public function index(){
         return view("Lib.index");
     }

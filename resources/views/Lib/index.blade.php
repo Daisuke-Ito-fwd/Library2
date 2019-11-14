@@ -22,20 +22,20 @@
         <h4>メールアドレスとパスワードを入力してください。</h4>
     </div>
     <div id="box2">
-    <form method="POST" action="login">
+    <form method="POST" action="orgLogin">
         @csrf
+        @if (old('email'))
+        <p id="error">エラー：  メールアドレスもしくはパスワードが間違っています。</p>
+        @endif
+        
         <table id="logForm">
-                @if (count($errors) > 0)
-                <th class="error">エラー</th>
-                <td class="error">入力内容に問題があります。 再入力してください。</td>
-            @endif
             <tr>
                 <th>mail: </th>
-                <td><input type="email" name="mail" value="{{ old('mail') }}"></td>
+                <td><input type="email" name="email" value="{{ old('email') }}"></td>
             </tr>
             <tr>
                 <th>pass: </th>
-                <td><input type="password" name="pass"></td>
+                <td><input type="password" name="password"></td>
             </tr>
             <tr>
                 <th id="errorTh"></th>
@@ -48,9 +48,9 @@
     </form>
     <p id="entry">アカウント未登録の方は<a href="">こちら</a>から登録してください。</p>            </tr>
     </div>
+    <hr id="fHr">
 </main>
 
-<hr id="fHr">
 <footer>
     <div id="right">
         <p>test footer right</p>
