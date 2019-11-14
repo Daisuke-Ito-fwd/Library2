@@ -38,16 +38,20 @@ Route::get('lib/ad', 'LoginRouteController@admin')->name('Route');
 // to addUser
 Route::get('lib/addUser', 'adminController@addUser')->name('re');//->middleware('auth');
 // to addBook
-Route::get('lib/addBook', 'adminController@addBook');//->middleware('auth');
+Route::get('lib/addBook', 'adminController@addBook')->name('reBook');//->middleware('auth');
 // to searchUsers
 Route::get('lib/searchUsers', 'adminController@searchUsers');//->middleware('auth');
 // to searchBooks
 Route::get('lib/searchBooks', 'adminController@searchBooks');//->middleware('auth');
 
-// ユーザー追加画面
+// ユーザー追加画面 #####################
 // to confPage
 Route::post('lib/addUserConf', 'addUserController@post');
 // to insert&fin Page
 Route::post('lib/insert', 'addUserController@insert');
+
+// 書籍追加画面 #########################
+Route::get('lib/addBookConf', 'addBookController@get');
+Route::get('lib/insertbook', 'addBookController@insert');
 // ログアウト
 Route::get('lib/logout', 'LogOutController@logout');

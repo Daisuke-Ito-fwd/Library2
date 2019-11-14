@@ -20,7 +20,7 @@ class addBookRequest extends FormRequest
             'publ'      =>['integer'],
             'genre'     =>['integer'],
             's_date'    =>['date'],
-            'isbn'      =>['integer'],
+            'isbn'      =>['integer','digits_between:5,13' ],
             'stock'     =>['integer'],
         ];
     }
@@ -34,8 +34,10 @@ class addBookRequest extends FormRequest
             'auth.required'   =>'著者を入力してください。',
             'publ'            =>'出版社を選択してください。',
             'genre'           =>'ジャンルを選択してください',
-            'isbn.integer'    =>'ISBNは半角数字で入力してください。',
+            'isbn.integer'    =>'半角数字で入力してください。',
+            'isbn.digits_between'=>'5~13桁で入力してください。',
             'stock.integer'   =>'冊数は半角数字で入力してください。',
+            's_date.date'   =>'出版日を入力してください。',
         ];
     }
 }
