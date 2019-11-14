@@ -23,7 +23,7 @@ Route::any('orgLogin', 'LoginController@authenticate');
 
 
 
-
+a
 // 初回アクセス ###########
 Route::get('lib','LibController@index')->name('first');
 // Laravel標準ログイン機能へ
