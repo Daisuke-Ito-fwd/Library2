@@ -7,25 +7,25 @@ use App\Http\Resources;
 
 class AdminController extends Controller
 {
-    // to addUser
+    // go to addUser
     public function addUser(){
         $user=Auth::user();
         return view("Lib.admin_user.addUser", ['user'=>$user]);
     }
 
-    // to addBook
+    // go to addBook
     public function addBook(){
         $user=Auth::user();
         return view("Lib.addBook", ['user'=>$user]);
     }
 
-    // to searcUsers
+    // go to searcUsers
     public function searchUsers(){
         $user=Auth::user();
         return view("Lib.searchUsers", ['user'=>$user]);
     }
 
-    // to searchBooks
+    // go to searchBooks
     public function searchBooks(){
         $user=Auth::user();
         return view("Lib.searchBooks", ['user'=>$user]);

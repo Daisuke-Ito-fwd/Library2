@@ -23,13 +23,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 // 初回アクセス ###########
-// Route::get('lib','LibController@index')->name('first');
+Route::get('lib','LibController@index')->name('first');
 // Laravel標準ログイン機能へ
-Route::get('lib','LibController@login')->name('first');
+// Route::get('lib','LibController@login')->name('first');
 
 
-//  ログインアクセス #############################
-Route::any('lib/ad', 'originLoginController@admin')->name('admin');
+//  承認後アクセス #############################
+Route::get('lib/ad', 'LoginRouteController@admin')->name('admin');
 
 
 //  管理画面 #################################

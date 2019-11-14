@@ -15,8 +15,5 @@ class LibController extends Controller
         return view("Lib.index");
     }
 
-    public function logout(){
-        Auth::logout();
-        return redirect()->route('login');
-    }
+    
 }
