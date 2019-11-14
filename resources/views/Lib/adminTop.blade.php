@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('title', 'admin')
-{{-- @section('header')
+@section('header')
     @component('components.header')
         @slot('typ')
         @if ($user->typ  == 1)
@@ -14,13 +14,7 @@
         {{ $user->email }}
         @endslot
     @endcomponent
-
-
-    {{-- @include('components.header', [
-        'typ'=>'{{ $user->typ }}',
-        'mail'=>'{{ $user->email }}',
-    ]) 
-@endsection --}}
+@endsection
 
 @section('logID', 'xxx@gmail.com')
 @section('box1', '')

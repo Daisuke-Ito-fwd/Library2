@@ -41,3 +41,7 @@ Route::get('lib/addBook', 'adminController@addBook');//->middleware('auth');
 Route::get('lib/searchUsers', 'adminController@searchUsers');//->middleware('auth');
 // to searchBooks
 Route::get('lib/searchBooks', 'adminController@searchBooks');//->middleware('auth');
+
+
+// 
+Route::get('lib/logout', 'LogOutController@logout');//->middleware('auth');

@@ -2,7 +2,7 @@
 
 @section('title', 'アカウント追加')
 
-{{-- @section('header')
+@section('header')
     @component('components.header')
         @slot('typ')
         @if ($user->typ  == 1)
@@ -15,7 +15,7 @@
         {{ $user->email }}
         @endslot
     @endcomponent
-@endsection --}}
+@endsection
 
 @section('logID', 'xxx@gmail.com')
 

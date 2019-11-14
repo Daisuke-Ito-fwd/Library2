@@ -9,8 +9,9 @@ class originLoginController extends Controller
 {
 
     public function admin(){
-        // $user=Auth::user();
-        return view('Lib.adminTop');
+        // 承認ユーザー情報を取得
+        $user=Auth::user();
+        return view('Lib.adminTop', ['user'=>$user]);
     }
 }
 
