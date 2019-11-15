@@ -29,7 +29,7 @@
     <p class="error">エラー：入力内容に問題があります。 再入力してください。</p>
     <p class="error">===================================================</p>
     @endif
-                    <table id="addBook">
+        <table id="addBook">
         <tr>
             <th><u>タイトル</u></th>
             <td>
@@ -68,9 +68,9 @@
             <td>
                 <select name="publ" id="publ" >
                     {{-- fromDB foreach --}}
-                    <option value="1">dummy</option>
-                    <option value="2">dummy</option>
-                    <option value="3">dummy</option>
+                    @foreach ($publ as $key )
+                    <option value="{{ $key->id }}">{{ $key->publ }}</option>
+                    @endforeach
                 </select>
             </td>
        
@@ -78,9 +78,9 @@
             <td>
                 <select name="genre" id="genre">
                     {{-- fromDB foreach --}}
-                    <option value="1">dummy</option>
-                    <option value="2">dummy</option>
-                    <option value="3">dummy</option>
+                    @foreach ($genre as $key )
+                    <option value="{{ $key->id }}">{{ $key->genre }}</option>
+                    @endforeach
                 </select>
             </td>
         </tr>

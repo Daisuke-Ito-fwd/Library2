@@ -1,24 +1,28 @@
 <div id="searchBox">
-        <form action="" method="GET">
+        <form action="select" method="GET">
             @csrf
-        
+            
             <table id="searchUser">
-                <tr  class="sHead">
-                    <th><u>ユーザー検索</u></th>
+                <tr>
+                    <th><u>氏名</u></th>
+                    <td><input type="text" value="" placeholder="図書" name="name2"></td>
+                    <td><input type="text" value="" placeholder="太郎" name="name1"></td>
                 </tr>
                 <tr>
-                    <th>氏名</th>
-                    <td><input type="text" value="" placeholder="図書"></td>
-                    <td><input type="text" value="" placeholder="太郎"></td>
+                    <th><u>フリガナ</u></th>
+                    <td><input type="text" value="" placeholder="トショ" name="kana2"></td>
+                    <td><input type="text" value="" placeholder="タロウ" name="kana1"></td>
                 </tr>
                 <tr>
-                    <th>フリガナ</th>
-                    <td><input type="text" value="" placeholder="トショ"></td>
-                    <td><input type="text" value="" placeholder="タロウ"></td>
+                    <th><u>メールアドレス</u></th>
+                    <td><input type="email" value="" name="mail"></td>
                 </tr>
                 <tr>
-                    <th>メールアドレス</th>
-                    <td><input type="email" value=""></td>
+                    <th><u>ユーザー種別</u></th>
+                    <td>
+                        <label><input type="checkbox" value="1" name="typ">管理</label>
+                        <label><input type="checkbox" value="2" name="typ">一般</label>
+                    </td>
                 </tr>
             </table>
         <div id="box3">
