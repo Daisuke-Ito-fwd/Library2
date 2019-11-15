@@ -19,9 +19,6 @@
     
 @endsection
 
-@section('logID', 'xxx@gmail.com')
-
-
 @section('box1')
     <h2>ユーザー登録が完了しました。</h2>
 @endsection
