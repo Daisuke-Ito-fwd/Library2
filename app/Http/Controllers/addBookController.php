@@ -35,10 +35,13 @@ class addBookController extends Controller
                 'isbn'     =>$userInput['isbn'],
                 'delet'    =>false,
             ];
-    $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
         DB::table('library')->insert($insert);
-            $user=Auth::user();
-            return view('Lib.addBook.finInsertBook',['user'=>$user] );
+        $id = DB::getPdo()->lastInsertId();
+        $re = DB::table('library')->where('id', $id)->first();
+        $reqGet=(array)$re;
+        $user=Auth::user();
+        return view('Lib.adminBook.finInsertBook',['user'=>$user, 'reqGet'=>$reqGet] );
         }
     
 }
