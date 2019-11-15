@@ -58,7 +58,7 @@ footer{
     display: flex;
     flex-direction: column;
 }
-#box1 h2, #box1 h4{
+#box1 h2, #box1 h3 , #box1 h4, #box1 p{
     font-family: 'Noto Sans JP', sans-serif;
     color: rgb(75, 75, 75);
     text-align: center;
@@ -131,7 +131,7 @@ td .submit{
 }
 
 /* adduser */
-#addUser, #addBook, #confUser{
+#addUser, #addBook, #confUser, #searchUser{
     margin-left: auto;
     margin-right: auto;
     font-family: 'Noto Sans JP', sans-serif;
@@ -141,7 +141,7 @@ td .submit{
     border-collapse: collapse;
     color: rgb(75, 75, 75);
 }
-#addUser th,#addUser td, #addBook th, #addBook td, #confUser th, #confUser td{
+#addUser th,#addUser td, #addBook th, #addBook td, #confUser th, #confUser td, #searchUser th, #searchUser td{
     border: solid 1px rgb(180, 180, 180);
     padding: 10px;
 }
@@ -198,7 +198,7 @@ hr{
     margin-bottom:20px;
 }
 
-.finMessage{
+.finMessage, .message{
     font-size: 15px;
     text-align: center;
     font-family: 'Noto Sans JP', sans-serif;

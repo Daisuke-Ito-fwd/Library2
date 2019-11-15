@@ -46,12 +46,12 @@
         <tr>
             <th><u>出版社</u></th>
             <td>
-                <p>{{ $reqGet['publ'] }}</p>
+                <p>{{ $publ->publ }}</p>
             </td>
        
             <th><u>ジャンル</u></th>
             <td>
-                <p>{{ $reqGet['genre'] }}</p>
+                <p>{{ $genre->genre }}</p>
             </td>
         </tr>
         

@@ -26,44 +26,44 @@
     <table id="addBook">
             <th><u>タイトル</u></th>
             <td>
-                <p>{{ $reqGet['title'] }}</p>
+                <p>{{ $reqGet->title }}</p>
             </td>
             <th><u>フリガナ</u></th>
             <td>
-                <p>{{ $reqGet['kana'] }}</p>
+                <p>{{ $reqGet->kana }}</p>
             </td>
         </tr>
         <tr>
             <th><u>著者</u></th>
             <td>
-                <p>{{ $reqGet['auth'] }}</p>
+                <p>{{ $reqGet->auth}}</p>
             </td>
             <th><u>出版日</u></th>
             <td>
-                <p>{{ $reqGet['s_date'] }}</p>
+                <p>{{ $reqGet->s_date }}</p>
             </td>
         </tr>
         <tr>
             <th><u>出版社</u></th>
             <td>
-                <p>{{ $reqGet['publ'] }}</p>
+                <p>{{ $reqGet->publ }}</p>
             </td>
        
             <th><u>ジャンル</u></th>
             <td>
-                <p>{{ $reqGet['genre'] }}</p>
+                <p>{{ $reqGet->genre }}</p>
             </td>
         </tr>
         
         <tr>
             <th><u>ISBN</u></th>
             <td>
-                <p>{{ $reqGet['isbn'] }}</p>
+                <p>{{ $reqGet->isbn }}</p>
             </td>
         
             <th><u>冊数</u></th>
             <td>
-                <p>{{ $reqGet['stock'] }}</p>
+                <p>{{ $reqGet->stock }}</p>
             </td>
         </tr>
     </table>

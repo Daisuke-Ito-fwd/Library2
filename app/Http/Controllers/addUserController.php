@@ -53,7 +53,7 @@ $request->session()->regenerateToken();
 
         // lastInsertID取得
         $id = DB::getPdo()->lastInsertId();
-        $re=DB::table('users')->where('id', $id)->first();
+        $re = DB::table('users')->where('id', $id)->first();
         $abtUser=(array)$re;
         $logUser=Auth::user();
 

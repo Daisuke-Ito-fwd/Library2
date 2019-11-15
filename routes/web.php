@@ -18,8 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::any('orgLogin', 'orgLoginController@login');
-Route::any('orgLogin', 'LoginController@authenticate');
+Route::post('orgLogin', 'LoginController@authenticate');
 
 
 

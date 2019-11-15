@@ -9,9 +9,12 @@ class addBookController extends Controller
 {
     //registPage
     public function get(addBookRequest $request){
+        $genre=DB::table('books_genre')->where('id', $request['genre'])->first();
+        $publ=DB::table('books_publ')->where('id', $request['publ'])->first();
         $reqGet=$request->all();
+        
         $user=Auth::user();
-        return view('Lib.adminBook.addBookConf', ['reqGet'=>$reqGet, 'user'=>$user]);
+        return view('Lib.adminBook.addBookConf', ['reqGet'=>$reqGet, 'user'=>$user, 'genre'=>$genre, 'publ'=>$publ]);
     }
 
     //  confPage
@@ -38,10 +41,14 @@ class addBookController extends Controller
         $request->session()->regenerateToken();
         DB::table('library')->insert($insert);
         $id = DB::getPdo()->lastInsertId();
-        $re = DB::table('library')->where('id', $id)->first();
-        $reqGet=(array)$re;
+        $re = DB::table('library')
+                ->select('title', 'kana', 'auth', 's_date',  'books_publ.publ as publ', 'books_genre.genre as genre', 'stock', 'isbn')
+                ->join('books_publ','library.publ', '=', 'books_publ.id')
+                ->join('books_genre', 'library.genre', '=', 'books_genre.id')
+                ->where('library.id', $id)
+                ->first();
         $user=Auth::user();
-        return view('Lib.adminBook.finInsertBook',['user'=>$user, 'reqGet'=>$reqGet] );
+        return view('Lib.adminBook.finInsertBook',['user'=>$user, 'reqGet'=>$re ] );
         }
     
 }
