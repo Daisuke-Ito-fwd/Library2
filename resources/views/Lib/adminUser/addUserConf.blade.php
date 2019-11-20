@@ -26,53 +26,84 @@
     <h2>登録内容の確認</h2>
 @endsection
 @section('box2')
-<div id="addBox">
-<form action="insert" method="POST">
-    @csrf
-    <table id="confUser">
-        <tr>
-            <th><u>ユーザー種別</u></th>
-            <td>
+    @if (isset($reqPost))
+        @component('components.addUserConf')
+            @slot('name2')
+                {{ $reqPost['name2'] }}
+            @endslot
+            @slot('name1')
+                {{ $reqPost['name1'] }}
+            @endslot
+            @slot('kana2')
+                {{ $reqPost['kana2'] }}
+            @endslot
+            @slot('kana1')
+                {{ $reqPost['kana1'] }}
+            @endslot
+            @slot('mail')
+                {{ $reqPost['mail'] }}
+            @endslot
+            @slot('pass')
+                {{ $reqPost['pass'] }}
+            @endslot
+            
+            @slot('typ')
                 @if ($reqPost['typ'] == 1)
-                <p  name="typ" id="typ">管理</p>
-                @elseif($reqPost['typ'] == 2)
-                <p  name="typ" id="typ">一般</p>
+                    <p  name="typ" id="typ">管理</p>
+                @else
+                    <p  name="typ" id="typ">一般</p>
                 @endif
-            </td>
-        </tr>
-        <tr>
-            <th><u>氏名</u></th>
-            <td>
-                    <p type="text" name="name" id="name" >{{ $reqPost['name2'].' '.$reqPost['name1']}}</p>
-            </td>
-        </tr>
-        <tr>
-            <th><u>フリガナ</u></th>
-            <td>
-                <p type="text" name="kana" id="kana" >{{ $reqPost['kana2'].' '.$reqPost['kana1']}}</p>
-            </td>
-        </tr>
-        <tr>
-            <th><u>メールアドレス</u></th>
-            <td>
-                <p type="text" name="mail"  id="mail" >{{ $reqPost['mail'] }}</p>
-            </td>
-        </tr>
-        <tr>
-            <th><u>パスワード</u></th>
-            <td>
-                <p type="password" name="pass" id="pass">{{ $str2 = str_repeat('*', strlen($reqPost['pass'])) }}</p>
-            </td>
-        </tr>
-    </table>
-    <div id="box3">
-            @foreach ($reqPost as $key => $value)
-            <input type="hidden" name={{ $key }} value={{ $value }}>
-            @endforeach
-            <button type="submit" name="submit" value="user_add" >送信</button>
-            <button type="submit" name="submit" value="back"   >編集</button>       
-    </div>
-</form>
+            @endslot
+            @slot('hidden')
+                @foreach ($reqPost as $key => $value)
+                    <input type="hidden" name={{ $key }} value={{ $value }}>
+                @endforeach
+            @endslot
+        @endcomponent
+    @else
+        @component('components.editUserConf')
+            @slot('name2')
+             {{ $userInput['name2'] }}
+            @endslot
+            @slot('name1')
+                {{ $userInput['name1'] }}
+            @endslot
+            @slot('kana2')
+                {{ $userInput['kana2'] }}
+            @endslot
+            @slot('kana1')
+                {{ $userInput['kana1'] }}
+            @endslot
+            @slot('mail')
+                {{ $userInput['mail'] }}
+            @endslot
+            @slot('pass')
+                {{ $userInput['pass'] }}
+            @endslot
+
+            @slot('typ')
+                @if ($userInput['typ'] == 1)
+                    <p  name="typ" id="typ">管理</p>
+                @else
+                    <p  name="typ" id="typ">一般</p>
+                @endif
+            @endslot
+            @slot('hidden')
+                @foreach ($userInput as $key => $value)
+                    <input type="hidden" name={{ $key }} value={{ $value }}>
+                @endforeach
+            @endslot
+
+            @slot('pass')
+                @if($userInput['pass']=="")
+                    <p>変更しない</p>
+                @else
+                <p type="password" name="pass" id="pass">{{ $str2 = str_repeat('*', strlen($userInput['pass'])) }}</p>
+                @endif
+            @endslot
+        @endcomponent
+    @endif
+
 @endsection
 
 @section('footerL')

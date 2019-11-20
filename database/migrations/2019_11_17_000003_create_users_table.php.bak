@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name1')->nullable();
             $table->string('kana2')->nullable();
             $table->string('kana1')->nullable();
-            $table->boolean('delete')->nullable();
+            $table->boolean('disp_flag')->nullable();
         });
     }
 

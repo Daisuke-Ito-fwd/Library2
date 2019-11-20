@@ -16,7 +16,6 @@ class addUserController extends Controller
     //  registPage
     public function post(addUserRequest $request){
         $reqPost=$request->all();
-        
         $user=Auth::user();
         return view('Lib.adminUser.addUserConf',['reqPost'=>$reqPost, 'user'=>$user]);
     }
@@ -39,6 +38,7 @@ class addUserController extends Controller
             'email'    =>$userInput['mail'],
             'password' =>$userInput['pass'],
             'typ'      =>$userInput['typ'],
+            'disp_flag'=>false,
         ];
 $request->session()->regenerateToken();
     User::create([
@@ -48,6 +48,7 @@ $request->session()->regenerateToken();
             'kana2' => $insert['kana2'],
             'kana1' => $insert['kana1'],
             'email' => $insert['email'],
+            'disp_flag' => $insert['disp_flag'],
             'password' => Hash::make($insert['password']),
         ]);
 
