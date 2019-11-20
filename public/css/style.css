@@ -7,6 +7,7 @@ header {
     justify-content: space-between;
     margin-bottom: -20px;
     min-width: 600px;
+    
 }
 #headLeft{
     display: flex;
@@ -29,13 +30,10 @@ header h1 {
     top:8px;
     left: 10px;
 }
-#headRight{
-    float: right;
-
-}
 #headRight p, #headRight a{
     font-size: 13px;
     margin-bottom: -5px;
+    text-align: end;
 }
 
 
@@ -203,4 +201,53 @@ hr{
     text-align: center;
     font-family: 'Noto Sans JP', sans-serif;
     color: rgb(75, 75, 75);
+}
+
+/* src user */
+#resBoxHead{
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: flex-end
+}
+
+#deleteButton{
+height:30px;
+font-family: 'Noto Sans JP', sans-serif;
+    color: rgb(75, 75, 75);
+}
+#resultCount{
+    font-family: 'Noto Sans JP', sans-serif;
+    color: rgb(75, 75, 75);
+    margin-bottom: 0px;
+}
+
+#resTable{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size:15px;
+    background-color: rgb(247, 247, 247);
+    border: solid  rgb(216, 216, 216);
+    border-collapse: collapse;
+    color: rgb(75, 75, 75);
+}
+#resHead th, .resBody td{
+    border: solid 1px rgb(180, 180, 180);
+    padding: 10px;
+    text-align: center;
+
+}
+#resHead th{
+    background-color: white;
+    border-bottom:double  rgb(180, 180, 180);
+}
+.resBody:nth-child(even){
+    background-color: rgb(255, 255, 255);
+}
+.resBody:nth-child(odd){
+    background-color: rgb(240, 240, 240);
 }

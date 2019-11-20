@@ -23,6 +23,9 @@
     <div id="box2">
         @yield('box2')
     </div>
+    <div id="resultBox">
+        @yield('resultBox')
+    </div>
 </main>
 
 <hr id="fHr">

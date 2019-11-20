@@ -13,7 +13,6 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('users');
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->bigIncrements('id');
@@ -24,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->unsignedInteger('typ');         
-            $table->boolean('delete')->nullable()->change();
+            $table->boolean('disp_flag')->nullable()->change();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
