@@ -86,4 +86,8 @@ class searchUserController extends Controller
         $url=session('url');
         return view('Lib.adminUser.finUpdateUser',['abtUser'=>$abtUser, 'user'=>$logUser, 'url'=>$url] );
     }
+
+    // public function index(){
+    //     return view('Lib.adminUser.ajaxSearchUsers');
+    // }
 }

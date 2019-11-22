@@ -25,7 +25,7 @@ class AdminController extends Controller
     // go to searcUsers
     public function searchUsers(){
         $user=Auth::user();
-        return view("Lib.adminUser.searchUsers", ['user'=>$user]);
+        return view("Lib.adminUser.ajaxSearchUsers", ['user'=>$user]);
     }
 
     // go to searchBooks

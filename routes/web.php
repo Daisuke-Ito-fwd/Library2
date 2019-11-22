@@ -49,15 +49,22 @@ Route::post('lib/addUserConf', 'addUserController@post');
 // to insert&fin Page
 Route::post('lib/insert', 'addUserController@insert');
 
-// ユーザー検索（admin）
+// ユーザー検索
 Route::get('lib/adSearch', 'searchUserController@get');
 Route::any('lib/edit', 'searchUserController@edit')->name('reEd');
 Route::any('lib/editUserConf', 'searchUserController@editConf');
 Route::any('lib/editUserFin', 'searchUserController@editFin');
-
+//ajax用    
+Route::any('ajaxUser', 'ajaxController@index');
+// ユーザー削除
+Route::get('lib/delete', 'deleteUserController@get');
 
 // 書籍追加画面 #########################
 Route::get('lib/addBookConf', 'addBookController@get');
 Route::get('lib/insertbook', 'addBookController@insert');
 // ログアウト
 Route::get('lib/logout', 'LogOutController@logout');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

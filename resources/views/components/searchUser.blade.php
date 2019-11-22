@@ -1,5 +1,5 @@
 <div id="searchBox">
-        <form action="adSearch" method="GET">
+        <form action="" method="get">
             @csrf
             
             <table id="searchUser">
@@ -7,13 +7,8 @@
                     <th><u>氏名</u></th>
                    
                     <td>
-                        {{-- @isset($name2) --}}
                             <input type="text" value="" placeholder="図書" name="name2" value="{{ old('name2', isset($userInput) ? $userInput->name2 : 'test') }}">
                             <input type="text" value="" placeholder="太郎" name="name1" value="">
-                        {{-- @else
-                            <input type="text" value="" placeholder="empty" name="name2" >
-                            <input type="text" value="" placeholder="太郎" name="name1" >
-                        @endisset --}}
                     </td>
                 </tr>
                 <tr>
@@ -56,8 +51,5 @@
                     </td>
                 </tr>
             </table>
-        <div id="box3">
-            <input type="submit" value="検索" class="submit">
-        </div>
         </form>
         </div>
