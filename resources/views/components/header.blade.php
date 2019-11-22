@@ -5,5 +5,5 @@
 <div id="headRight">
         <p id="logType">ログイン中 {{ $typ }} </p>
         <p id="logID">ID ： {{ $mail }}</p>
-        <p><input type="button" onclick="location.href='logout'" value="ログアウト"></p>
+        <p><input type="button" v-on:click="logout()" value="ログアウト" id="headerButton"></p>
 </div>

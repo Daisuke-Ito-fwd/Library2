@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'general')
+@section('title', 'searchUser')
 @section('header')
     @component('components.header')
     @slot('typ')
@@ -35,7 +35,9 @@
                 <div><p>該当する結果はありません。<br>検索内容を変更してください。</p></div>
         @else
         <div ><p id="resultCount">該当 {{ count($result) }} 件</p></div>
-        <div id="deleteButton"><input type="submit" value="選択した項目を削除"></div>
+        <form action="delete" id="deleteUser" method="GET">
+        <div id="deleteButton"><input type="submit" value="選択した項目を削除" form="deleteUser" name="deleteUser"></div>
+        </form>
         @endif 
     </div>
         
@@ -52,7 +54,7 @@
             </tr>
             @foreach ($result as $key)
                 <tr id="{{ "resBody".$key->id }}" class="resBody">
-                    <td><input type="checkbox" value="{{ $key->id }}"></td>
+                    <td><input type="checkbox" value="{{ $key->id }}" v-model="checkedId" form="deleteUser" name="deleteUser[]"></td>
                     <td>
                         @if($key->typ == 1) 管理 @else 一般 @endif
                     </td>
