@@ -35,7 +35,7 @@ class addUserController extends Controller
             'name1'    =>$userInput['name1'],
             'kana2'    =>$userInput['kana2'],
             'kana1'    =>$userInput['kana1'],
-            'email'    =>$userInput['mail'],
+            'email'    =>$userInput['email'],
             'password' =>$userInput['pass'],
             'typ'      =>$userInput['typ'],
             'disp_flag'=>false,

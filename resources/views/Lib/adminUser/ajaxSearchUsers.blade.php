@@ -10,7 +10,7 @@
         ：administ
         @endif
     @endslot
-        @slot('mail')
+        @slot('email')
         {{ $user->email }}
         @endslot
     @endcomponent
@@ -26,23 +26,13 @@
     @component('components.searchUser')
     
     @endcomponent
+    @component('components.ajaxResultUser')
+        
+    @endcomponent
 @endsection
 
 @section('resultBox')
-<hr>
-<div id="app">
-        <button v-on:click="onClick()" type="button"  id="ajaxUserKey">検索</button>
 
-    <table>
-
-        <tr v-for="item in list" v-bind:key="index">
-            <td>@{{ item.volumeInfo.typ }}</td>
-            <td>@{{ item.name2 }} @{{ item.name1 }}</td>
-            <td>@{{ item.kana2 }} @{{ item.kana1 }}</td>
-            <td>@{{ item.mail }}</td>
-        </tr>
-    </table>
-</div>
 @endsection
 
 @section('footerL')

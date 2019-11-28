@@ -1,0 +1,51 @@
+
+<div class="resBox">
+    <result></result>
+    <div class="deleteButton"><button  name="deleteUser">選択した項目を削除</button></div>
+            
+            {{-- @endif  --}}
+{{-- @if (count($result) !== 0) --}}
+<table class="resTable">
+        <tr class="resHead">
+            <th></th>
+            <th>種別</th>
+            <th>氏名</th>
+            <th>フリガナ</th>
+            <th>メールアドレス</th>
+            <th>登録日</th>
+            <th></th>
+        </tr>
+        {{--                       ↓ここがcomputedの変数名 --}}
+        <tr v-for='(res, i) of getItems'  class="resBody"  v-bind:key="i">
+            {{--                             ↓ここで各データのidをふる   ↓ここでチェックを監視                     --}}
+                <td><input type="checkbox" v-bind:value="res.id" v-model="deleteId" form="deleteUser" ></td>
+                <td>
+                    管理 
+                </td>
+                
+                <td  v-model="resultTF">@{{ res.name2 }} @{{ res.name1 }}</td>
+                <td>@{{ res.kana2 }}  @{{ res.kana1 }}</td>
+                <td>@{{ res.email }}</td>
+                <td>@{{ res.created_at }}</td>
+                <td>
+        {{--      上記と同じ ↓ここで各データのidをふる                                  --}}
+                    <button v-bind:value="res.id" v-model="resultId">編集</button>
+                </td>
+            </tr>
+
+    </table>
+
+
+    {{-- ページネーション設定 --}}
+    <paginate   
+    :page-count="getPageCount"
+    :page-range="3"
+    :margin-pages="2"
+    :click-handler="clickCallback"
+    :prev-text="'≪'"
+    :next-text="'≫'"
+    :container-class="'pagination'"
+    :page-class="'page-item'">
+  </paginate>
+  @{{ deleteId }}
+</div>

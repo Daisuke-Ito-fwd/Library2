@@ -4,6 +4,20 @@
     // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+      
+            {
+              "type": "chrome",
+              "request": "launch",
+              "name": "vuejs: chrome",
+              "port": 9000,
+              "pathMappings": {
+                "${workspaceRoot}": "${workspaceRoot}"
+            },
+              "breakOnLoad": true,
+              "sourceMapPathOverrides": {
+                "webpack:///./src/*": "${webRoot}/*"
+              }
+            },
 
         {
             "name": "Listen for XDebug",

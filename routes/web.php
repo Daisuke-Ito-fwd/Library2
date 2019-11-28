@@ -54,8 +54,11 @@ Route::get('lib/adSearch', 'searchUserController@get');
 Route::any('lib/edit', 'searchUserController@edit')->name('reEd');
 Route::any('lib/editUserConf', 'searchUserController@editConf');
 Route::any('lib/editUserFin', 'searchUserController@editFin');
+
 //ajax用    
-Route::any('ajaxUser', 'ajaxController@index');
+// Route::any('ajaxUser', 'ajaxController@index');
+Route::post('/api/searchUser', 'ajaxController@index');
+Route::post('/api/allUsers', 'ajaxController@index');
 // ユーザー削除
 Route::get('lib/delete', 'deleteUserController@get');
 

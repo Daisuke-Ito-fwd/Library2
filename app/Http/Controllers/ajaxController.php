@@ -15,7 +15,7 @@ class ajaxController extends Controller
 {
     //ajaxリクエストに応える部分
     public function index(Request $request){
-        if(($request['name2']=="") && ($request['name1'] == "") && ($request['kana2'] == "") && ($request['kana1'] == "") && ($request['mail'] == "") && ($request['typ']) == "")
+        if(($request['name2']=="") && ($request['name1'] == "") && ($request['kana2'] == "") && ($request['kana1'] == "") && ($request['email'] == "") && ($request['typ']) == "")
         {
             $res=User::where('disp_flag', false)->get();
         }else{
@@ -24,12 +24,13 @@ class ajaxController extends Controller
                         ->kana1like($request->kana1)
                         ->name2like($request->name2)
                         ->name1like($request->name1)
-                        ->maillike($request->mail)
+                        ->maillike($request->email)
                         ->typ($request->typ)
                         ->disp()
                         ->get();
 
     }
-    return response()->json(['res'=>$res]);
+    // return response()->json(['res'=>$res]);
+    return $res;
 }
 }

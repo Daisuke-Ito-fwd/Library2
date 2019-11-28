@@ -44,10 +44,10 @@
         </table>
         <div id="login">
         <input  type="submit" name="submit" value="ログイン">
-    </div>
+        </div>
     </form>
-    <p id="entry">アカウント未登録の方は<a href="">こちら</a>から登録してください。</p>            </tr>
-    </div>
+</div>
+<p id="entry">アカウント未登録の方は<a href="">こちら</a>から登録してください。</p>            </tr>
     <hr id="fHr">
 </main>
 

@@ -14,7 +14,7 @@ class searchUserController extends Controller
 {
     //
     public function get(searchUserRequest $request){
-        if(($request['name2']=="") && ($request['name1'] == "") && ($request['kana2'] == "") && ($request['kana1'] == "") && ($request['mail'] == "") && ($request['typ']) == "")
+        if(($request['name2']=="") && ($request['name1'] == "") && ($request['kana2'] == "") && ($request['kana1'] == "") && ($request['email'] == "") && ($request['typ']) == "")
         {
             $res=User::where('disp_flag', false)->get();
         }else{
@@ -23,7 +23,7 @@ class searchUserController extends Controller
                         ->kana1like($request->kana1)
                         ->name2like($request->name2)
                         ->name1like($request->name1)
-                        ->maillike($request->mail)
+                        ->maillike($request->email)
                         ->typ($request->typ)
                         ->disp()
                         ->get();
@@ -66,7 +66,7 @@ class searchUserController extends Controller
             'name1'    =>$userInput['name1'],
             'kana2'    =>$userInput['kana2'],
             'kana1'    =>$userInput['kana1'],
-            'email'    =>$userInput['mail'],
+            'email'    =>$userInput['email'],
             'typ'      =>$userInput['typ'],
             'disp_flag'=>false,
             'updated_at'=>now(),

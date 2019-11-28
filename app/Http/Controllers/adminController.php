@@ -22,7 +22,7 @@ class AdminController extends Controller
         return view("Lib.adminBook.addBook", ['user'=>$user, 'genre'=>$genre, 'publ'=>$publ]);
     }
 
-    // go to searcUsers
+    // go to searchUsers
     public function searchUsers(){
         $user=Auth::user();
         return view("Lib.adminUser.ajaxSearchUsers", ['user'=>$user]);

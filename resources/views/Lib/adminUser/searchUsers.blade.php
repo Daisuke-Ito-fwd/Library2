@@ -10,7 +10,7 @@
         ：administ
         @endif
     @endslot
-        @slot('mail')
+        @slot('email')
         {{ $user->email }}
         @endslot
     @endcomponent
