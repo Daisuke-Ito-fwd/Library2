@@ -17,9 +17,6 @@ a:visited,  a{
     color:rgb(75, 75, 75);
     text-decoration: none;
 }
-#headRight{
-    /* width: 250px; */
-}
 #headLeft{
     display: flex;
     width: 450px;
@@ -140,7 +137,7 @@ td .submit{
 }
 
 /* adduser */
-#addUser, #addBook, #confUser, .searchUser{
+#addUser, #addBook, #confUser, .searchUser, #editTable{
     margin-left: auto;
     margin-right: auto;
     font-family: 'Noto Sans JP', sans-serif;
@@ -150,7 +147,7 @@ td .submit{
     border-collapse: collapse;
     color: rgb(75, 75, 75);
 }
-#addUser th,#addUser td, #addBook th, #addBook td, #confUser th, #confUser td, .searchUser th, .searchUser td{
+#addUser th,#addUser td, #addBook th, #addBook td, #confUser th, #confUser td, .searchUser th, .searchUser td, .editTr td, .editTr th{
     border: solid 1px rgb(180, 180, 180);
     padding: 10px;
 }
@@ -223,19 +220,24 @@ hr{
     margin-right: auto;
     align-items: flex-end
 }
-
-.deleteButton{
+.resCount{
+    display: flex;
+    justify-content: space-between;
     width: 95%;
     margin-left: auto;
     margin-right: auto;
-height:30px;
-font-family: 'Noto Sans JP', sans-serif;
+    font-family: 'Noto Sans JP', sans-serif;
     color: rgb(75, 75, 75);
+    text-align: right;
+    margin-bottom: 5px;
 }
-#resultCount{
+
+.resCount p{
     font-family: 'Noto Sans JP', sans-serif;
     color: rgb(75, 75, 75);
     margin-bottom: 0px;
+    width: auto;
+    text-align: right;
 }
 
 .resTable{
@@ -267,12 +269,20 @@ font-family: 'Noto Sans JP', sans-serif;
 }
 
 .pagination{
-    /* width: 95%; */
+    /* width: 100%; */
+    text-align: center;
     list-style: none;
-    display: flex;
+    position: relative;
+        right: 20px;
+}
+li {
+    display: inline-block;
+    
+
 }
 li a{
     /* width: 20px; */
+    
     margin: 2px;
     min-width: 25px;
     padding: 3.0px;
@@ -292,5 +302,44 @@ li a{
     text-decoration: underline;
     align-items: flex-end;
     outline: none;
+}
+
+
+/* モーダル部 */
+#overlay, #overlay-edit{
+    z-index:1;
+
+    position  : fixed;
+        top   : 0;
+        left  : 0;
+        width : 100%;
+        height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+#content, #content-edit{
+    position: fixed;
+        top: 15%;
+        left: 15%;
+    z-index:2;
+    width:70%;
+    min-width: 480px;
+    padding: 1em;
+    background:#fff;
+    border-radius: 3px;
+    max-height: 70%;
+    /* スクロール指定 */
+    overflow-y:scroll;
+  }
+
+h4{
+    text-align: center;
+}
+
+.deleteConf, .editConf{
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
 }
 

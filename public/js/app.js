@@ -36973,12 +36973,27 @@ var main = new Vue({
     email: '',
     typ: '',
     deleteId: [],
-    // items: items,      //paginate用         
+    deleteData: '',
+    countDelete: '',
+    editData: '',
+    editId: '',
+    editContent: false,
+    //     //paginate用         
     parPage: 10,
     //paginate用 
     currentPage: 1,
     //paginate用 
-    getCount: ''
+    getCount: '',
+    //件数取得
+    display: false,
+    //初期表示用
+    showContent: false,
+    //モーダル表示用
+    editShowContent: false,
+    //モーダル表示用
+    deleteButton: false,
+    //削除ボタン用
+    hiddenId: []
   },
   methods: {
     allUsers: function allUsers() {
@@ -37004,13 +37019,69 @@ var main = new Vue({
       axios.post('/api/searchUser', form).then(function (res) {
         _this2.result = res.data;
         _this2.getCount = Object.keys(_this2.result).length;
+
+        if (_this2.getCount == 0) {
+          alert('該当するデータはありません。\n別のキーワードで検索してください。');
+        }
       });
     },
     clickCallback: function clickCallback(pageNum) {
       this.currentPage = Number(pageNum);
     },
-    resultCount: function resultCount() {
-      this.getCount = Object.keys(this.result).length;
+    displayOnOff: function displayOnOff() {
+      if (this.getCount > 0) {
+        this.display = true;
+      } else {
+        this.display = false;
+      }
+    },
+    getEditId: function getEditId(e) {
+      this.editId = e.target.value;
+      this.editModal();
+    },
+    editModal: function editModal() {
+      var _this3 = this;
+
+      this.editShowContent = true;
+      this.editData = this.result.filter(function (x) {
+        return _this3.editId.includes(x.id);
+      });
+    },
+    deleteModal: function deleteModal() {
+      var _this4 = this;
+
+      this.showContent = true; // https://qiita.com/hirakuma/items/fd7b6492939951190496
+
+      this.deleteData = this.result.filter(function (x) {
+        return _this4.deleteId.includes(x.id);
+      });
+      this.countDelete = Object.keys(this.deleteData).length;
+    },
+    closeModal: function closeModal() {
+      this.showContent = false;
+      this.editShowContent = false;
+    },
+    deleteEnd: function deleteEnd() {
+      var _this5 = this;
+
+      var params = new FormData(); // https://readouble.com/laravel/6.x/ja/eloquent.html ソフトデリートを使うと管理が楽？ 今回は使わず
+      // var arr = _.values(this.deleteId);
+
+      params.append("id", this.deleteId); //    var delForm=JSON.stringify(arr);
+
+      axios.post('/api/deleteUsers', params).then(function (res) {
+        alert('ユーザー情報を' + _this5.countDelete + '件削除しました。');
+        _this5.showContent = false;
+        _this5.deleteId = [];
+
+        _this5.searchUser();
+      })["catch"](function (error) {
+        console.log(_this5.deleteId);
+        console.log(delFormData);
+        alert('false');
+        console.log(error);
+        _this5.showContent = false;
+      });
     }
   },
   computed: {
@@ -37027,9 +37098,55 @@ var main = new Vue({
     }
   },
   created: function created() {
-    resultCount();
+    if (this.getCount > 0) {
+      this.display = true;
+    } else {
+      this.display = false;
+    }
+
+    ;
+
+    if (this.deleteId == '') {
+      this.deleteButton = false;
+    } else {
+      this.deleteButton = true;
+    }
+  },
+  updated: function updated() {
+    if (this.getCount > 0) {
+      this.display = true;
+    } else {
+      this.display = false;
+    }
   }
 }); // ####################################################################
+// モーダル管理########################################################
+// https://reffect.co.jp/vue/understand-component-by-moda-window  とばすstopPropagation
+
+Vue.component('delete-modal', {
+  // props: ['deleteId'],
+  template: "\n      <div id=\"overlay\">\n          <div id=\"content\">\n          <p><slot></slot></p>\n          <div class='deleteConf'>\n          <button v-on:click=\"deleteEnd\">\u524A\u9664</button>\n          <button v-on:click=\"clickEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
+  methods: {
+    clickEvent: function clickEvent() {
+      //↓親に渡す
+      this.$emit('from-child');
+    },
+    deleteEnd: function deleteEnd() {
+      this.$emit('delete-end');
+    }
+  }
+}), Vue.component('edit-modal', {
+  template: "\n      <div id=\"overlay-edit\">\n          <div id=\"content-edit\">\n          <p><slot></slot></p>\n          <div class='editConf'>\n          <button v-on:click=\"editEnd\">\u7DE8\u96C6</button>\n          <button v-on:click=\"editEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
+  methods: {
+    editEvent: function editEvent() {
+      //↓親に渡す
+      this.$emit('from-child');
+    },
+    editEnd: function editEnd() {
+      this.$emit('edit-end');
+    }
+  }
+});
 
 /***/ }),
 

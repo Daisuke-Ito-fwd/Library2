@@ -16,6 +16,17 @@
 </header>
 <hr id="hHr">
 <main id="main">
+        <delete-modal v-show="showContent" v-on:from-child="closeModal" v-on:delete-end="deleteEnd">
+            {{-- slot使用 子の中身になる --}}
+            @component('components.deleteModal')
+                
+            @endcomponent
+        </delete-modal>
+        <edit-modal v-show="editShowContent" v-on:from-child="closeModal" v-on:edit-end="editEnd">
+            @component('components.editModal')
+                
+            @endcomponent
+        </edit-modal>
     @yield('test')
     <div class="box1">
             @yield('box1')

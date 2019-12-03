@@ -56,7 +56,7 @@ class User extends Authenticatable
         return $query->where('email', 'like', '%'.$str.'%');
     }
     public function scopeTyp($query, $str){
-        return $query->where('typ', 'like', '%'.$str.'%');
+        return $query->where('users.typ', 'like', '%'.$str.'%');
     }
     public function scopeDisp($query){
         return $query->where('disp_flag', false);

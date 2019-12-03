@@ -59,8 +59,12 @@ Route::any('lib/editUserFin', 'searchUserController@editFin');
 // Route::any('ajaxUser', 'ajaxController@index');
 Route::post('/api/searchUser', 'ajaxController@index');
 Route::post('/api/allUsers', 'ajaxController@index');
+Route::post('/api/deleteUsers', 'ajaxController@delete');
 // ユーザー削除
 Route::get('lib/delete', 'deleteUserController@get');
+
+
+
 
 // 書籍追加画面 #########################
 Route::get('lib/addBookConf', 'addBookController@get');
