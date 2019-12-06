@@ -36922,6 +36922,424 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/addBook.js":
+/*!*********************************!*\
+  !*** ./resources/js/addBook.js ***!
+  \*********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
+/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuejs_paginate__WEBPACK_IMPORTED_MODULE_1__);
+
+
+Vue.component('paginate', vuejs_paginate__WEBPACK_IMPORTED_MODULE_1___default.a);
+Vue.component('paginate', VuejsPaginate);
+var deleteBooksModal = {
+  template: "\n      <div id=\"overlay\">\n        \n          <div id=\"content\">\n          <p><slot></slot></p>\n          <div class='deleteConf'>\n          <button v-on:click=\"deleteEnd\">\u524A\u9664</button>\n          <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
+  methods: {
+    closeEvent: function closeEvent() {
+      //↓親に渡す
+      this.$emit('from-child');
+    },
+    deleteEnd: function deleteEnd() {
+      this.$emit('delete-end');
+    }
+  }
+};
+var editBookModal = {
+  template: "\n    <div id=\"overlay-edit\">\n        <div id=\"content-edit\">\n            <p><slot></slot></p>\n            <div class='editConf'>\n                <button v-on:click=\"editConf\">\u78BA\u8A8D</button>\n                <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n            </div>\n        </div>\n    </div>\n    ",
+  methods: {
+    closeEvent: function closeEvent() {
+      //↓親に渡す
+      this.$emit('from-child');
+    },
+    editConf: function editConf() {
+      this.$emit('edit-conf');
+    }
+  }
+};
+var editConfBookModal = {
+  template: "\n    <div id=\"overlay-edit\">\n        <div id=\"content-edit\">\n            <p><slot></slot></p>\n                <div class='editConf'>\n                    <button v-on:click=\"update\">\u767B\u9332</button>\n                    <button v-on:click=\"reEdit\">\u7DE8\u96C6</button>\n                </div>\n        </div>\n    </div>\n    ",
+  methods: {
+    update: function update() {
+      this.$emit('edit-update');
+    },
+    reEdit: function reEdit() {
+      this.$emit('re-edit');
+    }
+  }
+};
+new Vue({
+  el: '#booksMain',
+  components: {
+    'delete-books-modal': deleteBooksModal,
+    'edit-book-modal': editBookModal,
+    'edit-conf-book-modal': editConfBookModal
+  },
+  data: {
+    title: '',
+    kana: '',
+    auth: '',
+    publ: '',
+    isbn: '',
+    genre: '',
+    genreData: [],
+    publData: [],
+    errorMsg: '',
+    // delete
+    deleteId: [],
+    deleteData: '',
+    countDelete: '',
+    // edit
+    editId: '',
+    editGenreId: '',
+    editData: '',
+    editTitle: '',
+    editKana: '',
+    editAuth: '',
+    editPubl: '',
+    editGenre: '',
+    editStock: '',
+    editIsbn: '',
+    editSDate: '',
+    result: [],
+    display: false,
+    getCount: '',
+    //件数取得
+    parPage: 10,
+    //paginate用 
+    currentPage: 1,
+    //paginate用 
+    mainSwitch: false,
+    deleteContent: false,
+    editContent: false,
+    editConfContent: false,
+    // sort
+    desc: false,
+    sortTitle: '▼',
+    sortKana: '▼',
+    sortGenre: '▼',
+    sortAuth: '▼',
+    sortPubl: '▼',
+    sortDate: '▼',
+    whatCheck: ''
+  },
+  methods: {
+    checkSort: function checkSort(key) {
+      // ソートのキーを取得
+      this.whatCheck = key; // 矢印の制御、昇降切り替え
+
+      if (this.whatCheck == 'title') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortTitle = '▲';
+          this.result.sort(function (a, b) {
+            if (a.title < b.title) return -1;
+            if (a.title > b.title) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortTitle = '▼';
+          this.result.sort(function (a, b) {
+            if (a.title > b.title) return -1;
+            if (a.title < b.title) return 1;
+            return 0;
+          });
+        }
+      } else if (this.whatCheck == 'kana') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortKana = '▲';
+          this.result.sort(function (a, b) {
+            if (a.kana < b.kana) return -1;
+            if (a.kana > b.kana) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortKana = '▼';
+          this.result.sort(function (a, b) {
+            if (a.kana > b.kana) return -1;
+            if (a.kana < b.kana) return 1;
+            return 0;
+          });
+        }
+      } else if (this.whatCheck == 'publ') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortPubl = '▲';
+          this.result.sort(function (a, b) {
+            if (a.publ < b.publ) return -1;
+            if (a.publ > b.publ) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortPubl = '▼';
+          this.result.sort(function (a, b) {
+            if (a.publ > b.publ) return -1;
+            if (a.publ < b.publ) return 1;
+            return 0;
+          });
+        }
+      } else if (this.whatCheck == 'auth') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortAuth = '▲';
+          this.result.sort(function (a, b) {
+            if (a.auth < b.auth) return -1;
+            if (a.auth > b.auth) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortAuth = '▼';
+          this.result.sort(function (a, b) {
+            if (a.auth > b.auth) return -1;
+            if (a.auth < b.auth) return 1;
+            return 0;
+          });
+        }
+      } else if (this.whatCheck == 'date') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortDate = '▲';
+          this.result.sort(function (a, b) {
+            if (a.s_date < b.s_date) return -1;
+            if (a.s_date > b.s_date) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortDate = '▼';
+          this.result.sort(function (a, b) {
+            if (a.s_date > b.s_date) return -1;
+            if (a.s_date < b.s_date) return 1;
+            return 0;
+          });
+        }
+      } else if (this.whatCheck == 'genre') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortGenre = '▲';
+          this.result.sort(function (a, b) {
+            if (a.genre < b.genre) return -1;
+            if (a.genre > b.genre) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortGenre = '▼';
+          this.result.sort(function (a, b) {
+            if (a.genre > b.genre) return -1;
+            if (a.genre < b.genre) return 1;
+            return 0;
+          });
+        }
+      }
+    },
+    allBooks: function allBooks() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/allBooks').then(function (res) {
+        _this.result = res.data;
+      });
+    },
+    searchBooks: function searchBooks() {
+      var _this2 = this;
+
+      if (this.title == "" && this.kana == "" && this.genre == "" && this.auth == "" && this.publ == "" && this.isbn == "") {
+        this.errorMsg = '検索キーワードを最低１項目入力してください。';
+      } else {
+        if (this.kana.match(/^[ァ-ヶー　]+$/)) {
+          this.errorMsg = "";
+          var form = new FormData();
+          form.append('title', this.title);
+          form.append('kana', this.kana);
+          form.append('genre', this.genre);
+          form.append('auth', this.auth);
+          form.append('publ', this.publ);
+          form.append('isbn', this.isbn);
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/searchBooks', form).then(function (res) {
+            _this2.result = res.data;
+            _this2.getCount = Object.keys(_this2.result).length;
+            _this2.currentPage = 1;
+
+            if (_this2.getCount == 0) {
+              alert('該当するデータはありません。\n別のキーワードで検索してください。');
+            }
+          });
+        } else {
+          this.errorMsg = "フリガナは全角カタカナで入力してください。";
+        }
+      }
+    },
+    clickCallback: function clickCallback(pageNum) {
+      this.currentPage = Number(pageNum);
+    },
+    displayOnOff: function displayOnOff() {
+      if (this.getCount > 0) {
+        this.display = true;
+      } else {
+        this.display = false;
+      }
+    },
+    deleteBooksModal: function deleteBooksModal() {
+      var _this3 = this;
+
+      this.deleteContent = true; // https://qiita.com/hirakuma/items/fd7b6492939951190496
+
+      this.deleteData = this.result.filter(function (x) {
+        return _this3.deleteId.includes(x.id);
+      });
+      this.countDelete = Object.keys(this.deleteData).length;
+    },
+    getEditId: function getEditId(e) {
+      this.editId = '';
+      this.editId = e.target.value;
+      this.editModal();
+    },
+    editModal: function editModal() {
+      var _this4 = this;
+
+      this.editData = this.result.filter(function (x) {
+        return x.id == _this4.editId;
+      });
+      this.editTitle = this.editData[0]['title'];
+      this.editKana = this.editData[0]['kana'];
+      this.editAuth = this.editData[0]['auth'];
+      this.editPubl = this.editData[0]['publ'];
+      this.editGenre = this.editData[0]['genre'];
+      this.editStock = this.editData[0]['stock'];
+      this.editIsbn = this.editData[0]['isbn'];
+      this.editSDate = this.editData[0]['s_date'];
+      this.editContent = true;
+    },
+    editUpdate: function editUpdate() {
+      var _this5 = this;
+
+      var form = new FormData();
+      form.append('id', this.editId);
+      form.append('title', this.editTitle);
+      form.append('kana', this.editKana);
+      form.append('auth', this.editAuth); // form.append('genre', this.editGenre);
+      // form.append('publ' , this.editPubl);
+      // form.append('s_date',this.editSDate);
+
+      form.append('stock', this.editStock);
+      form.append('isbn', this.editIsbn);
+      axios.post('/api/updateBook', form).then(function (res) {
+        alert('書籍情報を更新しました。');
+
+        _this5.closeModal();
+
+        _this5.searchBooks();
+      })["catch"](function (error) {
+        alert('false');
+        console.log(error);
+
+        _this5.closeModal();
+      });
+    },
+    reEdit: function reEdit() {
+      this.closeModal();
+      this.editContent = true;
+    },
+    closeModal: function closeModal() {
+      this.editData = '';
+      this.deleteContent = false;
+      this.editContent = false;
+      this.editConfContent = false;
+    },
+    deleteEnd: function deleteEnd() {
+      var _this6 = this;
+
+      var params = new FormData(); // https://readouble.com/laravel/6.x/ja/eloquent.html ソフトデリートを使うと管理が楽？ 今回は使わず
+      // var arr = _.values(this.deleteId);
+
+      params.append("id", this.deleteId); //    var delForm=JSON.stringify(arr);
+
+      axios.post('/api/deleteBooks', params).then(function (res) {
+        alert('書籍情報を' + _this6.countDelete + '件削除しました。');
+        _this6.deleteId = [];
+
+        _this6.searchBooks();
+
+        _this6.closeModal();
+      })["catch"](function (error) {
+        console.log(_this6.deleteId);
+        alert('false');
+        console.log(error);
+        _this6.showContent = false;
+      });
+    },
+    showEditConf: function showEditConf() {
+      var form = new FormData();
+      form.append('id', this.editId);
+      form.append('title', this.editTitle);
+      form.append('kana', this.editKana);
+      form.append('auth', this.editAuth);
+      form.append('publ', this.editPubl);
+      form.append('genre', this.editGenre);
+      form.append('s_date', this.editSDate);
+      form.append('stock', this.editStock);
+      form.append('isbn', this.editIsbn);
+      this.editConf = form;
+      this.closeModal();
+      this.editConfContent = true;
+    }
+  },
+  computed: {
+    // ↓ここで結果を切り出し,変数として返しているのでblade側のv-forの値をこの変数名に変える。
+    getItems: function getItems() {
+      var current = this.currentPage * this.parPage;
+      var start = current - this.parPage; // return this.items.slice(start, current);
+
+      return this.result.slice(start, current);
+    },
+    getPageCount: function getPageCount() {
+      // return Math.ceil(this.items.length / this.parPage);
+      return Math.ceil(this.result.length / this.parPage);
+    }
+  },
+  created: function created() {
+    var _this7 = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/books_genre').then(function (res) {
+      _this7.genreData = res.data;
+    });
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/books_publ').then(function (res) {
+      _this7.publData = res.data;
+    });
+
+    if (this.getCount > 0) {
+      this.display = true;
+    } else {
+      this.display = false;
+    }
+
+    ;
+    this.mainSwitch = true;
+  },
+  updated: function updated() {
+    if (this.getCount > 0) {
+      this.display = true;
+    } else {
+      this.display = false;
+    }
+
+    if (this.editGenre !== '') {}
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -36933,7 +37351,11 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
 /* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuejs_paginate__WEBPACK_IMPORTED_MODULE_0__);
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // ログアウト##################################################################
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+__webpack_require__(/*! ./jquery */ "./resources/js/jquery.js"); // ###########################################
+// ユーザー検索ページ
+// ログアウト##################################################################
 
 
 new Vue({
@@ -36951,11 +37373,53 @@ new Vue({
     }
   }
 }); // #############################################################################
-// 1st gen（一番上のコンポーネント)####################################
+// ####################################################################
+// モーダル管理(コンポーネントの登録)########################################################
+// https://reffect.co.jp/vue/understand-component-by-moda-window  とばすstopPropagation
+//ローカル登録 タグを親コンポで定義する
+
+var deleteModal = {
+  template: "\n      <div id=\"overlay\">\n        \n          <div id=\"content\">\n          <p><slot></slot></p>\n          <div class='deleteConf'>\n          <button v-on:click=\"deleteEnd\">\u524A\u9664</button>\n          <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
+  methods: {
+    closeEvent: function closeEvent() {
+      //↓親に渡す
+      this.$emit('from-child');
+    },
+    deleteEnd: function deleteEnd() {
+      this.$emit('delete-end');
+    }
+  }
+}; //グローバル登録 タグを子コンポで定義する。どこからでも使える
+
+Vue.component('edit-modal', {
+  template: "\n      <div id=\"overlay-edit\">\n          <div id=\"content-edit\">\n          <p><slot></slot></p>\n          <div class='editConf'>\n          <button v-on:click=\"editConf\">\u78BA\u8A8D</button>\n          <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
+  methods: {
+    closeEvent: function closeEvent() {
+      //↓親に渡す
+      this.$emit('from-child');
+    },
+    editConf: function editConf() {
+      this.$emit('edit-conf');
+    }
+  }
+}), Vue.component('edit-conf-modal', {
+  template: "\n      <div id=\"overlay-edit\">\n          <div id=\"content-edit\">\n          <p><slot></slot></p>\n          <div class='editConf'>\n          <button v-on:click=\"update\">\u767B\u9332</button>\n          <button v-on:click=\"reEdit\">\u7DE8\u96C6</button>\n          </div>\n          </div>\n      </div>\n      ",
+  methods: {
+    update: function update() {
+      this.$emit('edit-update');
+    },
+    reEdit: function reEdit() {
+      this.$emit('re-edit');
+    }
+  }
+}); // 1st gen（一番上のコンポーネント)####################################
 
 
 Vue.component('paginate', vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default.a);
 Vue.component('paginate', VuejsPaginate);
+
+__webpack_require__(/*! ./addBook */ "./resources/js/addBook.js");
+
 var items = [];
 
 for (var i = 1; i <= 105; i++) {
@@ -36963,8 +37427,9 @@ for (var i = 1; i <= 105; i++) {
 }
 
 var main = new Vue({
-  el: 'main',
+  el: '#main',
   data: {
+    // main
     result: [],
     name2: '',
     name1: '',
@@ -36972,12 +37437,21 @@ var main = new Vue({
     kana1: '',
     email: '',
     typ: '',
+    errorMsg: '',
+    // delete
     deleteId: [],
     deleteData: '',
     countDelete: '',
+    // edit
     editData: '',
     editId: '',
     editContent: false,
+    editConf: '',
+    editName2: '',
+    editName1: '',
+    editKana2: '',
+    editKana1: '',
+    editEmail: '',
     //     //paginate用         
     parPage: 10,
     //paginate用 
@@ -36987,43 +37461,176 @@ var main = new Vue({
     //件数取得
     display: false,
     //初期表示用
+    // show
     showContent: false,
-    //モーダル表示用
+    //モーダル表示用delete
     editShowContent: false,
-    //モーダル表示用
+    //モーダル表示用edit
+    editConfShowContent: false,
+    //モーダル表示用editConf
     deleteButton: false,
     //削除ボタン用
-    hiddenId: []
+    hiddenId: [],
+    mainSwitch: false,
+    // sort
+    desc: false,
+    sortName: '▼',
+    sortKana: '▼',
+    sortTyp: '▼',
+    sortEmail: '▼',
+    sortDate: '▼',
+    whatCheck: '',
+    //loading
+    loading: true,
+    clickLoading: true
+  },
+  components: {
+    'delete-modal': deleteModal
   },
   methods: {
-    allUsers: function allUsers() {
-      var _this = this;
+    doAjax: function doAjax() {
+      var self = this;
+      self.isLoading = true;
+      setTimeout(function () {
+        self.isLoading = false;
+        console.log('load off');
+      }, 750);
+    },
+    checkSort: function checkSort(key) {
+      // ソートのキーを取得
+      this.whatCheck = key; // 矢印の制御、昇降切り替え
 
-      axios.post('/api/allUsers').then(function (res) {
-        _this.result = res.data;
-      });
+      if (this.whatCheck == 'typ') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortTyp = '▲';
+          this.result.sort(function (a, b) {
+            if (a.typ < b.typ) return -1;
+            if (a.typ > b.typ) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortTyp = '▼';
+          this.result.sort(function (a, b) {
+            if (a.typ > b.typ) return -1;
+            if (a.typ < b.typ) return 1;
+            return 0;
+          });
+        }
+      } else if (this.whatCheck == 'name') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortName = '▲';
+          this.result.sort(function (a, b) {
+            if (a.name2 < b.name2) return -1;
+            if (a.name2 > b.name2) return 1;
+            if (a.name1 < b.name1) return -1;
+            if (a.name1 > b.name1) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortName = '▼';
+          this.result.sort(function (a, b) {
+            if (a.name2 > b.name2) return -1;
+            if (a.name2 < b.name2) return 1;
+            if (a.name1 > b.name1) return -1;
+            if (a.name1 < b.name1) return 1;
+            return 0;
+          });
+        }
+      } else if (this.whatCheck == 'kana') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortKana = '▲';
+          this.result.sort(function (a, b) {
+            if (a.kana2 < b.kana1) return -1;
+            if (a.kana2 > b.kana1) return 1;
+            if (a.kana1 < b.kana1) return -1;
+            if (a.kana1 > b.kana1) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortKana = '▼';
+          this.result.sort(function (a, b) {
+            if (a.kana2 > b.kana2) return -1;
+            if (a.kana2 < b.kana2) return 1;
+            if (a.kana1 > b.kana1) return -1;
+            if (a.kana1 < b.kana1) return 1;
+            return 0;
+          });
+        }
+      } else if (this.whatCheck == 'email') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortEmail = '▲';
+          this.result.sort(function (a, b) {
+            if (a.email < b.email) return -1;
+            if (a.email > b.email) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortEmail = '▼';
+          this.result.sort(function (a, b) {
+            if (a.email > b.email) return -1;
+            if (a.email < b.email) return 1;
+            return 0;
+          });
+        }
+      } else if (this.whatCheck == 'date') {
+        if (this.desc == false) {
+          this.desc = true;
+          this.sortDate = '▲';
+          this.result.sort(function (a, b) {
+            if (a.created_at < b.created_at) return -1;
+            if (a.created_at > b.created_at) return 1;
+            return 0;
+          });
+        } else {
+          this.desc = false;
+          this.sortDate = '▼';
+          this.result.sort(function (a, b) {
+            if (a.created_at > b.created_at) return -1;
+            if (a.created_at < b.created_at) return 1;
+            return 0;
+          });
+        }
+      }
     },
     // http://wordpress.ideacompo.com/?p=14807
     // https://codeday.me/jp/qa/20190731/1348550.html
     searchUser: function searchUser() {
-      var _this2 = this;
+      var _this = this;
 
-      var form = new FormData();
-      form.append('name2', this.name2);
-      form.append('name1', this.name1);
-      form.append('kana2', this.kana2);
-      form.append('kana1', this.kana1);
-      form.append('email', this.email);
-      form.append('typ', this.typ); // getで受け取ったデータの形式がJSONだと、自動的にオブジェクトに変換して渡してくれる
+      if (this.kana2.match(/^[ァ-ヶー　]*$/) || this.kana1.match(/^[ァ-ヶー　]+$/)) {
+        this.errorMsg = "";
+        this.loadingOn();
+        var form = new FormData();
+        form.append('name2', this.name2);
+        form.append('name1', this.name1);
+        form.append('kana2', this.kana2);
+        form.append('kana1', this.kana1);
+        form.append('email', this.email);
+        form.append('typ', this.typ); // getで受け取ったデータの形式がJSONだと、自動的にオブジェクトに変換して渡してくれる
 
-      axios.post('/api/searchUser', form).then(function (res) {
-        _this2.result = res.data;
-        _this2.getCount = Object.keys(_this2.result).length;
+        axios.post('/api/searchUser', form).then(function (res) {
+          _this.result = res.data;
+          _this.getCount = Object.keys(_this.result).length;
+          _this.currentPage = 1;
 
-        if (_this2.getCount == 0) {
-          alert('該当するデータはありません。\n別のキーワードで検索してください。');
-        }
-      });
+          if (_this.getCount == 0) {
+            alert('該当するデータはありません。\n別のキーワードで検索してください。');
+          }
+        });
+      } else {
+        this.errorMsg = "フリガナは全角カタカナで入力してください。";
+      }
+    },
+    loadingOn: function loadingOn() {
+      this.clickLoading = true;
     },
     clickCallback: function clickCallback(pageNum) {
       this.currentPage = Number(pageNum);
@@ -37040,29 +37647,35 @@ var main = new Vue({
       this.editModal();
     },
     editModal: function editModal() {
-      var _this3 = this;
+      var _this2 = this;
 
-      this.editShowContent = true;
       this.editData = this.result.filter(function (x) {
-        return _this3.editId.includes(x.id);
+        return x.id == _this2.editId;
       });
+      this.editName2 = this.editData[0]['name2'];
+      this.editName1 = this.editData[0]['name1'];
+      this.editKana2 = this.editData[0]['kana2'];
+      this.editKana1 = this.editData[0]['kana1'];
+      this.editEmail = this.editData[0]['email'];
+      this.editShowContent = true;
     },
     deleteModal: function deleteModal() {
-      var _this4 = this;
+      var _this3 = this;
 
       this.showContent = true; // https://qiita.com/hirakuma/items/fd7b6492939951190496
 
       this.deleteData = this.result.filter(function (x) {
-        return _this4.deleteId.includes(x.id);
+        return _this3.deleteId.includes(x.id);
       });
       this.countDelete = Object.keys(this.deleteData).length;
     },
     closeModal: function closeModal() {
       this.showContent = false;
       this.editShowContent = false;
+      this.editConfShowContent = false;
     },
     deleteEnd: function deleteEnd() {
-      var _this5 = this;
+      var _this4 = this;
 
       var params = new FormData(); // https://readouble.com/laravel/6.x/ja/eloquent.html ソフトデリートを使うと管理が楽？ 今回は使わず
       // var arr = _.values(this.deleteId);
@@ -37070,18 +37683,52 @@ var main = new Vue({
       params.append("id", this.deleteId); //    var delForm=JSON.stringify(arr);
 
       axios.post('/api/deleteUsers', params).then(function (res) {
-        alert('ユーザー情報を' + _this5.countDelete + '件削除しました。');
-        _this5.showContent = false;
-        _this5.deleteId = [];
+        alert('ユーザー情報を' + _this4.countDelete + '件削除しました。');
+        _this4.showContent = false;
+        _this4.deleteId = [];
 
-        _this5.searchUser();
+        _this4.searchUser();
       })["catch"](function (error) {
-        console.log(_this5.deleteId);
+        console.log(_this4.deleteId);
         console.log(delFormData);
         alert('false');
         console.log(error);
-        _this5.showContent = false;
+        _this4.showContent = false;
       });
+    },
+    showEditConf: function showEditConf() {
+      var form = new FormData();
+      form.append('id', this.editId);
+      form.append('name2', this.editName2);
+      form.append('name1', this.editName1);
+      form.append('kana2', this.editKana2);
+      form.append('kana1', this.editKana1);
+      form.append('email', this.editEmail);
+      this.editConf = form;
+      this.closeModal();
+      this.editConfShowContent = true;
+    },
+    updateUser: function updateUser() {
+      var _this5 = this;
+
+      axios.post('/api/updateUser', this.editConf).then(function (res) {
+        alert('ユーザー情報を更新しました。');
+
+        _this5.closeModal();
+
+        _this5.searchUser();
+      })["catch"](function (error) {
+        alert('false');
+        console.log(error);
+
+        _this5.closeModal();
+
+        _this5.searchUser();
+      });
+    },
+    reEdit: function reEdit() {
+      this.closeModal();
+      this.editShowContent = true;
     }
   },
   computed: {
@@ -37111,6 +37758,9 @@ var main = new Vue({
     } else {
       this.deleteButton = true;
     }
+
+    this.doAjax();
+    this.mainSwitch = true;
   },
   updated: function updated() {
     if (this.getCount > 0) {
@@ -37118,33 +37768,13 @@ var main = new Vue({
     } else {
       this.display = false;
     }
-  }
-}); // ####################################################################
-// モーダル管理########################################################
-// https://reffect.co.jp/vue/understand-component-by-moda-window  とばすstopPropagation
+  },
+  mounted: function mounted() {
+    var _this6 = this;
 
-Vue.component('delete-modal', {
-  // props: ['deleteId'],
-  template: "\n      <div id=\"overlay\">\n          <div id=\"content\">\n          <p><slot></slot></p>\n          <div class='deleteConf'>\n          <button v-on:click=\"deleteEnd\">\u524A\u9664</button>\n          <button v-on:click=\"clickEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
-  methods: {
-    clickEvent: function clickEvent() {
-      //↓親に渡す
-      this.$emit('from-child');
-    },
-    deleteEnd: function deleteEnd() {
-      this.$emit('delete-end');
-    }
-  }
-}), Vue.component('edit-modal', {
-  template: "\n      <div id=\"overlay-edit\">\n          <div id=\"content-edit\">\n          <p><slot></slot></p>\n          <div class='editConf'>\n          <button v-on:click=\"editEnd\">\u7DE8\u96C6</button>\n          <button v-on:click=\"editEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
-  methods: {
-    editEvent: function editEvent() {
-      //↓親に渡す
-      this.$emit('from-child');
-    },
-    editEnd: function editEnd() {
-      this.$emit('edit-end');
-    }
+    setTimeout(function () {
+      _this6.loading = false;
+    }, 300);
   }
 });
 
@@ -37192,6 +37822,18 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/jquery.js":
+/*!********************************!*\
+  !*** ./resources/js/jquery.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// jQuery ########################################### 
+// $('#loadingImg').
 
 /***/ }),
 

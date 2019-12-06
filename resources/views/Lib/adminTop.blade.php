@@ -16,8 +16,8 @@
     @endcomponent
 @endsection
 
-@section('logID', 'xxx@gmail.com')
-@section('box1', '')
+@section('logID')
+@section('box1')
 
 @section('box2')
     <table id="adminMenu">

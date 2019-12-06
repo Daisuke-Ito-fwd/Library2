@@ -40,8 +40,8 @@
             @slot('kana1')
                 {{ $reqPost['kana1'] }}
             @endslot
-            @slot('mail')
-                {{ $reqPost['mail'] }}
+            @slot('email')
+                {{ $reqPost['email'] }}
             @endslot
             @slot('pass')
                 {{ $reqPost['pass'] }}
@@ -74,8 +74,8 @@
             @slot('kana1')
                 {{ $userInput['kana1'] }}
             @endslot
-            @slot('mail')
-                {{ $userInput['mail'] }}
+            @slot('email')
+                {{ $userInput['email'] }}
             @endslot
             @slot('pass')
                 {{ $userInput['pass'] }}

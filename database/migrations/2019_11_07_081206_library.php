@@ -17,12 +17,16 @@ class Library extends Migration
         Schema::dropIfExists('library');
         Schema::create('library', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->bigInteger('isbn');
             $table->string('title', 255)->nullable()->default('');
             $table->string('kana', 255)->nullable()->default('');
-            $table->string('auth', 100)->nullable()->default('不明');
+            $table->string('auth', 100)->nullable()->default('');
             $table->unsignedInteger('genre');
             $table->unsignedInteger('publ');
+        });
+        
+        Schema::table('library', function (Blueprint $table) {
             
             $table->foreign('genre')->references('id')->on('books_genre');
             $table->foreign('publ')->references('id')->on('books_publ');

@@ -15,24 +15,44 @@
         @endslot
     @endcomponent
 @endsection
+@section('userModal')
+<input type="text" v-model="clickLoading">
+@{{ clickLoading }}
+    <div v-if="clickLoading" class="loading">
+        test
+        {{-- <img src="{{ asset('img/loading.gif') }}" alt="loading.gif"> --}}
+    </div>
+    <delete-modal v-show="showContent" v-on:from-child="closeModal" v-on:delete-end="deleteEnd">
+        {{-- slot使用 子の中身になる --}}
+        @component('components.modal.deleteUsersModal')
+            
+        @endcomponent
+    </delete-modal>
+    <edit-modal v-show="editShowContent" v-on:from-child="closeModal" v-on:edit-conf="showEditConf">
+        @component('components.modal.editUsersModal')
+            
+        @endcomponent
+    </edit-modal>
+    <edit-conf-modal v-show="editConfShowContent" v-on:from-child="closeModal" v-on:edit-update="updateUser" v-on:re-edit="reEdit">
+        @component('components.modal.editConfUsersModal')
+            
+        @endcomponent
+    </edit-conf-modal>
+@endsection
 
-@section('box1')
+@section('userBox1')
     <h3>ユーザー検索</h3>
     <p class='message'> 
                         登録ユーザーを全て表示する場合は、<u>全て空欄のまま</u>検索ボタンを押してください。
     </p>
 @endsection
-@section('box2')
+@section('userBox2')
     @component('components.searchUser')
     
     @endcomponent
     @component('components.ajaxResultUser')
         
     @endcomponent
-@endsection
-
-@section('resultBox')
-
 @endsection
 
 @section('footerL')

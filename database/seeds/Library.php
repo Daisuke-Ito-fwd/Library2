@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class UsersTableSeeder extends Seeder
+class Library extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,6 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         //
-        $users = factory(App\User::class, 5000)->create();
-        
+        $library = factory(App\Library::class, 20000)->create();
     }
 }

@@ -39,7 +39,7 @@
                 </tr>
             </table>
         </form>
+        <p style="text-align: center; color:red; font-size:12px;">@{{ errorMsg }}</p>
         <p style="text-align: center"><button v-on:click="searchUser()">検索</button></p>
-        
-
 </div>
+<hr>

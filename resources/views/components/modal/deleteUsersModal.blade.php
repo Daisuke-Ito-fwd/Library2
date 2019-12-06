@@ -1,4 +1,4 @@
-<h4>下記@{{ countDelete }}件のユーザー情報を削除します。</h4>
+<h4 class="deleteUserModal">下記@{{ countDelete }}件のユーザー情報を削除します。</h4>
     <table class="resTable">
         <tr class="resHead">
             <th>種別</th>

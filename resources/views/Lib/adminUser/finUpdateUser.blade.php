@@ -52,7 +52,7 @@
         <tr>
             <th><u>メールアドレス</u></th>
             <td>
-                <p type="text" name="mail"  id="mail" >{{ $abtUser['email'] }}</p>
+                <p type="text" name="email"  id="email" >{{ $abtUser['email'] }}</p>
             </td>
         </tr>
         <tr>

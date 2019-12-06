@@ -46,12 +46,12 @@
                 <tr>
                     <th><u>メールアドレス</u></th>
                     <td>
-                            @if ($errors->has('mail'))
-                                <p class="error">{{ $errors->first('mail') }}</p>
+                            @if ($errors->has('email'))
+                                <p class="error">{{ $errors->first('email') }}</p>
                             @endif
-                        <input type="text" name="mail" placeholder="books@library.com" id="mail" value="{{ old('mail') }}">
+                        <input type="text" name="email" placeholder="books@library.com" id="email" value="{{ old('email') }}">
                         <br>
-                        <input type="text" name="mailConf" placeholder="books@library.com(確認用)" id="mailConf" value="{{ old('mailConf') }}">
+                        <input type="text" name="emailConf" placeholder="books@library.com(確認用)" id="emailConf" value="{{ old('emailConf') }}">
                         <p class="etc">※半角英数字 , 重複するメールアドレスは登録できません。</p>
                     </td>
                 </tr>
@@ -70,6 +70,6 @@
             </table>
             <div id="box3">
                 <button type="submit" name="submit" value="go">確認</button>
-                <button type="button" name="submit" onclick="location.href='ad'">キャンセル</button>       
+                <button type="button" name="submit" onclick="location.href='index'">キャンセル</button>       
             </div>
         </form>

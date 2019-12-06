@@ -1,33 +1,58 @@
+#loadingImg{
+    width: 120px;
+    height: 120px;
+    position: fixed;
+        left:45%;
+        top: 45%;
+        
+        opacity:1;
+}
+
+#loading{
+    position: fixed;
+        left: 0px;
+        top: 0px;
+    width: 100%;
+    height: 100%;
+    /* z-index: 0; */
+    background-color: rgb(231, 231, 231);
+    
+    opacity: 1;
+}
+
 /* header ########################### */
 body{
+    color: rgb(75, 75, 75);
+    font-family: 'Noto Sans JP', sans-serif;
+    margin-right: auto ;
+    margin-left: auto ;
     min-width: 500px;
-    /* width: 95%; */
+    max-width: 1200px;
 }
+
 header {
     display: flex;
     justify-content: space-between; 
     margin-bottom: -20px;
     min-width: 600px; 
-    
 }
+
 .adTopText{
     border-top: 5px;
 }
+
 a:visited,  a{
     color:rgb(75, 75, 75);
     text-decoration: none;
 }
+
 #headLeft{
     display: flex;
     width: 450px;
     vertical-align: bottom;
-    color: rgb(75, 75, 75);
     font-size: 18px;
-    font-family: 'Noto Sans JP', sans-serif;
-    /* margin-left: auto;
-    margin-right: auto; */
-
 }
+
 #headimg{
     height: 80px;
     width: 80px;
@@ -64,39 +89,32 @@ footer{
     display: flex;
     flex-direction: column;
 }
+
 .box1 h2, .box1 h3 , .box1 h4, .box1 p{
-    font-family: 'Noto Sans JP', sans-serif;
-    color: rgb(75, 75, 75);
     text-align: center;
-    /* margin-top: -3px; */
 }
+
 #logForm{
     margin-right: auto ;
     margin-left: auto ;
-    font-family: 'Noto Sans JP', sans-serif;
-    color: rgb(75, 75, 75);
 }
 #login{
-    font-family: 'Noto Sans JP', sans-serif;
-    color: rgb(75, 75, 75);
     text-align: center;
     width:auto;
     margin-top:20px;
 }
+
 #entry{
-    font-family: 'Noto Sans JP', sans-serif;
     font-size:11px;
     text-align: center;
-    color: rgb(75, 75, 75);
 }
 
 #adminMenu{
     margin-left: auto;
     margin-right: auto;
-    font-family: 'Noto Sans JP', sans-serif;
     font-size:15px;
     text-align: center;
-    color: rgb(75, 75, 75);
+
 }
 #adminMenu img{
     height: 110px;
@@ -104,10 +122,10 @@ footer{
     margin: 30px;
     z-index: 1;
 }
+
 #adminMenu td{
     padding-left:  30px;
     padding-right: 30px;
-
 }
 
 #adminMenu td p{
@@ -116,13 +134,19 @@ footer{
 }
 
 /* book search */
-#box2{
-    /* display: flex; */
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size:15px;
-    /* justify-content: space-around; */
-    color: rgb(75, 75, 75);
+#tables{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
 }
+#searchBox{
+    display: flex;
+    font-size:15px;
+    min-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 td .submit{
     margin-top: 10px;
     text-align: center;
@@ -140,28 +164,28 @@ td .submit{
 #addUser, #addBook, #confUser, .searchUser, #editTable{
     margin-left: auto;
     margin-right: auto;
-    font-family: 'Noto Sans JP', sans-serif;
     font-size:15px;
     background-color: rgb(247, 247, 247);
     border: solid  rgb(216, 216, 216);
     border-collapse: collapse;
-    color: rgb(75, 75, 75);
 }
+
 #addUser th,#addUser td, #addBook th, #addBook td, #confUser th, #confUser td, .searchUser th, .searchUser td, .editTr td, .editTr th{
     border: solid 1px rgb(180, 180, 180);
     padding: 10px;
 }
+
 #addBook th{
     margin:3px;
 }
+
 .etc{
     font-size: 12px;
-    color: rgb(75, 75, 75);
-    font-family: 'Noto Sans JP', sans-serif;
     margin-bottom: -5px;
     margin-top: -0.5pt;
 }
-#mail, #mailConf, #pass, #passConf{
+
+#email, #emailConf, #pass, #passConf{
 width: 333px;
 /* margin-top: 2px; */
 
@@ -179,7 +203,6 @@ width: 333px;
 #error, .error{
     font-size: 11px;
     color: red;
-    font-family: 'Noto Sans JP', sans-serif;
     text-align: center;
     margin: -2.5px;
 }
@@ -187,10 +210,6 @@ width: 333px;
 #confUser td p{
     text-align: center;
     font-size: 17px;
-    font-family: 'Noto Sans JP', sans-serif;
-    color: rgb(75, 75, 75);
-    /* margin-top: -0.5px;
-    margin-bottom: -0.5px; */
 }
 
 .air{
@@ -207,8 +226,6 @@ hr{
 .finMessage, .message{
     font-size: 15px;
     text-align: center;
-    font-family: 'Noto Sans JP', sans-serif;
-    color: rgb(75, 75, 75);
 }
 
 /* src user */
@@ -226,15 +243,11 @@ hr{
     width: 95%;
     margin-left: auto;
     margin-right: auto;
-    font-family: 'Noto Sans JP', sans-serif;
-    color: rgb(75, 75, 75);
     text-align: right;
     margin-bottom: 5px;
 }
 
 .resCount p{
-    font-family: 'Noto Sans JP', sans-serif;
-    color: rgb(75, 75, 75);
     margin-bottom: 0px;
     width: auto;
     text-align: right;
@@ -244,45 +257,44 @@ hr{
     width: 95%;
     margin-left: auto;
     margin-right: auto;
-    font-family: 'Noto Sans JP', sans-serif;
     font-size:15px;
     background-color: rgb(247, 247, 247);
     border: solid  rgb(216, 216, 216);
     border-collapse: collapse;
-    color: rgb(75, 75, 75);
+    
 }
+
 .resHead th, .resBody td{
     border: solid 1px rgb(180, 180, 180);
     padding: 10px;
     text-align: center;
-
 }
+
 .resHead th{
     background-color: white;
     border-bottom:double  rgb(180, 180, 180);
 }
+
 .resBody:nth-child(even){
     background-color: rgb(255, 255, 255);
 }
+
 .resBody:nth-child(odd){
     background-color: rgb(240, 240, 240);
 }
 
 .pagination{
-    /* width: 100%; */
     text-align: center;
     list-style: none;
     position: relative;
         right: 20px;
 }
+
 li {
     display: inline-block;
-    
-
 }
+
 li a{
-    /* width: 20px; */
-    
     margin: 2px;
     min-width: 25px;
     padding: 3.0px;
@@ -304,11 +316,9 @@ li a{
     outline: none;
 }
 
-
 /* モーダル部 */
 #overlay, #overlay-edit{
     z-index:1;
-
     position  : fixed;
         top   : 0;
         left  : 0;
@@ -335,11 +345,22 @@ h4{
     text-align: center;
 }
 
+#editTable{
+    min-width: 350px;
+}
 .deleteConf, .editConf{
-    width: 70%;
+    width: 30%;
     display: flex;
     justify-content: space-around;
     margin-left: auto;
     margin-right: auto;
 }
 
+/* sort */
+.checkSort{
+    position: relative;
+        left:3px;
+    border-radius: 10px 10px 10px 10px;
+    border-color: rgb(236, 236, 236);
+    background-color: rgb(255, 255, 255);
+}

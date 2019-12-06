@@ -107,7 +107,7 @@
     </table>
     <div id="box3">
         <input type="submit" value="確認" class="submit">
-        <button type="button" name="submit" onclick="location.href='ad'">キャンセル</button>    
+        <button type="button" name="submit" onclick="location.href='index'">キャンセル</button>    
     </div>
 </form>
 @endsection

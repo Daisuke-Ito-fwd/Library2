@@ -1,19 +1,16 @@
-
 <div class="resBox" v-show="display">
     <div class="resCount">
     <p>検索結果： @{{ getCount }} 件</p>
-    <p class="deleteButton"><button  name="deleteUser" v-on:click="deleteModal">選択した項目を削除</button></p>
+    <p class="deleteButton"><button  name="deleteUser" @click="deleteModal">選択した項目を削除</button></p>
     </div>
-            {{-- @endif  --}}
-{{-- @if (count($result) !== 0) --}}
 <table class="resTable">
         <tr class="resHead">
             <th></th>
-            <th>種別</th>
-            <th>氏名</th>
-            <th>フリガナ</th>
-            <th>メールアドレス</th>
-            <th>登録日</th>
+            <th>種別          <button class="checkSort" name="checkSort" @click="checkSort('typ')">@{{ sortTyp }}</button></th>
+            <th>氏名          <button class="checkSort" name="checkSort" @click="checkSort('name')">@{{ sortName }}</button></th>
+            <th>フリガナ      <button class="checkSort" name="checkSort" @click="checkSort('kana')">@{{ sortKana }}</button></th>
+            <th>メールアドレス<button class="checkSort" name="checkSort" @click="checkSort('email')">@{{ sortEmail }}</button></th>
+            <th>登録日        <button class="checkSort" name="checkSort" @click="checkSort('date')">@{{ sortDate }}</button></th>
             <th></th>
         </tr>
         {{--                       ↓ここがcomputedの変数名 --}}

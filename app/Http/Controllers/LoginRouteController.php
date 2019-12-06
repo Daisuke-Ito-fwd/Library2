@@ -23,7 +23,7 @@ class LoginRouteController extends Controller
 
         }elseif($user['typ']==2){
             // for general
-        return view('Lib.*******', ['user'=>$user]);    
+        return view('Lib.adminUser.searchBooks', ['user'=>$user]);    
 
 
         }elseif($user['typ']==99){

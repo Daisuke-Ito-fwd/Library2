@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 class LogOutController extends Controller
 {
     //
-    public function logout(){
+    public function logout(Request $request){
+        $actlog = new \App\Http\Middleware\ActlogMiddleware;
+        $actlog -> actlog($request, 999);
+
         Auth::logout();
         return redirect()->route('first');
     }

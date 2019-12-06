@@ -35,7 +35,7 @@ class addUserRequest extends FormRequest
             'name1'    =>['required'],
             'kana2'    =>['required', 'regex:/^[ァ-ヾ]+$/u'],
             'kana1'    =>['required', 'regex:/^[ァ-ヾ]+$/u'],
-            'email'     =>['required', 'email', 'same:mailConf', 'unique:users,email'],
+            'email'     =>['required', 'email', 'same:emailConf', 'unique:users,email'],
             'emailConf' =>['required'],
             'pass'     =>['required', 'alpha_num','between:8,100', 'same:passConf'],
             'passConf' =>['required'],
