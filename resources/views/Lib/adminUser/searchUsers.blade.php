@@ -73,11 +73,3 @@
         @endif
 @endsection
 @endif
-
-@section('footerL')
-    
-@endsection
-
-@section('footerR')
-    
-@endsection

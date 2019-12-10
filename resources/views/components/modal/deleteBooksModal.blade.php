@@ -14,6 +14,5 @@
                 <td>@{{ data.publ }}</td>
                 <td>@{{ data.s_date }}</td>
             </tr>
-            @{{ deleteId }}
 
     </table>

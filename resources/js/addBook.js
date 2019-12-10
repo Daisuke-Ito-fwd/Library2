@@ -86,6 +86,7 @@ new Vue({
     },
 
     data:{
+        ClearLoading: false,
         title :'',
         kana  :'',
         auth  :'',
@@ -99,6 +100,7 @@ new Vue({
         deleteId: [],
         deleteData: '',
         countDelete: '',
+        showDeleteButton:'',
         // edit
         editId:'',
         editGenreId:'',
@@ -107,7 +109,9 @@ new Vue({
         editKana:'',
         editAuth:'',
         editPubl:'',
+        editPublConf:'',
         editGenre:'',
+        editGenreConf:'',
         editStock:'',
         editIsbn :'',
         editSDate:'',
@@ -120,6 +124,7 @@ new Vue({
         deleteContent:false,
         editContent:false,
         editConfContent:false,
+        editConfData:'',
         // sort
         desc         : false,
         sortTitle    : '▼',
@@ -249,8 +254,8 @@ new Vue({
                         if(a.genre > b.genre) return -1;
                         if(a.genre < b.genre) return 1;
                         return 0;
-                    })
-                }
+                    })  
+                }               
             }
         },
 
@@ -264,29 +269,70 @@ new Vue({
             if(this.title == "" && this.kana =="" && this.genre=="" && this.auth=="" && this.publ=="" && this.isbn==""){
                 this.errorMsg = '検索キーワードを最低１項目入力してください。'
             }else{
-                if(this.kana.match(/^[ァ-ヶー　]+$/)){
-                    this.errorMsg ="";
-                    var form = new FormData();
-                    form.append('title', this.title);
-                    form.append('kana', this.kana);
-                    form.append('genre', this.genre);
-                    form.append('auth', this.auth);
-                    form.append('publ', this.publ);
-                    form.append('isbn', this.isbn);
+                if(this.kana !== ''){
+                    if(this.kana.match(/^[ァ-ヶー　]+$/)){
+                        this.errorMsg ="";
 
-                    Axios.post('/api/searchBooks', form).then((res)=>{
-                        this.result=res.data;
-                        this.getCount = Object.keys(this.result).length;
-                        this.currentPage=1;
-                        if (this.getCount == 0) {
-                            alert('該当するデータはありません。\n別のキーワードで検索してください。')
-                        }
-                    
-                    })
+                        this.CLOpen();
+                        setTimeout(() => {
+                            this.ClearLoading = false;
+                        }, 1000);
+
+
+
+                        var form = new FormData();
+                        form.append('title', this.title);
+                        form.append('kana', this.kana);
+                        form.append('genre', this.genre);
+                        form.append('auth', this.auth);
+                        form.append('publ', this.publ);
+                        form.append('isbn', this.isbn);
+
+                        Axios.post('/api/searchBooks', form).then((res)=>{
+                            this.result=res.data;
+                            this.getCount = Object.keys(this.result).length;
+                            this.currentPage=1;
+                            if (this.getCount == 0) {
+                                alert('該当するデータはありません。\n別のキーワードで検索してください。')
+                            }
+                        
+                        })
+                    }else{
+                        this.errorMsg ="フリガナは全角カタカナで入力してください。";
+                    }
+
                 }else{
-                    this.errorMsg ="フリガナは全角カタカナで入力してください。";
+                     this.errorMsg ="";
+
+                     this.CLOpen();
+                     setTimeout(() => {
+                         this.ClearLoading = false;
+                     }, 1300);
+     
+
+                        var form = new FormData();
+                        form.append('title', this.title);
+                        form.append('kana', this.kana);
+                        form.append('genre', this.genre);
+                        form.append('auth', this.auth);
+                        form.append('publ', this.publ);
+                        form.append('isbn', this.isbn);
+
+                        Axios.post('/api/searchBooks', form).then((res)=>{
+                            this.result=res.data;
+                            this.getCount = Object.keys(this.result).length;
+                            this.currentPage=1;
+                            if (this.getCount == 0) {
+                                alert('該当するデータはありません。\n別のキーワードで検索してください。')
+                            }
+                        
+                        })
                 }
             }
+        },
+
+        CLOpen: function(){
+            this.ClearLoading = true;
         },
 
         clickCallback: function (pageNum) {
@@ -321,8 +367,12 @@ new Vue({
             this.editTitle= this.editData[0]['title'];
             this.editKana= this.editData[0]['kana'];
             this.editAuth= this.editData[0]['auth'];
-            this.editPubl= this.editData[0]['publ'];
-            this.editGenre= this.editData[0]['genre'];
+            this.editPublId= this.publData[0]['publ'];
+            
+            var eg = this.genreData.filter(x => x.genre == this.editData[0]['genre']);
+                this.editGenreId= eg[0]['id'];
+            var ep = this.publData.filter(y => y.publ == this.editData[0]['publ']);
+                this.editPublId= ep[0]['id'];
             
             this.editStock= this.editData[0]['stock'];
             this.editIsbn= this.editData[0]['isbn'];
@@ -331,17 +381,7 @@ new Vue({
         },
 
         editUpdate: function(){
-            var form = new FormData();
-            form.append('id'   , this.editId);
-            form.append('title', this.editTitle);
-            form.append('kana' , this.editKana);
-            form.append('auth' , this.editAuth);
-            // form.append('genre', this.editGenre);
-            // form.append('publ' , this.editPubl);
-            // form.append('s_date',this.editSDate);
-            form.append('stock', this.editStock);
-            form.append('isbn' , this.editIsbn);
-            
+            var form =this.editConfData;
             axios.post('/api/updateBook', form).then((res) => {
                 alert('書籍情報を更新しました。');
                 this.closeModal();
@@ -368,9 +408,7 @@ new Vue({
         deleteEnd: function () {
             var params = new FormData();
             // https://readouble.com/laravel/6.x/ja/eloquent.html ソフトデリートを使うと管理が楽？ 今回は使わず
-            // var arr = _.values(this.deleteId);
             params.append("id", this.deleteId);
-        //    var delForm=JSON.stringify(arr);
             axios.post('/api/deleteBooks', params).then((res) => {
                 alert('書籍情報を'+this.countDelete+'件削除しました。')
                 this.deleteId=[];
@@ -387,20 +425,35 @@ new Vue({
         },
 
         showEditConf: function(){
+            var eg = this.genreData.filter(x => x.id == this.editGenreId);
+                this.editGenre = eg[0]['genre'];
+            var ep = this.publData.filter(y => y.id == this.editPublId);
+                this.editPubl = ep[0]['publ'];
+
             var form = new FormData();
             form.append('id'    , this.editId);
             form.append('title' , this.editTitle);
             form.append('kana'  , this.editKana);
             form.append('auth'  , this.editAuth);
-            form.append('publ'  , this.editPubl);
-            form.append('genre' , this.editGenre);
+            form.append('publ'  , this.editPublId);
+            form.append('genre' , this.editGenreId);
             form.append('s_date', this.editSDate);
             form.append('stock' , this.editStock);
             form.append('isbn'  , this.editIsbn);
-            this.editConf = form;
+            this.editConfData = form;
             this.closeModal();
             this.editConfContent = true;
         },
+
+        selectGenre: function(){
+            var arr = this.genreData.filter(x => this.editGenreId.includes(x.id))
+            this.editGenre=arr['genre']
+        },
+
+        selectPubl: function(){
+            var arr = this.publData.filter(x => this.editPublId.includes(x.id))
+            this.editPubl = arr['publ']
+        }
     },
 
     computed: {
@@ -418,12 +471,11 @@ new Vue({
     },
 
     created: function(){
-            Axios.post('/api/books_genre').then((res)=>{
-                this.genreData=res.data;
+            Axios.post('/api/books_data').then((res)=>{
+                this.genreData=res.data['genre'];
+                this.publData=res.data['publ'];
             })
-            Axios.post('/api/books_publ').then((res)=>{
-                this.publData=res.data;
-            })
+          
 
             if (this.getCount > 0) {
                 this.display = true;
@@ -441,8 +493,13 @@ new Vue({
             this.display = false;
         }
 
-        if(this.editGenre !== ''){
-
+        if(this.deleteId == ''){
+            this.showDeleteButton = false;
+        }else{
+            this.showDeleteButton = true;
         }
+        
+        
+        
     },
 })

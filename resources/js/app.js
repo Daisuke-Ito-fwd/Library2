@@ -2,6 +2,13 @@ require('./bootstrap');
 require('./jquery')
 
 // ###########################################
+new Vue({
+    el: '#app',
+    data: {
+        showTrans: false
+    }
+});
+// ###########################################
 
 // ユーザー検索ページ
 // ログアウト##################################################################
@@ -117,6 +124,8 @@ for (var i = 1; i <= 105; i++) {
 const main = new Vue({
     el: '#main',
     data: {
+        ClearLoading: false,
+        mailResult :'',
         // main
         result: [],
         name2: '',
@@ -126,6 +135,7 @@ const main = new Vue({
         email: '',
         typ: '',
         errorMsg: '',
+        errorMsgModal : "",
         // delete
         deleteId: [],
         deleteData: '',
@@ -152,6 +162,7 @@ const main = new Vue({
         deleteButton: false, //削除ボタン用
         hiddenId: [],
         mainSwitch: false,
+        showDeleteButton:false,
 
         // sort
         desc: false,
@@ -300,10 +311,12 @@ const main = new Vue({
         // http://wordpress.ideacompo.com/?p=14807
         // https://codeday.me/jp/qa/20190731/1348550.html
         searchUser: function () {
-            if (this.kana2.match(/^[ァ-ヶー　]*$/) || this.kana1.match(/^[ァ-ヶー　]+$/)) {
+            if (this.kana2.match(/^[ァ-ヶー　]*$/) && this.kana1.match(/^[ァ-ヶー　]*$/)) {
                 this.errorMsg = "";
 
-                this.loadingOn();
+                this.CLOpen();
+                
+
 
                 var form = new FormData();
 
@@ -325,15 +338,16 @@ const main = new Vue({
                     }
                 });
 
+                setTimeout(() => {
+                    this.ClearLoading = false;
+                }, 2000);
             } else {
                 this.errorMsg = "フリガナは全角カタカナで入力してください。";
             }
         },
 
-        loadingOn: function () {
-            this.clickLoading = true;
-
-
+        CLOpen: function(){
+            this.ClearLoading = true;
         },
 
         clickCallback: function (pageNum) {
@@ -360,6 +374,8 @@ const main = new Vue({
             this.editKana2 = this.editData[0]['kana2'];
             this.editKana1 = this.editData[0]['kana1'];
             this.editEmail = this.editData[0]['email'];
+            
+           
             this.editShowContent = true
 
         },
@@ -376,6 +392,7 @@ const main = new Vue({
             this.showContent = false
             this.editShowContent = false
             this.editConfShowContent = false
+            this.errorMsgModal="";
         },
 
         deleteEnd: function () {
@@ -384,6 +401,7 @@ const main = new Vue({
             // var arr = _.values(this.deleteId);
             params.append("id", this.deleteId);
             //    var delForm=JSON.stringify(arr);
+            
             axios.post('/api/deleteUsers', params).then((res) => {
                 alert('ユーザー情報を' + this.countDelete + '件削除しました。')
                 this.showContent = false;
@@ -401,16 +419,39 @@ const main = new Vue({
         },
 
         showEditConf: function () {
-            var form = new FormData();
-            form.append('id', this.editId);
-            form.append('name2', this.editName2);
-            form.append('name1', this.editName1);
-            form.append('kana2', this.editKana2);
-            form.append('kana1', this.editKana1);
-            form.append('email', this.editEmail);
-            this.editConf = form;
-            this.closeModal();
-            this.editConfShowContent = true;
+            if (this.editKana2.match(/^[ァ-ヶー　]*$/) && this.editKana1.match(/^[ァ-ヶー　]*$/)) {
+                if(this.editEmail.match(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/)){
+                    var mailConf = new FormData();
+                    mailConf.append('email', this.editEmail);
+                    axios.post('/api/checkEmail', mailConf).then((res) => {
+                        this.mailResult=res;
+                        if(this.mailResult['data'] == 0){
+                            this.errorMsgModal = "";
+                            var form = new FormData();
+                                form.append('id', this.editId);
+                                form.append('name2', this.editName2);
+                                form.append('name1', this.editName1);
+                                form.append('kana2', this.editKana2);
+                                form.append('kana1', this.editKana1);
+                                form.append('email', this.editEmail);
+                                this.editConf = form;
+                                this.closeModal();
+                                this.editConfShowContent = true;
+
+                        }else{
+                            this.errorMsgModal='このメールアドレスは既に使用されています。'
+                        }
+                    }).catch((error) => {
+                        alert('通信エラーが発生しました。時間をおいて再度試みてください。')
+                    });
+
+                }else{
+                    this.errorMsgModal="メールアドレスの形式が正しくありません。"
+                }   
+
+            }else{
+                this.errorMsgModal="フリガナは全角カタカナで入力してください。"
+            }
 
         },
 
@@ -430,7 +471,8 @@ const main = new Vue({
         reEdit: function () {
             this.closeModal();
             this.editShowContent = true;
-        }
+        },
+
     },
 
     computed: {
@@ -471,6 +513,11 @@ const main = new Vue({
             this.display = false;
         }
 
+        if(this.deleteId == ''){
+            this.showDeleteButton = false;
+        }else{
+            this.showDeleteButton = true;
+        }
 
     },
 

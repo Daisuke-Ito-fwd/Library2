@@ -36982,6 +36982,7 @@ new Vue({
     'edit-conf-book-modal': editConfBookModal
   },
   data: {
+    ClearLoading: false,
     title: '',
     kana: '',
     auth: '',
@@ -36995,6 +36996,7 @@ new Vue({
     deleteId: [],
     deleteData: '',
     countDelete: '',
+    showDeleteButton: '',
     // edit
     editId: '',
     editGenreId: '',
@@ -37003,7 +37005,9 @@ new Vue({
     editKana: '',
     editAuth: '',
     editPubl: '',
+    editPublConf: '',
     editGenre: '',
+    editGenreConf: '',
     editStock: '',
     editIsbn: '',
     editSDate: '',
@@ -37019,6 +37023,7 @@ new Vue({
     deleteContent: false,
     editContent: false,
     editConfContent: false,
+    editConfData: '',
     // sort
     desc: false,
     sortTitle: '▼',
@@ -37157,8 +37162,38 @@ new Vue({
       if (this.title == "" && this.kana == "" && this.genre == "" && this.auth == "" && this.publ == "" && this.isbn == "") {
         this.errorMsg = '検索キーワードを最低１項目入力してください。';
       } else {
-        if (this.kana.match(/^[ァ-ヶー　]+$/)) {
+        if (this.kana !== '') {
+          if (this.kana.match(/^[ァ-ヶー　]+$/)) {
+            this.errorMsg = "";
+            this.CLOpen();
+            setTimeout(function () {
+              _this2.ClearLoading = false;
+            }, 1000);
+            var form = new FormData();
+            form.append('title', this.title);
+            form.append('kana', this.kana);
+            form.append('genre', this.genre);
+            form.append('auth', this.auth);
+            form.append('publ', this.publ);
+            form.append('isbn', this.isbn);
+            axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/searchBooks', form).then(function (res) {
+              _this2.result = res.data;
+              _this2.getCount = Object.keys(_this2.result).length;
+              _this2.currentPage = 1;
+
+              if (_this2.getCount == 0) {
+                alert('該当するデータはありません。\n別のキーワードで検索してください。');
+              }
+            });
+          } else {
+            this.errorMsg = "フリガナは全角カタカナで入力してください。";
+          }
+        } else {
           this.errorMsg = "";
+          this.CLOpen();
+          setTimeout(function () {
+            _this2.ClearLoading = false;
+          }, 1300);
           var form = new FormData();
           form.append('title', this.title);
           form.append('kana', this.kana);
@@ -37175,10 +37210,11 @@ new Vue({
               alert('該当するデータはありません。\n別のキーワードで検索してください。');
             }
           });
-        } else {
-          this.errorMsg = "フリガナは全角カタカナで入力してください。";
         }
       }
+    },
+    CLOpen: function CLOpen() {
+      this.ClearLoading = true;
     },
     clickCallback: function clickCallback(pageNum) {
       this.currentPage = Number(pageNum);
@@ -37214,8 +37250,15 @@ new Vue({
       this.editTitle = this.editData[0]['title'];
       this.editKana = this.editData[0]['kana'];
       this.editAuth = this.editData[0]['auth'];
-      this.editPubl = this.editData[0]['publ'];
-      this.editGenre = this.editData[0]['genre'];
+      this.editPublId = this.publData[0]['publ'];
+      var eg = this.genreData.filter(function (x) {
+        return x.genre == _this4.editData[0]['genre'];
+      });
+      this.editGenreId = eg[0]['id'];
+      var ep = this.publData.filter(function (y) {
+        return y.publ == _this4.editData[0]['publ'];
+      });
+      this.editPublId = ep[0]['id'];
       this.editStock = this.editData[0]['stock'];
       this.editIsbn = this.editData[0]['isbn'];
       this.editSDate = this.editData[0]['s_date'];
@@ -37224,16 +37267,7 @@ new Vue({
     editUpdate: function editUpdate() {
       var _this5 = this;
 
-      var form = new FormData();
-      form.append('id', this.editId);
-      form.append('title', this.editTitle);
-      form.append('kana', this.editKana);
-      form.append('auth', this.editAuth); // form.append('genre', this.editGenre);
-      // form.append('publ' , this.editPubl);
-      // form.append('s_date',this.editSDate);
-
-      form.append('stock', this.editStock);
-      form.append('isbn', this.editIsbn);
+      var form = this.editConfData;
       axios.post('/api/updateBook', form).then(function (res) {
         alert('書籍情報を更新しました。');
 
@@ -37261,10 +37295,8 @@ new Vue({
       var _this6 = this;
 
       var params = new FormData(); // https://readouble.com/laravel/6.x/ja/eloquent.html ソフトデリートを使うと管理が楽？ 今回は使わず
-      // var arr = _.values(this.deleteId);
 
-      params.append("id", this.deleteId); //    var delForm=JSON.stringify(arr);
-
+      params.append("id", this.deleteId);
       axios.post('/api/deleteBooks', params).then(function (res) {
         alert('書籍情報を' + _this6.countDelete + '件削除しました。');
         _this6.deleteId = [];
@@ -37280,19 +37312,45 @@ new Vue({
       });
     },
     showEditConf: function showEditConf() {
+      var _this7 = this;
+
+      var eg = this.genreData.filter(function (x) {
+        return x.id == _this7.editGenreId;
+      });
+      this.editGenre = eg[0]['genre'];
+      var ep = this.publData.filter(function (y) {
+        return y.id == _this7.editPublId;
+      });
+      this.editPubl = ep[0]['publ'];
       var form = new FormData();
       form.append('id', this.editId);
       form.append('title', this.editTitle);
       form.append('kana', this.editKana);
       form.append('auth', this.editAuth);
-      form.append('publ', this.editPubl);
-      form.append('genre', this.editGenre);
+      form.append('publ', this.editPublId);
+      form.append('genre', this.editGenreId);
       form.append('s_date', this.editSDate);
       form.append('stock', this.editStock);
       form.append('isbn', this.editIsbn);
-      this.editConf = form;
+      this.editConfData = form;
       this.closeModal();
       this.editConfContent = true;
+    },
+    selectGenre: function selectGenre() {
+      var _this8 = this;
+
+      var arr = this.genreData.filter(function (x) {
+        return _this8.editGenreId.includes(x.id);
+      });
+      this.editGenre = arr['genre'];
+    },
+    selectPubl: function selectPubl() {
+      var _this9 = this;
+
+      var arr = this.publData.filter(function (x) {
+        return _this9.editPublId.includes(x.id);
+      });
+      this.editPubl = arr['publ'];
     }
   },
   computed: {
@@ -37309,13 +37367,11 @@ new Vue({
     }
   },
   created: function created() {
-    var _this7 = this;
+    var _this10 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/books_genre').then(function (res) {
-      _this7.genreData = res.data;
-    });
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/books_publ').then(function (res) {
-      _this7.publData = res.data;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/books_data').then(function (res) {
+      _this10.genreData = res.data['genre'];
+      _this10.publData = res.data['publ'];
     });
 
     if (this.getCount > 0) {
@@ -37334,7 +37390,11 @@ new Vue({
       this.display = false;
     }
 
-    if (this.editGenre !== '') {}
+    if (this.deleteId == '') {
+      this.showDeleteButton = false;
+    } else {
+      this.showDeleteButton = true;
+    }
   }
 });
 
@@ -37354,9 +37414,16 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./jquery */ "./resources/js/jquery.js"); // ###########################################
+
+
+new Vue({
+  el: '#app',
+  data: {
+    showTrans: false
+  }
+}); // ###########################################
 // ユーザー検索ページ
 // ログアウト##################################################################
-
 
 new Vue({
   el: '#headRight',
@@ -37429,6 +37496,8 @@ for (var i = 1; i <= 105; i++) {
 var main = new Vue({
   el: '#main',
   data: {
+    ClearLoading: false,
+    mailResult: '',
     // main
     result: [],
     name2: '',
@@ -37438,6 +37507,7 @@ var main = new Vue({
     email: '',
     typ: '',
     errorMsg: '',
+    errorMsgModal: "",
     // delete
     deleteId: [],
     deleteData: '',
@@ -37472,6 +37542,7 @@ var main = new Vue({
     //削除ボタン用
     hiddenId: [],
     mainSwitch: false,
+    showDeleteButton: false,
     // sort
     desc: false,
     sortName: '▼',
@@ -37605,9 +37676,9 @@ var main = new Vue({
     searchUser: function searchUser() {
       var _this = this;
 
-      if (this.kana2.match(/^[ァ-ヶー　]*$/) || this.kana1.match(/^[ァ-ヶー　]+$/)) {
+      if (this.kana2.match(/^[ァ-ヶー　]*$/) && this.kana1.match(/^[ァ-ヶー　]*$/)) {
         this.errorMsg = "";
-        this.loadingOn();
+        this.CLOpen();
         var form = new FormData();
         form.append('name2', this.name2);
         form.append('name1', this.name1);
@@ -37625,12 +37696,15 @@ var main = new Vue({
             alert('該当するデータはありません。\n別のキーワードで検索してください。');
           }
         });
+        setTimeout(function () {
+          _this.ClearLoading = false;
+        }, 2000);
       } else {
         this.errorMsg = "フリガナは全角カタカナで入力してください。";
       }
     },
-    loadingOn: function loadingOn() {
-      this.clickLoading = true;
+    CLOpen: function CLOpen() {
+      this.ClearLoading = true;
     },
     clickCallback: function clickCallback(pageNum) {
       this.currentPage = Number(pageNum);
@@ -37673,6 +37747,7 @@ var main = new Vue({
       this.showContent = false;
       this.editShowContent = false;
       this.editConfShowContent = false;
+      this.errorMsgModal = "";
     },
     deleteEnd: function deleteEnd() {
       var _this4 = this;
@@ -37697,33 +37772,58 @@ var main = new Vue({
       });
     },
     showEditConf: function showEditConf() {
-      var form = new FormData();
-      form.append('id', this.editId);
-      form.append('name2', this.editName2);
-      form.append('name1', this.editName1);
-      form.append('kana2', this.editKana2);
-      form.append('kana1', this.editKana1);
-      form.append('email', this.editEmail);
-      this.editConf = form;
-      this.closeModal();
-      this.editConfShowContent = true;
+      var _this5 = this;
+
+      if (this.editKana2.match(/^[ァ-ヶー　]*$/) && this.editKana1.match(/^[ァ-ヶー　]*$/)) {
+        if (this.editEmail.match(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/)) {
+          var mailConf = new FormData();
+          mailConf.append('email', this.editEmail);
+          axios.post('/api/checkEmail', mailConf).then(function (res) {
+            _this5.mailResult = res;
+
+            if (_this5.mailResult['data'] == 0) {
+              _this5.errorMsgModal = "";
+              var form = new FormData();
+              form.append('id', _this5.editId);
+              form.append('name2', _this5.editName2);
+              form.append('name1', _this5.editName1);
+              form.append('kana2', _this5.editKana2);
+              form.append('kana1', _this5.editKana1);
+              form.append('email', _this5.editEmail);
+              _this5.editConf = form;
+
+              _this5.closeModal();
+
+              _this5.editConfShowContent = true;
+            } else {
+              _this5.errorMsgModal = 'このメールアドレスは既に使用されています。';
+            }
+          })["catch"](function (error) {
+            alert('通信エラーが発生しました。時間をおいて再度試みてください。');
+          });
+        } else {
+          this.errorMsgModal = "メールアドレスの形式が正しくありません。";
+        }
+      } else {
+        this.errorMsgModal = "フリガナは全角カタカナで入力してください。";
+      }
     },
     updateUser: function updateUser() {
-      var _this5 = this;
+      var _this6 = this;
 
       axios.post('/api/updateUser', this.editConf).then(function (res) {
         alert('ユーザー情報を更新しました。');
 
-        _this5.closeModal();
+        _this6.closeModal();
 
-        _this5.searchUser();
+        _this6.searchUser();
       })["catch"](function (error) {
         alert('false');
         console.log(error);
 
-        _this5.closeModal();
+        _this6.closeModal();
 
-        _this5.searchUser();
+        _this6.searchUser();
       });
     },
     reEdit: function reEdit() {
@@ -37768,12 +37868,18 @@ var main = new Vue({
     } else {
       this.display = false;
     }
+
+    if (this.deleteId == '') {
+      this.showDeleteButton = false;
+    } else {
+      this.showDeleteButton = true;
+    }
   },
   mounted: function mounted() {
-    var _this6 = this;
+    var _this7 = this;
 
     setTimeout(function () {
-      _this6.loading = false;
+      _this7.loading = false;
     }, 300);
   }
 });

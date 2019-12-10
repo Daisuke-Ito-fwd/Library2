@@ -39,10 +39,12 @@ class ajaxController extends Controller
         // $req=json_decode($request, true);
         // $error=  json_last_error();
         // foreach($req as $key){
-
-        $id = User::where('id', '=', $request['id'])->first();
-        $id->disp_flag = true;
-        $id->save();
+            $req = explode(',', $_POST['id']);
+            foreach($req as $key){
+                $id = User::where('id', '=', $key)->first();
+                $id->disp_flag = true;
+                $id->save();
+            }
     }
 
     public function update(Request $request)
@@ -51,5 +53,12 @@ class ajaxController extends Controller
         $form = $request->all();
         unset($form['_token']); //????
         $person->fill($form)->save();
+    }
+
+    public function email(Request $request)
+    {
+        $res = User::where('email', $request->email)->count();
+
+        return $res;
     }
 }

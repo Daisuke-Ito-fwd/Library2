@@ -1,7 +1,9 @@
+
 <div class="resBox" v-show="display">
+    <hr>
     <div class="resCount">
     <p>検索結果： @{{ getCount }} 件</p>
-    <p class="deleteButton"><button  name="deleteUser" @click="deleteModal">選択した項目を削除</button></p>
+    <p class="deleteButton"><button v-show="showDeleteButton"  name="deleteUser" @click="deleteModal">選択した項目を削除</button></p>
     </div>
 <table class="resTable">
         <tr class="resHead">
@@ -26,7 +28,6 @@
         {{--      上記と同じ ↓ここで各データのidをふる                                  --}}
                     <button v-bind:value="res.id" v-on:click="getEditId($event)">編集</button>
                 </td>
-            </tr>
 
     </table>
 

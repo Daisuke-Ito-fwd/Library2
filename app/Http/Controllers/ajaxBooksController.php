@@ -21,11 +21,15 @@ class ajaxBooksController extends Controller
        }else{
         $res = DB::table('library')
         ->select('library.id', 'title', 'kana', 'books_publ.publ', 'books_genre.genre', 'auth', 'isbn', 's_date', 'stock')
+        // ->select('id', 'title', 'kana', 'publ', 'genre', 'auth', 'isbn', 's_date', 'stock')
         ->where('title', 'like', '%'.$request['title'].'%')
         ->where('kana', 'like', '%'.$request['kana'].'%')
         ->where('auth', 'like', '%'.$request['auth'].'%')
         ->where('library.publ', 'like', '%'.$request['publ'].'%')
         ->where('library.genre', 'like', '%'.$request['genre'].'%')
+        // ->where('publ', 'like', '%'.$request['publ'].'%')
+        // ->where('genre', 'like', '%'.$request['genre'].'%')
+
         ->where('isbn', 'like', '%'.$request['isbn'].'%')
         ->where('delet', false)
         ->leftjoin('books_publ', 'library.publ', '=', 'books_publ.id')
@@ -36,10 +40,14 @@ class ajaxBooksController extends Controller
     }
 
     public function delete(Request $request){
-        $param=['delet'=>true];
-            DB::table('library')
-            ->where('id', '=', $request->id)
-            ->update($param);
+        // 区切り文字列を分割して配列にする
+        $req = explode(',', $_POST['id']);
+        foreach($req as $key){
+            $param=['delet'=>true];
+                DB::table('library')
+                ->where('id', '=', $key)
+                ->update($param);
+        }
     }
 
     public function update(Request $request){
@@ -53,12 +61,18 @@ class ajaxBooksController extends Controller
         ->update($params);
     }
 
-    public function genre(){
-        $res = DB::table('books_genre')
+    public function data(){
+        $g = DB::table('books_genre')
                 ->select('id','genre')
                 ->orderBy('id', 'asc')
                 ->get();
 
+        $p = DB::table('books_publ')
+        ->select('id','publ')
+        ->orderBy('id', 'asc')
+        ->get();
+
+        $res = ['genre'=>$g, 'publ'=>$p];
         return $res;
     }
 }

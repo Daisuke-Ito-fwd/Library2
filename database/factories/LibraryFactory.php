@@ -16,5 +16,6 @@ $factory->define(Library::class, function (Faker $faker) {
             'title'=>$faker->streetAddress,
             's_date'=>now(),
             'stock' =>$faker->numberBetween(1, 10),
+            'delet' =>false,
     ];
 });

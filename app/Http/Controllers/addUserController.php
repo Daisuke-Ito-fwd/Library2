@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
-
+use Mail;
+use App\Mail\SendTestMail;
 class addUserController extends Controller
 {
     //  registPage
@@ -40,8 +41,8 @@ class addUserController extends Controller
             'typ'      =>$userInput['typ'],
             'disp_flag'=>false,
         ];
-$request->session()->regenerateToken();
-    User::create([
+        $request->session()->regenerateToken();
+            User::create([
             'typ'  =>  $insert['typ'],
             'name2' => $insert['name2'],
             'name1' => $insert['name1'],
@@ -55,10 +56,24 @@ $request->session()->regenerateToken();
         // lastInsertID取得
         $id = DB::getPdo()->lastInsertId();
         $re = DB::table('users')->where('id', $id)->first();
-        $abtUser=(array)$re;
+        $user=(array)$re;
         $logUser=Auth::user();
 
-        return view('Lib.adminUser.finInsertUser',['abtUser'=>$abtUser, 'user'=>$logUser] );
+        $userMail = [
+            [
+                'email' => $user['email'], 
+                'name2' => $user['name2'],
+                'name1' => $user['name1'],
+                'kana2' => $user['kana2'],
+                'kana1' => $user['kana1'],
+                'typ' => $user['typ'],
+
+            ]
+        ];
+    
+        Mail::to($userMail)->send(new SendTestMail($userMail));
+
+        return view('Lib.adminUser.finInsertUser',['abtUser'=>$user, 'user'=>$logUser] );
     }
     
 

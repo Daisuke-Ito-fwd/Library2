@@ -16,12 +16,6 @@
     @endcomponent
 @endsection
 @section('userModal')
-<input type="text" v-model="clickLoading">
-@{{ clickLoading }}
-    <div v-if="clickLoading" class="loading">
-        test
-        {{-- <img src="{{ asset('img/loading.gif') }}" alt="loading.gif"> --}}
-    </div>
     <delete-modal v-show="showContent" v-on:from-child="closeModal" v-on:delete-end="deleteEnd">
         {{-- slot使用 子の中身になる --}}
         @component('components.modal.deleteUsersModal')

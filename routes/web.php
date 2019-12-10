@@ -23,7 +23,7 @@ Route::post('orgLogin', 'LoginController@authenticate');
 //ajax用  
 Route::post('/api/allBooks', 'ajaxBooksController@index');
 Route::post('/api/searchBooks', 'ajaxBooksController@index');
-Route::post('/api/books_genre', 'ajaxBooksController@genre');
+Route::post('/api/books_data', 'ajaxBooksController@data');
 Route::post('/api/deleteBooks', 'ajaxBooksController@delete');
 Route::post('/api/updateBook', 'ajaxBooksController@update');
 
@@ -70,6 +70,7 @@ Route::post('/api/searchUser', 'ajaxController@index');
 Route::post('/api/allUsers', 'ajaxController@index');
 Route::post('/api/deleteUsers', 'ajaxController@delete');
 Route::post('/api/updateUser', 'ajaxController@update');
+Route::post('/api/checkEmail', 'ajaxController@email');
 
 
 // ユーザー削除
@@ -88,3 +89,8 @@ Route::get('lib/logout', 'LogOutController@logout');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+// mail
+
+Route::get('/mail', 'SendMailController@send');

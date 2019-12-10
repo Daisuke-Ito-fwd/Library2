@@ -1,3 +1,23 @@
+/* アニメーション中のスタイル */
+#ClearLoading{
+    position: fixed;
+    left: 0;
+    top: 0;
+        width:  100%;
+        height: 100%;
+        z-index:5;
+    background-color: rgba(109, 109, 109, 0.253);
+}
+#loadingGif{
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    left: 45%;
+    top: 50%;
+   
+}
+
+
 #loadingImg{
     width: 120px;
     height: 120px;
@@ -15,12 +35,15 @@
     width: 100%;
     height: 100%;
     /* z-index: 0; */
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(252, 252, 252);
     
     opacity: 1;
 }
 
 /* header ########################### */
+h2{
+    text-align: center;
+}
 body{
     color: rgb(75, 75, 75);
     font-family: 'Noto Sans JP', sans-serif;
@@ -146,6 +169,9 @@ footer{
     margin-left: auto;
     margin-right: auto;
 }
+.selBox{
+    width: 100%;
+}
 
 td .submit{
     margin-top: 10px;
@@ -165,13 +191,17 @@ td .submit{
     margin-left: auto;
     margin-right: auto;
     font-size:15px;
-    background-color: rgb(247, 247, 247);
+    background-color: rgb(250, 250, 250);
     border: solid  rgb(216, 216, 216);
     border-collapse: collapse;
 }
 
 #addUser th,#addUser td, #addBook th, #addBook td, #confUser th, #confUser td, .searchUser th, .searchUser td, .editTr td, .editTr th{
-    border: solid 1px rgb(180, 180, 180);
+    border-top: solid 1px rgb(180, 180, 180);
+    border-bottom: solid 1px rgb(180, 180, 180);
+    border-left:none;
+    border-right:none;
+
     padding: 10px;
 }
 
@@ -265,22 +295,28 @@ hr{
 }
 
 .resHead th, .resBody td{
-    border: solid 1px rgb(180, 180, 180);
+    border-top: solid 1px rgb(180, 180, 180);
+    border-bottom: solid 1px rgb(180, 180, 180);
+    border-left:none;
+    border-right:none;
     padding: 10px;
     text-align: center;
 }
 
 .resHead th{
     background-color: white;
-    border-bottom:double  rgb(180, 180, 180);
+    border-top: solid 1px rgb(180, 180, 180);
+    border-bottom: solid 1px rgb(180, 180, 180);
+    border-left:none;
+    border-right:none;
 }
 
-.resBody:nth-child(even){
+.resBody:nth-child(even) .editTr:nth-child(even){
     background-color: rgb(255, 255, 255);
 }
 
-.resBody:nth-child(odd){
-    background-color: rgb(240, 240, 240);
+.resBody:nth-child(odd), .editTr:nth-child(odd){
+    background-color: rgb(255, 255, 255);
 }
 
 .pagination{
@@ -344,7 +380,9 @@ li a{
 h4{
     text-align: center;
 }
-
+.tdInput{
+    width: 100%;
+}
 #editTable{
     min-width: 350px;
 }

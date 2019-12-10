@@ -26,6 +26,8 @@
         @csrf
         @if (old('email'))
         <p id="error">エラー：  メールアドレスもしくはパスワードが間違っています。</p>
+        {{-- @else ($error == true)
+        <p id="error">エラー：  メールアドレスもしくはパスワードが間違っています。</p> --}}
         @endif
         
         <table id="logForm">
@@ -47,18 +49,11 @@
         </div>
     </form>
 </div>
-<p id="entry">アカウント未登録の方は<a href="">こちら</a>から登録してください。</p>            </tr>
+{{-- <p id="entry">アカウント未登録の方は<a href="">こちら</a>から登録してください。</p>            </tr> --}}
     <hr id="fHr">
 </main>
 
 <footer>
-    <div id="right">
-        <p>test footer right</p>
-    </div>
-
-    <div id="left">
-        <p>test footer left</p>
-    </div>
 </footer>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<h3><u>書籍の検索・編集・削除</u></h3>
+<h3>書籍の検索・編集・削除</h3>
 <div id="searchBox">
     <div id='tables'>
         <table class="search">
@@ -19,13 +19,18 @@
         <table class="search">
             <tr>
                 <th>出版社</th>
-                <td><input type="text" v-model="publ"></td>
+                <td>
+                    <select v-model="publ" class="selBox">
+                            <option value="">
+                        <option v-for='data of publData' v-bind:value="data.id">@{{ data.publ }}</option>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <th>ジャンル</th>
                 <td>
-                    <select v-model="genre">
-                        <option value=""></option>
+                    <select v-model="genre" class="selBox">
+                        <option value="">
                         <option v-for='data of genreData' v-bind:value="data.id">@{{ data.genre }}</option>
                     </select>
                 </td>

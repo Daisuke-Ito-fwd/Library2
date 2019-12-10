@@ -10,7 +10,8 @@
         </tr>
         <tr class="editTr">
             <th>メールアドレス</th>
-            <td><input type="text"  v-model="editEmail"></td>
+            <td><input type="text"  v-model="editEmail" class="tdInput"></td>
         </tr>
 
     </table>
+    <p style="text-align: center; color:red; font-size:12px;">@{{ errorMsgModal }}</p>

@@ -1,11 +1,10 @@
 
-<hr>
-@{{ deleteId }}
 <div class="booksResult"  v-show="display">
+    <hr>
     <div class="resCount" >
                 <p>検索結果： @{{ getCount }} 件</p>
                 @if ($typ  == '1')
-                <p class="deleteButton"><button  name="deleteUser" v-on:click="deleteBooksModal">選択した項目を削除</button></p>
+                <p class="deleteButton"><button v-show="showDeleteButton" name="deleteUser" v-on:click="deleteBooksModal">選択した項目を削除</button></p>
                 @endif
                 </div>
     <table class="resTable">

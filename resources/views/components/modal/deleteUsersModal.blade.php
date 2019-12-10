@@ -14,6 +14,5 @@
                 <td>@{{ data.email }}</td>
                 <td>@{{ data.created_at }}</td>
             </tr>
-            @{{ deleteId }}
 
     </table>

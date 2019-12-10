@@ -25,11 +25,14 @@
     <hr id="hHr">
 
     <main id="main" v-show="mainSwitch">
+    <transition name="CLtrans">
+        <div v-show="ClearLoading" id="ClearLoading">
+            <img src="{{ asset('img/loading.gif') }}" alt="loading" id="loadingGif">
+        </div>
+    </transition>
         <div v-show="loading" id="loading">
-            {{-- <img src="{{ asset('img/loading.gif') }}" alt="loading.gif" id="loadingImg"> --}}
         </div>
         <div v-show="!loading">
-        {{-- <div>             --}}
             <div class="box1">
                 @yield('userModal')
                 @yield('userBox1')
@@ -41,12 +44,16 @@
     </main>
 
     <main id="booksMain">
+            <transition name="CLtrans">
+                    <div v-show="ClearLoading" id="ClearLoading">
+                        <img src="{{ asset('img/loading.gif') }}" alt="loading" id="loadingGif">
+                    </div>
+                </transition>
         <div class="box1">
             @yield('modal')
             @yield('box1')
         </div>
         <div class="box2">
-            {{-- <hr> --}}
             @yield('box2')
         </div>
         </div>
@@ -55,7 +62,6 @@
     <hr id="fHr">
     <footer>
     </footer>
-    
     
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
