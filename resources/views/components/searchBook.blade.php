@@ -21,7 +21,7 @@
                 <th>出版社</th>
                 <td>
                     <select v-model="publ" class="selBox">
-                            <option value="">
+                        <option value="">
                         <option v-for='data of publData' v-bind:value="data.id">@{{ data.publ }}</option>
                     </select>
                 </td>

@@ -38,7 +38,7 @@ class addBookController extends Controller
                 'isbn'     =>$userInput['isbn'],
                 'delet'    =>false,
             ];
-        $request->session()->regenerateToken();
+        
         DB::table('library')->insert($insert);
         $id = DB::getPdo()->lastInsertId();
         $re = DB::table('library')

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet"  type="text/css" href="{{ asset('css/style.css') }}">
@@ -26,8 +26,6 @@
         @csrf
         @if (old('email'))
         <p id="error">エラー：  メールアドレスもしくはパスワードが間違っています。</p>
-        {{-- @else ($error == true)
-        <p id="error">エラー：  メールアドレスもしくはパスワードが間違っています。</p> --}}
         @endif
         
         <table id="logForm">
@@ -49,7 +47,6 @@
         </div>
     </form>
 </div>
-{{-- <p id="entry">アカウント未登録の方は<a href="">こちら</a>から登録してください。</p>            </tr> --}}
     <hr id="fHr">
 </main>
 

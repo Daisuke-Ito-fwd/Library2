@@ -37,6 +37,7 @@ var editBookModal = {
                 <button v-on:click="editConf">確認</button>
                 <button v-on:click="closeEvent">キャンセル</button>
             </div>
+            
         </div>
     </div>
     `,
@@ -54,15 +55,14 @@ var editBookModal = {
 
 var editConfBookModal = {
     template: `
-    <div id="overlay-edit">
-        <div id="content-edit">
+        <div id="book-edit">
             <p><slot></slot></p>
                 <div class='editConf'>
                     <button v-on:click="update">登録</button>
                     <button v-on:click="reEdit">編集</button>
                 </div>
+                
         </div>
-    </div>
     `,
     methods: {
         update: function () {
@@ -441,7 +441,7 @@ new Vue({
             form.append('stock' , this.editStock);
             form.append('isbn'  , this.editIsbn);
             this.editConfData = form;
-            this.closeModal();
+            // this.closeModal();
             this.editConfContent = true;
         },
 

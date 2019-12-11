@@ -86,15 +86,13 @@ Vue.component('edit-modal', {
 
     Vue.component('edit-conf-modal', {
         template: `
-      <div id="overlay-edit">
-          <div id="content-edit">
-          <p><slot></slot></p>
-          <div class='editConf'>
-          <button v-on:click="update">登録</button>
-          <button v-on:click="reEdit">編集</button>
+          <div id="content-edit-conf">
+              <p><slot></slot></p>
+            <div class='editConf'>
+              <button v-on:click="update">登録</button>
+              <button v-on:click="reEdit">編集</button>
+            </div>
           </div>
-          </div>
-      </div>
       `,
 
 
@@ -124,6 +122,7 @@ for (var i = 1; i <= 105; i++) {
 const main = new Vue({
     el: '#main',
     data: {
+        fullGuard:false,
         ClearLoading: false,
         mailResult :'',
         // main
@@ -419,6 +418,13 @@ const main = new Vue({
         },
 
         showEditConf: function () {
+            this.fullGuard = true;
+            this.ClearLoading = true;
+            setTimeout(() => {
+                this.fullGuard = false;
+                this.ClearLoading = false;
+            }, 1000);
+
             if (this.editKana2.match(/^[ァ-ヶー　]*$/) && this.editKana1.match(/^[ァ-ヶー　]*$/)) {
                 if(this.editEmail.match(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/)){
                     var mailConf = new FormData();
@@ -435,7 +441,7 @@ const main = new Vue({
                                 form.append('kana1', this.editKana1);
                                 form.append('email', this.editEmail);
                                 this.editConf = form;
-                                this.closeModal();
+                                // this.closeModal();
                                 this.editConfShowContent = true;
 
                         }else{
@@ -469,7 +475,7 @@ const main = new Vue({
         },
 
         reEdit: function () {
-            this.closeModal();
+            this.editConfShowContent = false;
             this.editShowContent = true;
         },
 

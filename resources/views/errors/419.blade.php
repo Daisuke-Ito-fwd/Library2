@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <script>
-        setTimeout("location.href='index'", 1000 * 5);
+        setTimeout("location.href='logout'", 1000 * 5);
 
     </script>
-    <title>403 Forbidden</title>
+    <title>419 token error</title>
     <style>
         .error-wrap {
             padding: 5px 20px;
@@ -30,8 +30,11 @@
 <body>
     <div class="error-wrap">
         <section>
-            <h1>403 Forbidden</h1>
-            <p>このページへのアクセス権限がありません。5秒後にトップページへ戻ります。</p>
+            <h1>419 CSRF token error</h1>
+            <p>このページへのアクセスルートが不正です。
+                <br>
+                再度ログインしなおしてください。(5秒後にログインページに戻ります。)
+            </p>
         </section>
     </div>
 </body>

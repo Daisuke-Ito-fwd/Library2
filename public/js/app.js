@@ -36952,7 +36952,7 @@ var deleteBooksModal = {
   }
 };
 var editBookModal = {
-  template: "\n    <div id=\"overlay-edit\">\n        <div id=\"content-edit\">\n            <p><slot></slot></p>\n            <div class='editConf'>\n                <button v-on:click=\"editConf\">\u78BA\u8A8D</button>\n                <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n            </div>\n        </div>\n    </div>\n    ",
+  template: "\n    <div id=\"overlay-edit\">\n        <div id=\"content-edit\">\n            <p><slot></slot></p>\n            <div class='editConf'>\n                <button v-on:click=\"editConf\">\u78BA\u8A8D</button>\n                <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n            </div>\n            \n        </div>\n    </div>\n    ",
   methods: {
     closeEvent: function closeEvent() {
       //↓親に渡す
@@ -36964,7 +36964,7 @@ var editBookModal = {
   }
 };
 var editConfBookModal = {
-  template: "\n    <div id=\"overlay-edit\">\n        <div id=\"content-edit\">\n            <p><slot></slot></p>\n                <div class='editConf'>\n                    <button v-on:click=\"update\">\u767B\u9332</button>\n                    <button v-on:click=\"reEdit\">\u7DE8\u96C6</button>\n                </div>\n        </div>\n    </div>\n    ",
+  template: "\n        <div id=\"book-edit\">\n            <p><slot></slot></p>\n                <div class='editConf'>\n                    <button v-on:click=\"update\">\u767B\u9332</button>\n                    <button v-on:click=\"reEdit\">\u7DE8\u96C6</button>\n                </div>\n                \n        </div>\n    ",
   methods: {
     update: function update() {
       this.$emit('edit-update');
@@ -37332,8 +37332,8 @@ new Vue({
       form.append('s_date', this.editSDate);
       form.append('stock', this.editStock);
       form.append('isbn', this.editIsbn);
-      this.editConfData = form;
-      this.closeModal();
+      this.editConfData = form; // this.closeModal();
+
       this.editConfContent = true;
     },
     selectGenre: function selectGenre() {
@@ -37470,7 +37470,7 @@ Vue.component('edit-modal', {
     }
   }
 }), Vue.component('edit-conf-modal', {
-  template: "\n      <div id=\"overlay-edit\">\n          <div id=\"content-edit\">\n          <p><slot></slot></p>\n          <div class='editConf'>\n          <button v-on:click=\"update\">\u767B\u9332</button>\n          <button v-on:click=\"reEdit\">\u7DE8\u96C6</button>\n          </div>\n          </div>\n      </div>\n      ",
+  template: "\n          <div id=\"content-edit-conf\">\n              <p><slot></slot></p>\n            <div class='editConf'>\n              <button v-on:click=\"update\">\u767B\u9332</button>\n              <button v-on:click=\"reEdit\">\u7DE8\u96C6</button>\n            </div>\n          </div>\n      ",
   methods: {
     update: function update() {
       this.$emit('edit-update');
@@ -37496,6 +37496,7 @@ for (var i = 1; i <= 105; i++) {
 var main = new Vue({
   el: '#main',
   data: {
+    fullGuard: false,
     ClearLoading: false,
     mailResult: '',
     // main
@@ -37774,6 +37775,13 @@ var main = new Vue({
     showEditConf: function showEditConf() {
       var _this5 = this;
 
+      this.fullGuard = true;
+      this.ClearLoading = true;
+      setTimeout(function () {
+        _this5.fullGuard = false;
+        _this5.ClearLoading = false;
+      }, 1000);
+
       if (this.editKana2.match(/^[ァ-ヶー　]*$/) && this.editKana1.match(/^[ァ-ヶー　]*$/)) {
         if (this.editEmail.match(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/)) {
           var mailConf = new FormData();
@@ -37790,9 +37798,7 @@ var main = new Vue({
               form.append('kana2', _this5.editKana2);
               form.append('kana1', _this5.editKana1);
               form.append('email', _this5.editEmail);
-              _this5.editConf = form;
-
-              _this5.closeModal();
+              _this5.editConf = form; // this.closeModal();
 
               _this5.editConfShowContent = true;
             } else {
@@ -37827,7 +37833,7 @@ var main = new Vue({
       });
     },
     reEdit: function reEdit() {
-      this.closeModal();
+      this.editConfShowContent = false;
       this.editShowContent = true;
     }
   },

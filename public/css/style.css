@@ -1,4 +1,13 @@
 /* アニメーション中のスタイル */
+.fullGuard{
+    position: fixed;
+    left: 0;
+    top: 0;
+        width:  100%;
+        height: 100%;
+        z-index:9;
+    background-color: rgba(255, 255, 255, 0);
+}
 #ClearLoading{
     position: fixed;
     left: 0;
@@ -7,14 +16,16 @@
         height: 100%;
         z-index:5;
     background-color: rgba(109, 109, 109, 0.253);
+    transition: all 0.5s ease; 
 }
 #loadingGif{
     width: 80px;
     height: 80px;
     position: fixed;
-    left: 45%;
+    left: 47%;
     top: 50%;
-   
+    transition: all 0.2s ease;
+
 }
 
 
@@ -37,7 +48,7 @@
     /* z-index: 0; */
     background-color: rgb(252, 252, 252);
     
-    opacity: 1;
+   
 }
 
 /* header ########################### */
@@ -54,6 +65,9 @@ body{
 }
 
 header {
+    width:98%;
+    margin-right: auto ;
+    margin-left: auto ;
     display: flex;
     justify-content: space-between; 
     margin-bottom: -20px;
@@ -199,16 +213,19 @@ td .submit{
 #addUser th,#addUser td, #addBook th, #addBook td, #confUser th, #confUser td, .searchUser th, .searchUser td, .editTr td, .editTr th{
     border-top: solid 1px rgb(180, 180, 180);
     border-bottom: solid 1px rgb(180, 180, 180);
-    border-left:none;
+    /* border-left:solid 1px rgb(180, 180, 180); */
     border-right:none;
 
+    text-align: center;
     padding: 10px;
 }
-
-#addBook th{
-    margin:3px;
+ #addUser td, .searchUser td, #addBook td{
+    text-align: left;
 }
 
+.confBookTh{
+    border-left:solid 1px rgb(180, 180, 180);
+}
 .etc{
     font-size: 12px;
     margin-bottom: -5px;
@@ -217,7 +234,6 @@ td .submit{
 
 #email, #emailConf, #pass, #passConf{
 width: 333px;
-/* margin-top: 2px; */
 
 }
 
@@ -353,7 +369,7 @@ li a{
 }
 
 /* モーダル部 */
-#overlay, #overlay-edit{
+#overlay, #overlay-edit, #overlay-edit{
     z-index:1;
     position  : fixed;
         top   : 0;
@@ -361,22 +377,51 @@ li a{
         width : 100%;
         height: 100%;
     background-color: rgba(0,0,0,0.5);
+    transition: all .5s ease;
 }
-#content, #content-edit{
+#content, #content-edit, #content-edit-conf{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     position: fixed;
-        top: 15%;
-        left: 15%;
+        top: 8%;
+        left: 14%;
     z-index:2;
     width:70%;
+    min-width: 480px;
+    min-height: 320px;
+    padding: 1em;
+    background:#fff;
+    border-radius: 3px;
+    max-height: 85%;
+    /* スクロール指定 */
+    overflow-y:scroll;
+    /* transition */
+    transition: all 0.4s ease;
+  }
+  #book-edit{
+      display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: fixed;
+        top: 10%;
+        left: 15%;
+    z-index:2;
+    /* height:auto; */
     min-width: 480px;
     padding: 1em;
     background:#fff;
     border-radius: 3px;
-    max-height: 70%;
+    max-height: 85%;
+    padding-bottom: 50px;
     /* スクロール指定 */
     overflow-y:scroll;
+    /* transition */
+    transition: all 0.4s ease;
   }
-
+.editConf{
+    margin-top:5px;
+}
 h4{
     text-align: center;
 }
@@ -393,6 +438,16 @@ h4{
     margin-left: auto;
     margin-right: auto;
 }
+
+.um-enter, .um-leave-active, .uem-enter, .uem-leave-active, 
+.bm-enter, .bm-leave-active, .loading-enter,
+.bem-enter, .bem-leave-active, .loading-leave-active{
+    opacity:0;
+} 
+.uecm-enter, .uecm-leave-active, .becm-enter, .becm-leave-active{
+    opacity:0;
+}
+
 
 /* sort */
 .checkSort{

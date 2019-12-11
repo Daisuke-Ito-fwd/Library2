@@ -27,7 +27,7 @@ class BooksSeeder extends Seeder
                 'publ'=>$faker->numberBetween(1, 10),
                 'genre'=>$faker->numberBetween(1, 10),
                 'title'=>$faker->streetAddress,
-
+                
             ]);
         }
     }

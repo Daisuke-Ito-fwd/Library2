@@ -1,4 +1,4 @@
-<h4 class="editBookConfModal">以下の通り書籍情報を更新します。</h4>
+<h4 class="editBookConfModal">書籍情報を更新します。</h4>
 <table id="editTable">
     <tr class="editTr">
         <th>タイトル</th>

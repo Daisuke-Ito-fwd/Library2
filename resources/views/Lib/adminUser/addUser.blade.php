@@ -28,41 +28,9 @@
 @endisset
 @endsection
 @section('box2')
-@if(isset($edUser) || isset($userInput))
-    @component('components.editUser')
-        @slot('id')
-            {{ $edUser['id'] }}
-        @endslot
 
-        @slot('typ')
-            {{ $edUser['typ'] }}
-        @endslot
-
-        @slot('name2')
-            {{ $edUser['name2'] }}
-        @endslot
-
-        @slot('name1')
-            {{ $edUser['name1'] }}
-        @endslot
-
-        @slot('kana2')
-            {{ $edUser['kana2'] }}
-        @endslot
-
-        @slot('kana1')
-            {{ $edUser['kana1'] }}
-        @endslot
-
-        @slot('mail')
-            {{ $edUser['email'] }}
-        @endslot --}}
-        @endcomponent
-@else
     @component('components.addUser')
     @endcomponent
-@endif
-
 @endsection
 
 @section('footerL')

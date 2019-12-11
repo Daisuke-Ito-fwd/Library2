@@ -64,7 +64,7 @@
     </table>
     <div id="box3">
             <input type="button" name="continue" value="続けて登録"  onclick="location.href='addUser'">
-            <input type="button" name="toTop" value="管理画面へ戻る" onclick="location.href='ad'">
+            <input type="button" name="toTop" value="管理画面へ戻る" onclick="location.href='index'">
     </div>
 @endsection
 

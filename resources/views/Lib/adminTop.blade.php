@@ -4,11 +4,9 @@
 @section('header')
     @component('components.header')
         @slot('typ')
-        @if ($user->typ  == 1)
-        ： 管理者
-        @elseif($user->typ  == 0)
-        ：administ
-        @endif
+            @if ($user->typ  == 1)
+            ： 管理者
+            @endif
         @endslot
         @slot('email')
         {{ $user->email }}

@@ -12,6 +12,7 @@ class Library extends Seeder
     public function run()
     {
         //
-        $library = factory(App\Library::class, 20000)->create();
+        //php artisan db:seed --class=Library  
+        $library = factory(App\Library::class, 30000)->create();
     }
 }
