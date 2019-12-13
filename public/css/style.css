@@ -52,7 +52,7 @@
 }
 
 /* header ########################### */
-h2{
+h2, .invalid-feedback{
     text-align: center;
 }
 body{
@@ -126,7 +126,9 @@ footer{
     display: flex;
     flex-direction: column;
 }
-
+.box2{
+    text-align: center;
+}
 .box1 h2, .box1 h3 , .box1 h4, .box1 p{
     text-align: center;
 }
@@ -201,7 +203,7 @@ td .submit{
 }
 
 /* adduser */
-#addUser, #addBook, #confUser, .searchUser, #editTable{
+#addUser, #addBook, #confUser, .searchUser, #editTable, .search{
     margin-left: auto;
     margin-right: auto;
     font-size:15px;
@@ -209,8 +211,10 @@ td .submit{
     border: solid  rgb(216, 216, 216);
     border-collapse: collapse;
 }
-
-#addUser th,#addUser td, #addBook th, #addBook td, #confUser th, #confUser td, .searchUser th, .searchUser td, .editTr td, .editTr th{
+.search{
+    height: 150px;
+}
+#addUser th,#addUser td, #addBook th, #addBook td, #confUser th, #confUser td, .searchUser th, .searchUser td, .editTr td, .editTr th, .search th, .search td{
     border-top: solid 1px rgb(180, 180, 180);
     border-bottom: solid 1px rgb(180, 180, 180);
     /* border-left:solid 1px rgb(180, 180, 180); */
@@ -235,6 +239,10 @@ td .submit{
 #email, #emailConf, #pass, #passConf{
 width: 333px;
 
+}
+
+#logEmail{
+    width: 280px;
 }
 
 #box3{
@@ -387,12 +395,12 @@ li a{
         top: 8%;
         left: 14%;
     z-index:2;
-    width:70%;
-    min-width: 480px;
-    min-height: 320px;
     padding: 1em;
     background:#fff;
     border-radius: 3px;
+    width:70%;
+    min-height: 320px;
+    min-width: 480px;
     max-height: 85%;
     /* スクロール指定 */
     overflow-y:scroll;
@@ -400,20 +408,22 @@ li a{
     transition: all 0.4s ease;
   }
   #book-edit{
+    width:70%;
+    height: 484px;
+    min-width: 480px;
+    max-height: 85%;
+    margin-left: auto;
+    margin-right: auto;
       display: flex;
     flex-direction: column;
     justify-content: space-around;
     position: fixed;
-        top: 10%;
-        left: 15%;
+        top: 8%;
+        left: 14%;
     z-index:2;
-    /* height:auto; */
-    min-width: 480px;
     padding: 1em;
     background:#fff;
     border-radius: 3px;
-    max-height: 85%;
-    padding-bottom: 50px;
     /* スクロール指定 */
     overflow-y:scroll;
     /* transition */

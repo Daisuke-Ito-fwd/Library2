@@ -12,7 +12,8 @@ class LibController extends Controller
     }
     // origin
     public function index(){
-        return view("Lib.index");
+        // return view("Lib.index");
+        return view("auth.login");
     }
 
     

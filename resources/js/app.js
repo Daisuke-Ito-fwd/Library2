@@ -1,6 +1,6 @@
 require('./bootstrap');
-require('./jquery')
-
+require('./jquery');
+require('./resetPass.js');
 // ###########################################
 new Vue({
     el: '#app',
@@ -149,6 +149,9 @@ const main = new Vue({
         editKana2: '',
         editKana1: '',
         editEmail: '',
+        editPass: '',
+        editPassConf:'',
+        editPassMess:'',
         //     //paginate用         
         parPage: 10, //paginate用 
         currentPage: 1, //paginate用 
@@ -427,32 +430,43 @@ const main = new Vue({
 
             if (this.editKana2.match(/^[ァ-ヶー　]*$/) && this.editKana1.match(/^[ァ-ヶー　]*$/)) {
                 if(this.editEmail.match(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/)){
-                    var mailConf = new FormData();
-                    mailConf.append('email', this.editEmail);
-                    axios.post('/api/checkEmail', mailConf).then((res) => {
-                        this.mailResult=res;
-                        if(this.mailResult['data'] == 0){
-                            this.errorMsgModal = "";
-                            var form = new FormData();
+                    if(this.editPass == this.editPassConf){
+                        if(this.editPass == ''){
+                            this.editPassMess = '変更しない'
+                        }else{
+                            this.editPassMess = 'セキュリティ保護のため表示されません'
+                        }
+                        var mailConf = new FormData();
+                        mailConf.append('email', this.editEmail);
+                        axios.post('/api/checkEmail', mailConf).then((res) => {
+                            this.mailResult=res;
+                            if(this.mailResult['data'] == 0){
+                                this.errorMsgModal = "";
+                                var form = new FormData();
                                 form.append('id', this.editId);
                                 form.append('name2', this.editName2);
                                 form.append('name1', this.editName1);
                                 form.append('kana2', this.editKana2);
                                 form.append('kana1', this.editKana1);
                                 form.append('email', this.editEmail);
+                                form.append('password', this.editPass);
                                 this.editConf = form;
                                 // this.closeModal();
-                                this.editConfShowContent = true;
+                                this.editConfShowContent = true;                           
+                            }else{
+                                this.errorMsgModal='このメールアドレスは既に使用されています。'
+                            }
+                    
+                        }).catch((error) => {
+                            alert('通信エラーが発生しました。時間をおいて再度試みてください。')
+                        });
 
-                        }else{
-                            this.errorMsgModal='このメールアドレスは既に使用されています。'
-                        }
-                    }).catch((error) => {
-                        alert('通信エラーが発生しました。時間をおいて再度試みてください。')
-                    });
-
+                    }else{
+                        this.errorMsgModal='パスワードが一致しません。'
+                    }
                 }else{
-                    this.errorMsgModal="メールアドレスの形式が正しくありません。"
+                    this.errorMsgModal = "メールアドレスの形式が正しくありません。"
+                    this.editPassMess = ''
                 }   
 
             }else{

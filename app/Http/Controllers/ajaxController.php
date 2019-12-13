@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ajaxController extends Controller
 {
@@ -50,8 +51,14 @@ class ajaxController extends Controller
     public function update(Request $request)
     {
         $person = User::where('id', '=', $request['id'])->first();
-        $form = $request->all();
-        unset($form['_token']); //????
+        if($request['password'] == ''){
+            unset($request['password']); //passwordの項目を削除
+            $form = $request->all();
+        }else{
+            $request['password'] = Hash::make($request['password']);
+            $form = $request->all();
+        }
+        unset($form['_token']); 
         $person->fill($form)->save();
     }
 

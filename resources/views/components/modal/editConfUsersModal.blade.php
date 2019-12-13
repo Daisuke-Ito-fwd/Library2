@@ -12,5 +12,9 @@
         <th>メールアドレス</th>
         <td>@{{ editEmail }}</td>
     </tr>
-
+    <tr class="editTr">
+        <th>パスワード</th>
+        <td>@{{ editPassMess }}</td>
+    </tr>
+    
 </table>

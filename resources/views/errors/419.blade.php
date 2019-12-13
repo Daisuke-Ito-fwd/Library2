@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <script>
-        setTimeout("location.href='logout'", 1000 * 5);
+        setTimeout("location.href='/lib/logout'", 1000 * 5);
 
     </script>
     <title>419 token error</title>
