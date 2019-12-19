@@ -1,3 +1,4 @@
+
 /* アニメーション中のスタイル */
 .fullGuard{
     position: fixed;
@@ -29,7 +30,7 @@
 }
 
 
-#loadingImg{
+/* #loadingImg{
     width: 120px;
     height: 120px;
     position: fixed;
@@ -45,26 +46,26 @@
         top: 0px;
     width: 100%;
     height: 100%;
-    /* z-index: 0; */
-    background-color: rgb(252, 252, 252);
+    /* z-index: 0; 
+     background-color: rgb(252, 252, 252);
     
    
-}
+}  */
 
 /* header ########################### */
 h2, .invalid-feedback{
     text-align: center;
 }
-body{
+/* body{
     color: rgb(75, 75, 75);
     font-family: 'Noto Sans JP', sans-serif;
     margin-right: auto ;
     margin-left: auto ;
     min-width: 500px;
     max-width: 1200px;
-}
+} */
 
-header {
+/* header {
     width:98%;
     margin-right: auto ;
     margin-left: auto ;
@@ -72,35 +73,35 @@ header {
     justify-content: space-between; 
     margin-bottom: -20px;
     min-width: 600px; 
-}
+} */
 
 .adTopText{
     border-top: 5px;
 }
 
-a:visited,  a{
+/* a:visited,  a{
     color:rgb(75, 75, 75);
     text-decoration: none;
-}
+} */
 
-#headLeft{
+/* #headLeft{
     display: flex;
     width: 450px;
     vertical-align: bottom;
     font-size: 18px;
-}
+} */
 
 #headimg{
     height: 80px;
     width: 80px;
     margin: 10px;
 }
-header h1 {
+/* header h1 {
     position: relative;
     top:8px;
     left: 10px;
-}
-#headRight p, #headRight a{
+} */
+#headRight ul, #headRight a{
     font-size: 13px;
     margin-bottom: -5px;
     text-align: end;
@@ -335,13 +336,13 @@ hr{
     border-right:none;
 }
 
-.resBody:nth-child(even) .editTr:nth-child(even){
+/* .resBody:nth-child(even) .editTr:nth-child(even){
     background-color: rgb(255, 255, 255);
 }
 
 .resBody:nth-child(odd), .editTr:nth-child(odd){
     background-color: rgb(255, 255, 255);
-}
+} */
 
 .pagination{
     text-align: center;
@@ -350,7 +351,7 @@ hr{
         right: 20px;
 }
 
-li {
+/* li {
     display: inline-block;
 }
 
@@ -374,7 +375,7 @@ li a{
     text-decoration: underline;
     align-items: flex-end;
     outline: none;
-}
+} */
 
 /* モーダル部 */
 #overlay, #overlay-edit, #overlay-edit{

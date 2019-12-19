@@ -1,7 +1,7 @@
 import Axios from "axios"
-import Paginate from 'vuejs-paginate'
-Vue.component('paginate', Paginate)
-Vue.component('paginate', VuejsPaginate)
+// import Paginate from 'vuejs-paginate'
+// Vue.component('paginate', Paginate)
+// Vue.component('paginate', VuejsPaginate)
 var deleteBooksModal = {
     template: `
       <div id="overlay">
@@ -78,12 +78,12 @@ var editConfBookModal = {
 new Vue({
     el: '#booksMain',
     
-    components:{
-        'delete-books-modal':deleteBooksModal,
-        'edit-book-modal'  :editBookModal,
-        'edit-conf-book-modal'  :editConfBookModal,
+    // components:{
+    //     'delete-books-modal':deleteBooksModal,
+    //     'edit-book-modal'  :editBookModal,
+    //     'edit-conf-book-modal'  :editConfBookModal,
 
-    },
+    // },
 
     data:{
         ClearLoading: false,

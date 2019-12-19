@@ -1,9 +1,10 @@
 <h3>書籍の検索・編集・削除</h3>
-<div id="searchBox">
-    <div id='tables'>
-        <table class="search">
+<div class="container  mx-auto" id="searchBox">
+
+    <div class="row  mx-auto" id='tables'>
+        <table class="col-md-6  mx-auto" id="table1">
             <tr>
-                <th>タイトル</th>
+                <th>タイトル</th>@{{ test }}
                 <td><input type="text" v-model="title"></td>
             </tr>
             <tr>
@@ -16,7 +17,7 @@
             </tr>
         </table>
 
-        <table class="search">
+        <table class="col-md-6  mx-auto" id="table2">
             <tr>
                 <th>出版社</th>
                 <td>
@@ -43,4 +44,4 @@
     </div>
 </div>
 <p style="color:red; font-size:12px;">@{{ errorMsg }}</p>
-<p><button class="submit" v-on:click="searchBooks()">検索</button></p>
+<p><button class="submit" v-on:click="searchBooks()" id="searchButton">検索</button></p>

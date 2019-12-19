@@ -37247,12 +37247,10 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
-/* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuejs_paginate__WEBPACK_IMPORTED_MODULE_1__);
+ // import Paginate from 'vuejs-paginate'
+// Vue.component('paginate', Paginate)
+// Vue.component('paginate', VuejsPaginate)
 
-
-Vue.component('paginate', vuejs_paginate__WEBPACK_IMPORTED_MODULE_1___default.a);
-Vue.component('paginate', VuejsPaginate);
 var deleteBooksModal = {
   template: "\n      <div id=\"overlay\">\n        \n          <div id=\"content\">\n          <p><slot></slot></p>\n          <div class='deleteConf'>\n          <button v-on:click=\"deleteEnd\">\u524A\u9664</button>\n          <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
   methods: {
@@ -37290,11 +37288,11 @@ var editConfBookModal = {
 };
 new Vue({
   el: '#booksMain',
-  components: {
-    'delete-books-modal': deleteBooksModal,
-    'edit-book-modal': editBookModal,
-    'edit-conf-book-modal': editConfBookModal
-  },
+  // components:{
+  //     'delete-books-modal':deleteBooksModal,
+  //     'edit-book-modal'  :editBookModal,
+  //     'edit-conf-book-modal'  :editConfBookModal,
+  // },
   data: {
     ClearLoading: false,
     title: '',
@@ -37729,20 +37727,36 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./jquery */ "./resources/js/jquery.js");
 
-__webpack_require__(/*! ./resetPass.js */ "./resources/js/resetPass.js"); // ###########################################
+__webpack_require__(/*! ./resetPass.js */ "./resources/js/resetPass.js");
 
+ // import Axios from "axios"
 
-new Vue({
-  el: '#app',
-  data: {
-    showTrans: false
-  }
-}); // ###########################################
+Vue.component('paginate', vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default.a);
+Vue.component('paginate', VuejsPaginate);
+
+__webpack_require__(/*! ./addBook */ "./resources/js/addBook.js"); // ###########################################
+// ###########################################
 // ユーザー検索ページ
 // ログアウト##################################################################
 
+
 new Vue({
-  el: '#headRight',
+  el: '#head2',
+  //(1st gen)
+  methods: {
+    onclick: function onclick() {
+      var logConf = confirm('ログアウトします。 \nよろしいですか？');
+
+      if (logConf == true) {
+        location.href = 'logout';
+      } else {
+        return false;
+      }
+    }
+  }
+});
+new Vue({
+  el: '#head3',
   //(1st gen)
   methods: {
     onclick: function onclick() {
@@ -37797,19 +37811,13 @@ Vue.component('edit-modal', {
   }
 }); // 1st gen（一番上のコンポーネント)####################################
 
-
-Vue.component('paginate', vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default.a);
-Vue.component('paginate', VuejsPaginate);
-
-__webpack_require__(/*! ./addBook */ "./resources/js/addBook.js");
-
 var items = [];
 
 for (var i = 1; i <= 105; i++) {
   items.push('item-' + i);
 }
 
-var main = new Vue({
+new Vue({
   el: '#main',
   data: {
     fullGuard: false,
@@ -38301,12 +38309,14 @@ new Vue({
     mailConf: false,
     forResetEmail: '',
     sendMail: false,
-    mailResult: ''
+    mailResult: '',
+    ClearLoading: false
   },
   methods: {
     checkEmail: function checkEmail() {
       var _this = this;
 
+      this.ClearLoading = true;
       var mail = new FormData();
       mail.append('email', this.forResetEmail);
       axios.post('/api/checkEmail', mail).then(function (res) {
@@ -38327,6 +38337,9 @@ new Vue({
           });
         }
       });
+      setTimeout(function () {
+        _this.ClearLoading = false;
+      }, 3000);
     }
   }
 }); // C:\xampp\htdocs\Library2\vendor\laravel\framework\src\Illuminate\Foundation\Auth\SendsPasswordResetEmails.php

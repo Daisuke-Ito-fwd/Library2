@@ -1,19 +1,19 @@
 require('./bootstrap');
 require('./jquery');
 require('./resetPass.js');
+import Paginate from 'vuejs-paginate'
+// import Axios from "axios"
+Vue.component('paginate', Paginate)
+Vue.component('paginate', VuejsPaginate)
+require('./addBook');
+
 // ###########################################
-new Vue({
-    el: '#app',
-    data: {
-        showTrans: false
-    }
-});
 // ###########################################
 
 // ユーザー検索ページ
 // ログアウト##################################################################
 new Vue({
-    el: '#headRight', //(1st gen)
+    el: '#head2', //(1st gen)
     methods: {
         onclick: function () {
             var logConf = confirm('ログアウトします。 \nよろしいですか？');
@@ -25,6 +25,20 @@ new Vue({
         }
     }
 })
+new Vue({
+    el: '#head3', //(1st gen)
+    methods: {
+        onclick: function () {
+            var logConf = confirm('ログアウトします。 \nよろしいですか？');
+            if (logConf == true) {
+                location.href = 'logout';
+            } else {
+                return false;
+            }
+        }
+    }
+})
+
 // #############################################################################
 // ####################################################################
 // モーダル管理(コンポーネントの登録)########################################################
@@ -58,6 +72,8 @@ var deleteModal = {
 }
 
 //グローバル登録 タグを子コンポで定義する。どこからでも使える
+
+
 Vue.component('edit-modal', {
         template: `
       <div id="overlay-edit">
@@ -94,8 +110,6 @@ Vue.component('edit-modal', {
             </div>
           </div>
       `,
-
-
         methods: {
             update: function () {
                 this.$emit('edit-update')
@@ -108,10 +122,7 @@ Vue.component('edit-modal', {
     })
 
 // 1st gen（一番上のコンポーネント)####################################
-import Paginate from 'vuejs-paginate'
-Vue.component('paginate', Paginate)
-Vue.component('paginate', VuejsPaginate)
-require('./addBook');
+
 
 
 var items = [];
@@ -119,7 +130,7 @@ for (var i = 1; i <= 105; i++) {
     items.push('item-' + i);
 }
 
-const main = new Vue({
+new Vue({
     el: '#main',
     data: {
         fullGuard:false,

@@ -18,103 +18,141 @@
 @endsection
 
 @section('logID', 'xxx@gmail.com')
-@section('box1')
-<h2>書籍の追加</h2>
-@endsection
 @section('box2')
-<div id="addBox">
-    <form action="addBookConf" method="GET">
-        @csrf
-        @if (count($errors) > 0)
-        <p class="error">エラー：入力内容に問題があります。 再入力してください。</p>
-        @endif
-        <table id="addBook">
-            <tr>
-                <th><u>タイトル</u></th>
-                <td>
-                    @if($errors->has('title'))
-                    <p class="error">{{ $errors->first('title') }}</p>
-                    @endif
-                    <input type="text" id="title" name="title" value="{{ old('title') }}">
-                </td>
-                <th><u>フリガナ</u></th>
-                <td>
-                    @if($errors->has('kana'))
-                    <p class="error">{{ $errors->first('kana') }}</p>
-                    @endif
-                    <input type="text" id="kana" name="kana" value="{{ old('kana') }}">
-                    <p class="etc">※全角のみ</p>
-                </td>
-            </tr>
-            <tr>
-                <th><u>著者</u></th>
-                <td>
-                    @if($errors->has('auth'))
-                    <p class="error">{{ $errors->first('auth') }}</p>
-                    @endif
-                    <input type="text" id="auth" name="auth" value="{{ old('auth') }}">
-                </td>
-                <th><u>出版日</u></th>
-                <td>
-                    @if($errors->has('s_date'))
-                    <p class="error">{{ $errors->first('s_date') }}</p>
-                    @endif
-                    <input type="date" id="s_date" name="s_date" value="{{ old('s_date') }}">
-                </td>
-            </tr>
-            <tr>
-                <th><u>出版社</u></th>
-                <td>
-                    <select name="publ" id="publ">
-                        {{-- fromDB foreach --}}
-                        @foreach ($publ as $key )
-                        <option value="{{ $key->id }}">{{ $key->publ }}</option>
-                        @endforeach
-                    </select>
-                </td>
+@if (count($errors) > 0)
+<p class="error">エラー：入力内容に問題があります。 再入力してください。</p>
+@endif
+<h2>書籍の追加</h2>
+<form action="addBookConf" method="GET" id="addBookForm">
+    <div class="container ">
+        <div class="row " id="addBook">
+            @csrf
 
-                <th><u>ジャンル</u></th>
-                <td>
-                    <select name="genre" id="genre">
-                        {{-- fromDB foreach --}}
-                        @foreach ($genre as $key )
-                        <option value="{{ $key->id }}">{{ $key->genre }}</option>
-                        @endforeach
-                    </select>
-                </td>
-            </tr>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <div class="itemTitle">
+                        <p>タイトル：</p>
+                        <input type="text" id="title" name="title" value="{{ old('title') }}">
+                        @if($errors->has('title'))
+                        <p class="error">{{ $errors->first('title') }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
 
-            <tr>
-                <th><u>ISBN</u></th>
-                <td>
-                    @if($errors->has('isbn'))
-                    <p class="error">{{ $errors->first('isbn') }}</p>
-                    @endif
-                    <input type="number" id="isbn" name="isbn" value="{{ old('isbn') }}">
-                    <p class="etc">※半角数字</p>
-                </td>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <div class="itemTitle">
+                        <p>フリガナ：</p>
+                        <input type="text" id="kana" name="kana" value="{{ old('kana') }}">
+                        <p class="etc">※全角カタカナのみ</p>
+                        @if($errors->has('kana'))
+                        <p class="error">{{ $errors->first('kana') }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
 
-                <th><u>冊数</u></th>
-                <td>
-                    @if($errors->has('stock'))
-                    <p class="error">{{ $errors->first('stock') }}</p>
-                    @endif
-                    <input type="number" id="stock" name="stock" value="{{ old('stock') }}">
-                    <p class="etc">※半角数字</p>
-                </td>
-            </tr>
-        </table>
-        <div id="box3">
-            <input type="submit" value="確認" class="submit">
-            <button type="button" name="submit" onclick="location.href='index'">キャンセル</button>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <div class="itemTitle">
+                        <p>著者：</p>
+                        <input type="text" id="auth" name="auth" value="{{ old('auth') }}">
+
+                        @if($errors->has('auth'))
+                        <p class="error">{{ $errors->first('auth') }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <div class="itemTitle">
+                        <p>出版日：</p>
+                        <input type="date" id="s_date" name="s_date" value="{{ old('s_date') }}">
+                        @if($errors->has('s_date'))
+                        <p class="error">{{ $errors->first('s_date') }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <div class="itemTitle">
+                        <p>出版社：</p>
+                        <select name="publ" id="publ">
+                            {{-- fromDB foreach --}}
+                            @foreach ($publ as $key )
+                            <option value="{{ $key->id }}">{{ $key->publ }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <div class="itemTitle">
+                        <p>ジャンル：</p>
+                        <select name="genre" id="genre">
+                            {{-- fromDB foreach --}}
+                            @foreach ($genre as $key )
+                            <option value="{{ $key->id }}">{{ $key->genre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <div class="itemTitle">
+                        <p>ISBN：</p>
+                        <input type="number" id="isbn" name="isbn" value="{{ old('isbn') }}">
+                        <p class="etc">※半角数字</p>
+                        @if($errors->has('isbn'))
+                        <p class="error">{{ $errors->first('isbn') }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <div class="itemTitle">
+                        <p>冊数：</p>
+                        <input type="number" id="stock" name="stock" value="{{ old('stock') }}">
+                        <p class="etc">※半角数字</p>
+                        @if($errors->has('stock'))
+                        <p class="error">{{ $errors->first('stock') }}</p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div id="box3" class='col-12'>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8 d-flex justify-content-around" id="addBookButton">
+                        <div>
+                            <input type="submit" value="確認" class="submit">
+                        </div>
+                        <div>
+                            <button type="button" name="submit" onclick="location.href='index'">キャンセル</button>
+                        </div>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </div>
         </div>
-    </form>
-    @endsection
+    </div>
 
-    @section('footerL')
+</form>
+@endsection
 
-    @endsection
+@section('footerL')
 
-    @section('footerR')
+@endsection
 
-    @endsection
+@section('footerR')
+
+@endsection

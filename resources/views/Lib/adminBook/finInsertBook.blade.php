@@ -17,78 +17,84 @@
 @endcomponent
 @endsection
 
-@section('box1')
-<h2>書籍登録が完了しました。</h2>
-<p class="finMessage">下記の書籍情報を登録しました。</p>
-@endsection
 @section('box2')
-<div id="addBox">
-    <table id="addBook">
+<h2>書籍登録が完了しました。</h2>
+<div id="addBook">
+    <table id="addBookTable">
         <tr>
-            <th><u>タイトル</u></th>
+            <th>タイトル：</th>
             <td colspan="2">
-                <p>{{ $reqGet->title }}</p>
+                {{ $reqGet->title }}
             </td>
-            <th></th>
+            <td></td>
         </tr>
         <tr>
-            <th><u>フリガナ</u></th>
+            <th>フリガナ：</th>
             <td colspan="2">
-                <p>{{ $reqGet->kana }}</p>
+                {{ $reqGet->kana }}
             </td>
-            <th></th>
+            <td></td>
         </tr>
         <tr>
-            <th><u>著者</u></th>
+            <th>著者：</th>
             <td>
-                <p>{{ $reqGet->auth}}</p>
+                {{ $reqGet->auth }}
             </td>
-            <th class="confBookTh"><u>出版日</u></th>
+            <th class="confBookTh">出版日：</th>
             <td>
-                <p>{{ $reqGet->s_date }}</p>
+                {{ $reqGet->s_date }}
             </td>
         </tr>
         <tr>
-            <th><u>出版社</u></th>
+            <th>出版社：</th>
             <td>
-                <p>{{ $reqGet->publ }}</p>
+                {{ $reqGet->publ }}
             </td>
 
-            <th class="confBookTh"><u>ジャンル</u></th>
+            <th class="confBookTh">ジャンル：</th>
             <td>
-                <p>{{ $reqGet->genre }}</p>
+                {{ $reqGet->genre }}
             </td>
         </tr>
 
         <tr>
-            <th><u>ISBN</u></th>
+            <th>ISBN：</th>
             <td>
-                <p>{{ $reqGet->isbn }}</p>
+                {{ $reqGet->isbn }}
             </td>
 
-            <th class="confBookTh"><u>冊数</u></th>
+            <th class="confBookTh">冊数：</th>
             <td>
-                <p>{{ $reqGet->stock }}</p>
+                {{ $reqGet->stock }}
             </td>
         </tr>
     </table>
 </div>
-    <form action="insertbook" method="GET">
-        @csrf
-        @foreach ($reqGet as $key => $value)
-        <input type="hidden" name={{ $key }} value={{ $value }}>
-        @endforeach
-        <div id="box3">
-            <button type="button" name="submit" onclick="location.href='addBook'">続けて登録する</button>
-            <button type="button" name="submit" onclick="location.href='index'">管理画面へ戻る</button>
+
+<div class="container">
+    <div class="row">
+        <div id="box3" class='col-12'>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 d-flex justify-content-around" id="addBookButton">
+                    <div>
+                        <button type="button" name="submit" onclick="location.href='addBook'">続けて登録する</button>
+                    </div>
+                    <div>
+                        <button type="button" name="submit" onclick="location.href='index'">管理画面へ戻る</button>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
         </div>
-    </form>
-    @endsection
+    </div>
+</div>
+@endsection
 
-    @section('footerL')
+@section('footerL')
 
-    @endsection
+@endsection
 
-    @section('footerR')
+@section('footerR')
 
-    @endsection
+@endsection

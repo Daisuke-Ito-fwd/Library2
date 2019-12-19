@@ -8,10 +8,12 @@ new Vue({
         forResetEmail:  '',
         sendMail:       false,
         mailResult:'',
+        ClearLoading:false,
     },
 
     methods: {
         checkEmail: function(){
+            this.ClearLoading = true;
             var mail = new FormData;
             mail.append('email', this.forResetEmail);
 
@@ -31,6 +33,10 @@ new Vue({
                     });
                 }
             });
+
+            setTimeout(() => {
+                this.ClearLoading = false;
+            }, 3000);
         }
         
     },
