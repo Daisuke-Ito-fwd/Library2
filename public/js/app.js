@@ -37247,12 +37247,9 @@ module.exports = function(module) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
- // import Paginate from 'vuejs-paginate'
-// Vue.component('paginate', Paginate)
-// Vue.component('paginate', VuejsPaginate)
 
 var deleteBooksModal = {
-  template: "\n      <div id=\"overlay\">\n        \n          <div id=\"content\">\n          <p><slot></slot></p>\n          <div class='deleteConf'>\n          <button v-on:click=\"deleteEnd\">\u524A\u9664</button>\n          <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
+  template: "\n      <div id=\"overlay\">\n\n          <div id=\"content\">\n          <p><slot></slot></p>\n          <div class='deleteConf'>\n          <button v-on:click=\"deleteEnd\">\u524A\u9664</button>\n          <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
   methods: {
     closeEvent: function closeEvent() {
       //↓親に渡す
@@ -37264,7 +37261,7 @@ var deleteBooksModal = {
   }
 };
 var editBookModal = {
-  template: "\n    <div id=\"overlay-edit\">\n        <div id=\"content-edit\">\n            <p><slot></slot></p>\n            <div class='editConf'>\n                <button v-on:click=\"editConf\">\u78BA\u8A8D</button>\n                <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n            </div>\n            \n        </div>\n    </div>\n    ",
+  template: "\n    <div id=\"overlay-edit\">\n        <div id=\"content-edit\">\n            <p><slot></slot></p>\n            <div class='editConf'>\n                <button v-on:click=\"editConf\">\u78BA\u8A8D</button>\n                <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n            </div>\n\n        </div>\n    </div>\n    ",
   methods: {
     closeEvent: function closeEvent() {
       //↓親に渡す
@@ -37276,7 +37273,7 @@ var editBookModal = {
   }
 };
 var editConfBookModal = {
-  template: "\n        <div id=\"book-edit\">\n            <p><slot></slot></p>\n                <div class='editConf'>\n                    <button v-on:click=\"update\">\u767B\u9332</button>\n                    <button v-on:click=\"reEdit\">\u7DE8\u96C6</button>\n                </div>\n                \n        </div>\n    ",
+  template: "\n        <div id=\"book-edit\">\n            <p><slot></slot></p>\n                <div class='editConf'>\n                    <button v-on:click=\"update\">\u767B\u9332</button>\n                    <button v-on:click=\"reEdit\">\u7DE8\u96C6</button>\n                </div>\n\n        </div>\n    ",
   methods: {
     update: function update() {
       this.$emit('edit-update');
@@ -37288,11 +37285,11 @@ var editConfBookModal = {
 };
 new Vue({
   el: '#booksMain',
-  // components:{
-  //     'delete-books-modal':deleteBooksModal,
-  //     'edit-book-modal'  :editBookModal,
-  //     'edit-conf-book-modal'  :editConfBookModal,
-  // },
+  components: {
+    'delete-books-modal': deleteBooksModal,
+    'edit-book-modal': editBookModal,
+    'edit-conf-book-modal': editConfBookModal
+  },
   data: {
     ClearLoading: false,
     title: '',
@@ -37556,13 +37553,15 @@ new Vue({
     editModal: function editModal() {
       var _this4 = this;
 
+      // 手持ちの配列からフィルタリング
       this.editData = this.result.filter(function (x) {
         return x.id == _this4.editId;
       });
       this.editTitle = this.editData[0]['title'];
       this.editKana = this.editData[0]['kana'];
       this.editAuth = this.editData[0]['auth'];
-      this.editPublId = this.publData[0]['publ'];
+      this.editPublId = this.publData[0]['publ']; // ジャンル、出版社も同様に
+
       var eg = this.genreData.filter(function (x) {
         return x.genre == _this4.editData[0]['genre'];
       });
@@ -37570,10 +37569,12 @@ new Vue({
       var ep = this.publData.filter(function (y) {
         return y.publ == _this4.editData[0]['publ'];
       });
-      this.editPublId = ep[0]['id'];
+      this.editPublId = ep[0]['id']; // 編集用の箱に入れる
+
       this.editStock = this.editData[0]['stock'];
       this.editIsbn = this.editData[0]['isbn'];
-      this.editSDate = this.editData[0]['s_date'];
+      this.editSDate = this.editData[0]['s_date']; // 表示切替
+
       this.editContent = true;
     },
     editUpdate: function editUpdate() {
@@ -37644,8 +37645,7 @@ new Vue({
       form.append('s_date', this.editSDate);
       form.append('stock', this.editStock);
       form.append('isbn', this.editIsbn);
-      this.editConfData = form; // this.closeModal();
-
+      this.editConfData = form;
       this.editConfContent = true;
     },
     selectGenre: function selectGenre() {
@@ -37663,6 +37663,15 @@ new Vue({
         return _this9.editPublId.includes(x.id);
       });
       this.editPubl = arr['publ'];
+    },
+    popGraph: function popGraph() {
+      var win = window.open('graph', 'newtab'); //=> 新しいタブで開く
+
+      win = window.open('graph', 'newwindow'); //=> 新しいウィンドウがポップアップ
+
+      console.log(win); //=> ウィンドウオブジェクト
+
+      win.close(); //openで作成したウィンドウオブジェクトはcloseが可能
     }
   },
   computed: {
@@ -37723,19 +37732,20 @@ new Vue({
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuejs-paginate */ "./node_modules/vuejs-paginate/dist/index.js");
 /* harmony import */ var vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuejs_paginate__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-__webpack_require__(/*! ./jquery */ "./resources/js/jquery.js");
 
 __webpack_require__(/*! ./resetPass.js */ "./resources/js/resetPass.js");
 
- // import Axios from "axios"
 
-Vue.component('paginate', vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default.a);
-Vue.component('paginate', VuejsPaginate);
 
-__webpack_require__(/*! ./addBook */ "./resources/js/addBook.js"); // ###########################################
-// ###########################################
+Vue.component('paginate', vuejs_paginate__WEBPACK_IMPORTED_MODULE_0___default.a); // Vue.component('paginate', VuejsPaginate)
+
+__webpack_require__(/*! ./addBook */ "./resources/js/addBook.js");
+
+__webpack_require__(/*! ./chart.js */ "./resources/js/chart.js"); // // ###########################################
+// // ###########################################
 // ユーザー検索ページ
 // ログアウト##################################################################
 
@@ -37776,7 +37786,7 @@ new Vue({
 //ローカル登録 タグを親コンポで定義する
 
 var deleteModal = {
-  template: "\n      <div id=\"overlay\">\n        \n          <div id=\"content\">\n          <p><slot></slot></p>\n          <div class='deleteConf'>\n          <button v-on:click=\"deleteEnd\">\u524A\u9664</button>\n          <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
+  template: "\n      <div id=\"overlay\">\n\n          <div id=\"content\">\n          <p><slot></slot></p>\n          <div class='deleteConf'>\n          <button v-on:click=\"deleteEnd\">\u524A\u9664</button>\n          <button v-on:click=\"closeEvent\">\u30AD\u30E3\u30F3\u30BB\u30EB</button>\n          </div>\n          </div>\n      </div>\n      ",
   methods: {
     closeEvent: function closeEvent() {
       //↓親に渡す
@@ -38276,15 +38286,109 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/js/jquery.js":
-/*!********************************!*\
-  !*** ./resources/js/jquery.js ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./resources/js/chart.js":
+/*!*******************************!*\
+  !*** ./resources/js/chart.js ***!
+  \*******************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// jQuery ########################################### 
-// $('#loadingImg').
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+ //https://reffect.co.jp/vue/chart-jsvue-jsaxios-display-graph
+
+new Vue({
+  el: '#app',
+  data: {
+    dateList: [],
+    aveList: [],
+    maxList: [],
+    minList: [],
+    dayTimeList: [],
+    dispAve: [],
+    dispMax: [],
+    dispMin: []
+  },
+  methods: {
+    displayGraph: function displayGraph() {
+      var _this = this;
+
+      axios.post('/api/graphData').then(function (res) {
+        _this.dateList = res.data.map(function (a) {
+          return a.startDate;
+        });
+        _this.aveList = res.data.map(function (a) {
+          return a.ave;
+        });
+        _this.maxList = res.data.map(function (a) {
+          return a.max;
+        });
+        _this.minList = res.data.map(function (a) {
+          return a.min;
+        });
+      });
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: this.dateList,
+          datasets: [{
+            label: '平均気温推移',
+            data: this.aveList,
+            borderColor: 'gray',
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            hidden: true
+          }, {
+            label: '最高気温推移',
+            data: this.maxList,
+            borderColor: 'red',
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            hidden: false
+          }, {
+            label: '最低気温推移',
+            data: this.minList,
+            borderColor: 'blue',
+            backgroundColor: 'rgba(255, 255, 255, 0)',
+            hidden: false
+          }]
+        }
+      });
+    }
+  },
+  created: function created() {
+    var _this2 = this;
+
+    axios.post('/api/graphData').then(function (res) {
+      _this2.dateList = res.data.map(function (a) {
+        return a.startDate;
+      });
+      _this2.aveList = res.data.map(function (a) {
+        return a.ave;
+      });
+      _this2.maxList = res.data.map(function (a) {
+        return a.max;
+      });
+      _this2.minList = res.data.map(function (a) {
+        return a.min;
+      });
+    });
+  },
+  mounted: function mounted() {
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: this.dateList,
+        datasets: [{
+          label: '松本の気温推移',
+          data: this.aveList
+        }]
+      }
+    });
+  }
+});
 
 /***/ }),
 

@@ -82,15 +82,12 @@
                 <div class="row">
                     <div class="col-2"></div>
                     <div class="col-8 d-flex justify-content-around" id="addBookButton">
-                        <div class="row" id="finButton">
+                        <div>
+                            <button type="submit" name="submit" value="go">登録</button>
+                        </div>
 
-                            <div class="col-5">
-                                <button type="submit" name="submit" value="go">登録</button>
-                            </div>
-                            <div class="col-2"></div>
-                            <div class="col-5">
-                                <button type="submit" name="submit" value="ng">編集</button>
-                            </div>
+                        <div>
+                            <button type="submit" name="submit" value="ng">編集</button>
                         </div>
                     </div>
                     <div class="col-2"></div>

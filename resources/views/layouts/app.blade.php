@@ -35,8 +35,8 @@
             </div>
         </div>
     </header>
-    <hr>
     <div id="underFixed"></div>
+    <hr>
 
     <main>
         <div id="reset" class="p-3">

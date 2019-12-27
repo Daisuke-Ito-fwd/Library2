@@ -3,75 +3,85 @@
 @section('title', 'アカウント追加確認')
 
 @section('header')
-    @component('components.header')
-        @slot('typ')
-        @if ($user->typ  == 1)
+@component('components.header')
+    @slot('typ')
+        @if ($user->typ == 1)
         ： 管理者
-        @elseif($user->typ  == 0)
+        @elseif($user->typ == 0)
         ：administ
         @endif
-        @endslot
-        @slot('email')
-        {{ $user->email }}
-        @endslot
-    @endcomponent
+    @endslot
+@slot('email')
+{{ $user->email }}
+@endslot
+@endcomponent
 
-    
+
 @endsection
 
 @section('box1')
-    <h2>ユーザー登録が完了しました。</h2>
+<h2>ユーザー登録が完了しました。</h2>
 @endsection
 @section('box2')
-<div id="addBox">
+<div id="confUser">
     <p class="finMessage">登録メールアドレスに確認メールを送信しました。</p>
     <p class="finMessage">大切に保管してください。</p>
-    <table id="confUser">
+    <table id="addBookTable">
         <tr>
-            <th><u>ユーザー種別</u></th>
+            <th>ユーザー種別</th>
             <td>
                 @if ($abtUser['typ'] == 1)
-                <p  name="typ" id="typ">管理</p>
+                管理
                 @elseif($abtUser['typ'] == 2)
-                <p  name="typ" id="typ">一般</p>
+                一般
                 @endif
             </td>
         </tr>
         <tr>
-            <th><u>氏名</u></th>
+            <th>氏名</th>
             <td>
-                    <p type="text" name="name" id="name" >{{ $abtUser['name2'].' '.$abtUser['name1']}}</p>
+                {{ $abtUser['name2'].' '.$abtUser['name1']}}
             </td>
         </tr>
         <tr>
-            <th><u>フリガナ</u></th>
+            <th>フリガナ</th>
             <td>
-                <p type="text" name="kana" id="kana" >{{ $abtUser['kana2'].' '.$abtUser['kana1']}}</p>
+                {{ $abtUser['kana2'].' '.$abtUser['kana1']}}
             </td>
         </tr>
         <tr>
-            <th><u>メールアドレス</u></th>
+            <th>メールアドレス</th>
             <td>
-                <p type="text" name="email"  id="email" >{{ $abtUser['email'] }}</p>
+                {{ $abtUser['email'] }}
             </td>
         </tr>
         <tr>
-            <th><u>パスワード</u></th>
+            <th>パスワード</th>
             <td>
-                <p type="password" name="pass" id="pass">セキュリティ保護のため表示されません。</p>
+                セキュリティ保護のため表示されません。
             </td>
         </tr>
     </table>
-    <div id="box3">
-            <input type="button" name="continue" value="続けて登録"  onclick="location.href='addUser'">
-            <input type="button" name="toTop" value="管理画面へ戻る" onclick="location.href='index'">
+    <div class="container">
+        <div class="row">
+            <div id="box3" class='col-12'>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8 d-flex justify-content-around" id="addBookButton">
+                        <input type="button" name="continue" value="続けて登録" onclick="location.href='addUser'">
+                        <input type="button" name="toTop" value="管理画面へ戻る" onclick="location.href='index'">
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </div>
+        </div>
     </div>
-@endsection
+    @endsection
 
-@section('footerL')
-    
-@endsection
+    @section('footerL')
 
-@section('footerR')
-    
-@endsection
+    @endsection
+
+    @section('footerR')
+
+    @endsection

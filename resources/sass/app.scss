@@ -6,6 +6,7 @@
 
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
+
 ::placeholder {
     color: rgba(200, 200, 200, 0.972);
 }
@@ -13,6 +14,145 @@ input:focus::-webkit-input-placeholder,
 textarea:focus::-webkit-input-placeholder {
     color: transparent;
     transition: 0.1s;
+}
+
+#overlay,
+#overlay-edit,
+#overlay-edit {
+    z-index: 111111;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all 0.5s ease;
+}
+#content,
+#content-edit,
+#content-edit-conf {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: fixed;
+    top: 8%;
+    left: 14%;
+    z-index: 1111111;
+    padding: 1em;
+    background: #fff;
+    border-radius: 3px;
+    width: 70%;
+    min-height: 320px;
+    min-width: 480px;
+    max-height: 85%;
+    /* スクロール指定 */
+    overflow-y: scroll;
+    /* transition */
+    transition: all 0.4s ease;
+
+    #editTable,
+    #resTable {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 15px;
+        border-collapse: collapse;
+
+        td {
+            height: 35px;
+            input,
+            select {
+                width: 70%;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+        }
+    }
+    #resTable {
+        th {
+            border-bottom: solid lightgray;
+        }
+    }
+}
+
+#book-edit {
+    width: 70%;
+    height: 484px;
+    min-width: 480px;
+    max-height: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: fixed;
+    top: 8%;
+    left: 14%;
+    z-index: 11111111;
+    padding: 1em;
+    background: #fff;
+    border-radius: 3px;
+    /* スクロール指定 */
+    overflow-y: scroll;
+    /* transition */
+    transition: all 0.4s ease;
+
+    #editTable {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 15px;
+        border-collapse: collapse;
+        td {
+            height: 40px;
+        }
+    }
+}
+
+h4 {
+    text-align: center;
+}
+.tdInput {
+    width: 100%;
+}
+#editTable {
+    min-width: 350px;
+}
+.deleteConf,
+.editConf {
+    width: 50%;
+    max-width: 220px;
+    display: flex;
+    justify-content: space-around;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.um-enter,
+.um-leave-active,
+.uem-enter,
+.uem-leave-active,
+.bm-enter,
+.bm-leave-active,
+.loading-enter,
+.bem-enter,
+.bem-leave-active,
+.loading-leave-active {
+    opacity: 0;
+}
+.uecm-enter,
+.uecm-leave-active,
+.becm-enter,
+.becm-leave-active {
+    opacity: 0;
+}
+
+/* sort */
+.checkSort {
+    position: relative;
+    left: 3px;
+    border-radius: 10px 10px 10px 10px;
+    border-color: rgb(236, 236, 236);
+    background-color: rgb(255, 255, 255);
 }
 
 a,
@@ -26,6 +166,26 @@ a:hover {
     color: rgb(75, 75, 75);
     text-decoration: none;
 }
+
+.fullGuard {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+#loadingGif {
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    left: 47%;
+    top: 50%;
+    transition: all 0.2s ease;
+}
+
 #ClearLoading {
     position: fixed;
     left: 0;
@@ -131,7 +291,9 @@ header {
         }
     }
 }
+// ここまでheader ################################
 
+// ここからmain #############################################
 main {
     h2,
     h3,
@@ -147,6 +309,7 @@ main {
     .col-12 {
         margin-top: 5px;
         // margin-bottom: 5px;
+        text-align: center;
     }
 
     #adminMenu img {
@@ -158,9 +321,20 @@ main {
     #resetPassForm {
         width: 70%;
     }
+
+    #box2 {
+        #endReset {
+            .container {
+                p {
+                    text-align: center;
+                }
+            }
+        }
+    }
 }
 
-#booksMain {
+#booksMain,
+#main {
     width: 100%;
     min-width: 370px;
     max-width: 1000px;
@@ -207,12 +381,35 @@ main {
         color: red;
         text-align: center;
     }
+    p {
+        text-align: center;
+    }
+    #confUser {
+        #addBookTable {
+            margin-left: auto;
+            margin-right: auto;
 
-    // max-width: 100%;
+            th,
+            td {
+                width: 200px;
+                border-bottom: solid 1.5px #8f8f8f5c;
+                height: 50px;
+                text-align: center;
+                .etc {
+                    text-align: start;
+                }
+            }
+            th {
+                text-align: start;
+                max-width: 86px;
+            }
+        }
+    }
     #addBook {
         #addBookTable {
-            margin-right: auto;
             margin-left: auto;
+            margin-right: auto;
+
             th,
             td {
                 width: 100px;
@@ -280,6 +477,20 @@ main {
     }
 
     #box2 {
+        #addUser {
+            margin-right: auto;
+            margin-left: auto;
+            .etc {
+                margin-top: 0;
+                font-size: 12px;
+            }
+            .error {
+                text-align: start;
+                margin-bottom: 0;
+                font-size: 12px;
+                color: red;
+            }
+        }
         .sortButton {
             border: none;
             font-size: 12px;
@@ -287,6 +498,25 @@ main {
         }
         .delchk {
             border-right: solid 1px rgba(151, 151, 151, 0.692);
+        }
+        #srcTable {
+            max-width: 430px;
+            th {
+                width: 110px;
+                text-align: center;
+            }
+            td {
+                height: 40px;
+                label {
+                    margin-bottom: 0;
+                }
+            }
+            .nameTd {
+                height: 80px;
+            }
+        }
+        #resCount {
+            min-width: 180px;
         }
         #resTable {
             width: 100%;

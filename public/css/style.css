@@ -1,25 +1,26 @@
-
 /* アニメーション中のスタイル */
-.fullGuard{
+.fullGuard {
     position: fixed;
     left: 0;
     top: 0;
-        width:  100%;
-        height: 100%;
-        z-index:9;
+    width: 100%;
+    height: 100%;
+    z-index: 9;
     background-color: rgba(255, 255, 255, 0);
 }
-#ClearLoading{
+
+#ClearLoading {
     position: fixed;
     left: 0;
     top: 0;
-        width:  100%;
-        height: 100%;
-        z-index:5;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
     background-color: rgba(109, 109, 109, 0.253);
-    transition: all 0.5s ease; 
+    transition: all 0.5s ease;
 }
-#loadingGif{
+
+#loadingGif {
     width: 80px;
     height: 80px;
     position: fixed;
@@ -53,55 +54,60 @@
 }  */
 
 /* header ########################### */
-h2, .invalid-feedback{
+h2,
+.invalid-feedback {
     text-align: center;
 }
-/* body{
+
+body {
     color: rgb(75, 75, 75);
     font-family: 'Noto Sans JP', sans-serif;
-    margin-right: auto ;
-    margin-left: auto ;
+    margin-right: auto;
+    margin-left: auto;
     min-width: 500px;
     max-width: 1200px;
-} */
+}
 
-/* header {
-    width:98%;
-    margin-right: auto ;
-    margin-left: auto ;
+header {
+    width: 98%;
+    margin-right: auto;
+    margin-left: auto;
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     margin-bottom: -20px;
-    min-width: 600px; 
-} */
+    min-width: 600px;
+}
 
-.adTopText{
+.adTopText {
     border-top: 5px;
 }
 
-/* a:visited,  a{
-    color:rgb(75, 75, 75);
+a:visited,
+a {
+    color: rgb(75, 75, 75);
     text-decoration: none;
-} */
+}
 
-/* #headLeft{
+#headLeft {
     display: flex;
     width: 450px;
     vertical-align: bottom;
     font-size: 18px;
-} */
+}
 
-#headimg{
+#headimg {
     height: 80px;
     width: 80px;
     margin: 10px;
 }
+
 /* header h1 {
     position: relative;
     top:8px;
     left: 10px;
 } */
-#headRight ul, #headRight a{
+#headRight ul,
+#headRight a {
     font-size: 13px;
     margin-bottom: -5px;
     text-align: end;
@@ -109,94 +115,106 @@ h2, .invalid-feedback{
 
 
 /* footer ############################### */
-footer{
+footer {
     height: 30px;
     display: flex;
     justify-content: space-around;
 }
-#right{
+
+#right {
     background-color: rgb(255, 210, 210);
-} 
-#left{
+}
+
+#left {
     background-color: rgb(210, 233, 255);
-} 
+}
 
 /* main #################################### */
 /* index */
-.box1{
+.box1 {
     display: flex;
     flex-direction: column;
 }
-.box2{
-    text-align: center;
-}
-.box1 h2, .box1 h3 , .box1 h4, .box1 p{
+
+.box2 {
     text-align: center;
 }
 
-#logForm{
-    margin-right: auto ;
-    margin-left: auto ;
-}
-#login{
-    text-align: center;
-    width:auto;
-    margin-top:20px;
-}
-
-#entry{
-    font-size:11px;
+.box1 h2,
+.box1 h3,
+.box1 h4,
+.box1 p {
     text-align: center;
 }
 
-#adminMenu{
+#logForm {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#login {
+    text-align: center;
+    width: auto;
+    margin-top: 20px;
+}
+
+#entry {
+    font-size: 11px;
+    text-align: center;
+}
+
+#adminMenu {
     margin-left: auto;
     margin-right: auto;
-    font-size:15px;
+    font-size: 15px;
     text-align: center;
 
 }
-#adminMenu img{
+
+#adminMenu img {
     height: 110px;
     width: 110px;
     margin: 30px;
     z-index: 1;
 }
 
-#adminMenu td{
-    padding-left:  30px;
+#adminMenu td {
+    padding-left: 30px;
     padding-right: 30px;
 }
 
-#adminMenu td p{
-    margin-top:-25px ;
+#adminMenu td p {
+    margin-top: -25px;
     z-index: 2;
 }
 
 /* book search */
-#tables{
+#tables {
     display: flex;
     margin-left: auto;
     margin-right: auto;
 }
-#searchBox{
+
+#searchBox {
     display: flex;
-    font-size:15px;
+    font-size: 15px;
     min-width: 600px;
     margin-left: auto;
     margin-right: auto;
 }
-.selBox{
+
+.selBox {
     width: 100%;
 }
 
-td .submit{
+td .submit {
     margin-top: 10px;
     text-align: center;
     position: relative;
-        left: 45px;
+    left: 45px;
 }
-#line{
+
+#line {
     width: 2px;
     border-right: solid 2px rgb(212, 212, 212);
     margin-left: 10px;
@@ -204,49 +222,74 @@ td .submit{
 }
 
 /* adduser */
-#addUser, #addBook, #confUser, .searchUser, #editTable, .search{
+#addUser,
+#addBook,
+#confUser,
+.searchUser,
+#editTable,
+.search {
     margin-left: auto;
     margin-right: auto;
-    font-size:15px;
+    font-size: 15px;
     background-color: rgb(250, 250, 250);
-    border: solid  rgb(216, 216, 216);
+    border: solid rgb(216, 216, 216);
     border-collapse: collapse;
 }
-.search{
+
+.search {
     height: 150px;
 }
-#addUser th,#addUser td, #addBook th, #addBook td, #confUser th, #confUser td, .searchUser th, .searchUser td, .editTr td, .editTr th, .search th, .search td{
+
+#addUser th,
+#addUser td,
+#addBook th,
+#addBook td,
+#confUser th,
+#confUser td,
+.searchUser th,
+.searchUser td,
+.editTr td,
+.editTr th,
+.search th,
+.search td {
     border-top: solid 1px rgb(180, 180, 180);
     border-bottom: solid 1px rgb(180, 180, 180);
     /* border-left:solid 1px rgb(180, 180, 180); */
-    border-right:none;
+    border-right: none;
 
     text-align: center;
     padding: 10px;
 }
- #addUser td, .searchUser td, #addBook td{
+
+#addUser td,
+.searchUser td,
+#addBook td {
     text-align: left;
 }
 
-.confBookTh{
-    border-left:solid 1px rgb(180, 180, 180);
+.confBookTh {
+    border-left: solid 1px rgb(180, 180, 180);
 }
-.etc{
+
+.etc {
     font-size: 12px;
     margin-bottom: -5px;
     margin-top: -0.5pt;
 }
 
-#email, #emailConf, #pass, #passConf{
-width: 333px;
+#email,
+#emailConf,
+#pass,
+#passConf {
+    width: 333px;
 
 }
 
-#logEmail{
+#logEmail {
     width: 280px;
 }
 
-#box3{
+#box3 {
     padding-top: 20px;
     width: 35%;
     margin-left: auto;
@@ -255,36 +298,38 @@ width: 333px;
     justify-content: space-around;
 }
 
-#error, .error{
+#error,
+.error {
     font-size: 11px;
     color: red;
     text-align: center;
     margin: -2.5px;
 }
 
-#confUser td p{
+#confUser td p {
     text-align: center;
     font-size: 17px;
 }
 
-.air{
+.air {
     width: 5%;
 }
 
-hr{
-    background-color:  rgb(75, 75, 75);
+hr {
+    background-color: rgb(75, 75, 75);
     height: 1.5px;
-    margin-top:20px;
-    margin-bottom:20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.finMessage, .message{
+.finMessage,
+.message {
     font-size: 15px;
     text-align: center;
 }
 
 /* src user */
-.resBoxHead{
+.resBoxHead {
     display: flex;
     justify-content: space-between;
     width: 95%;
@@ -292,7 +337,8 @@ hr{
     margin-right: auto;
     align-items: flex-end
 }
-.resCount{
+
+.resCount {
     display: flex;
     justify-content: space-between;
     width: 95%;
@@ -302,64 +348,66 @@ hr{
     margin-bottom: 5px;
 }
 
-.resCount p{
+.resCount p {
     margin-bottom: 0px;
     width: auto;
     text-align: right;
 }
 
-.resTable{
+.resTable {
     width: 95%;
     margin-left: auto;
     margin-right: auto;
-    font-size:15px;
+    font-size: 15px;
     background-color: rgb(247, 247, 247);
-    border: solid  rgb(216, 216, 216);
+    border: solid rgb(216, 216, 216);
     border-collapse: collapse;
-    
+
 }
 
-.resHead th, .resBody td{
+.resHead th,
+.resBody td {
     border-top: solid 1px rgb(180, 180, 180);
     border-bottom: solid 1px rgb(180, 180, 180);
-    border-left:none;
-    border-right:none;
+    border-left: none;
+    border-right: none;
     padding: 10px;
     text-align: center;
 }
 
-.resHead th{
+.resHead th {
     background-color: white;
     border-top: solid 1px rgb(180, 180, 180);
     border-bottom: solid 1px rgb(180, 180, 180);
-    border-left:none;
-    border-right:none;
+    border-left: none;
+    border-right: none;
 }
 
-/* .resBody:nth-child(even) .editTr:nth-child(even){
+.resBody:nth-child(even) .editTr:nth-child(even) {
     background-color: rgb(255, 255, 255);
 }
 
-.resBody:nth-child(odd), .editTr:nth-child(odd){
+.resBody:nth-child(odd),
+.editTr:nth-child(odd) {
     background-color: rgb(255, 255, 255);
-} */
+}
 
-.pagination{
+.pagination {
     text-align: center;
     list-style: none;
     position: relative;
-        right: 20px;
+    right: 20px;
 }
 
-/* li {
+li {
     display: inline-block;
 }
 
-li a{
+li a {
     margin: 2px;
     min-width: 25px;
     padding: 3.0px;
-    border: 0.5px solid  rgb(209, 209, 209);
+    border: 0.5px solid rgb(209, 209, 209);
     text-align: center;
     border-radius: 2px;
     display: block;
@@ -368,81 +416,93 @@ li a{
 }
 
 .page-item.active {
-    background-color:rgb(209, 209, 209);
-    border: 0px solid  rgb(209, 209, 209);
+    background-color: rgb(209, 209, 209);
+    border: 0px solid rgb(209, 209, 209);
     border-radius: 2px;
     border: 2px;
     text-decoration: underline;
     align-items: flex-end;
     outline: none;
-} */
+}
 
 /* モーダル部 */
-#overlay, #overlay-edit, #overlay-edit{
-    z-index:1;
-    position  : fixed;
-        top   : 0;
-        left  : 0;
-        width : 100%;
-        height: 100%;
-    background-color: rgba(0,0,0,0.5);
+#overlay,
+#overlay-edit,
+#overlay-edit {
+    z-index: 1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
     transition: all .5s ease;
 }
-#content, #content-edit, #content-edit-conf{
+
+#content,
+#content-edit,
+#content-edit-conf {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     position: fixed;
-        top: 8%;
-        left: 14%;
-    z-index:2;
+    top: 8%;
+    left: 14%;
+    z-index: 2;
     padding: 1em;
-    background:#fff;
+    background: #fff;
     border-radius: 3px;
-    width:70%;
+    width: 70%;
     min-height: 320px;
     min-width: 480px;
     max-height: 85%;
     /* スクロール指定 */
-    overflow-y:scroll;
+    overflow-y: scroll;
     /* transition */
     transition: all 0.4s ease;
-  }
-  #book-edit{
-    width:70%;
+}
+
+#book-edit {
+    width: 70%;
     height: 484px;
     min-width: 480px;
     max-height: 85%;
     margin-left: auto;
     margin-right: auto;
-      display: flex;
+    display: flex;
     flex-direction: column;
     justify-content: space-around;
     position: fixed;
-        top: 8%;
-        left: 14%;
-    z-index:2;
+    top: 8%;
+    left: 14%;
+    z-index: 2;
     padding: 1em;
-    background:#fff;
+    background: #fff;
     border-radius: 3px;
     /* スクロール指定 */
-    overflow-y:scroll;
+    overflow-y: scroll;
     /* transition */
     transition: all 0.4s ease;
-  }
-.editConf{
-    margin-top:5px;
 }
-h4{
+
+.editConf {
+    margin-top: 5px;
+}
+
+h4 {
     text-align: center;
 }
-.tdInput{
+
+.tdInput {
     width: 100%;
 }
-#editTable{
+
+#editTable {
     min-width: 350px;
 }
-.deleteConf, .editConf{
+
+.deleteConf,
+.editConf {
     width: 30%;
     display: flex;
     justify-content: space-around;
@@ -450,20 +510,31 @@ h4{
     margin-right: auto;
 }
 
-.um-enter, .um-leave-active, .uem-enter, .uem-leave-active, 
-.bm-enter, .bm-leave-active, .loading-enter,
-.bem-enter, .bem-leave-active, .loading-leave-active{
-    opacity:0;
-} 
-.uecm-enter, .uecm-leave-active, .becm-enter, .becm-leave-active{
-    opacity:0;
+.um-enter,
+.um-leave-active,
+.uem-enter,
+.uem-leave-active,
+.bm-enter,
+.bm-leave-active,
+.loading-enter,
+.bem-enter,
+.bem-leave-active,
+.loading-leave-active {
+    opacity: 0;
+}
+
+.uecm-enter,
+.uecm-leave-active,
+.becm-enter,
+.becm-leave-active {
+    opacity: 0;
 }
 
 
 /* sort */
-.checkSort{
+.checkSort {
     position: relative;
-        left:3px;
+    left: 3px;
     border-radius: 10px 10px 10px 10px;
     border-color: rgb(236, 236, 236);
     background-color: rgb(255, 255, 255);

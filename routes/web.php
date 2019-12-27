@@ -49,6 +49,8 @@ Route::post('/api/deleteBooks', 'ajaxBooksController@delete');
 Route::post('/api/updateBook', 'ajaxBooksController@update');
 Route::post('/api/checkEmail', 'ajaxController@email');
 
+Route::post('/api/graphData', 'ajaxGraphController@post');
+
 // 初回アクセス ###########
 Route::get('lib','LibController@index')->name('first');
 // Laravel標準ログイン機能へ
@@ -73,6 +75,10 @@ Route::get('lib/addBook', 'adminController@addBook')->name('reBook')->middleware
 Route::get('lib/searchUsers', 'adminController@searchUsers')->middleware('auth');
 // to searchBooks
 Route::get('lib/searchBooks', 'adminController@searchBooks')->middleware('auth');
+// to graph
+Route::get('lib/graph', 'graphController@index');    //->middleware('auth');
+
+
 
 // ユーザー追加画面 #####################
 // to confPage

@@ -21,15 +21,11 @@ class ajaxBooksController extends Controller
        }else{
         $res = DB::table('library')
         ->select('library.id', 'title', 'kana', 'books_publ.publ', 'books_genre.genre', 'auth', 'isbn', 's_date', 'stock')
-        // ->select('id', 'title', 'kana', 'publ', 'genre', 'auth', 'isbn', 's_date', 'stock')
         ->where('title', 'like', '%'.$request['title'].'%')
         ->where('kana', 'like', '%'.$request['kana'].'%')
         ->where('auth', 'like', '%'.$request['auth'].'%')
         ->where('library.publ', 'like', '%'.$request['publ'].'%')
         ->where('library.genre', 'like', '%'.$request['genre'].'%')
-        // ->where('publ', 'like', '%'.$request['publ'].'%')
-        // ->where('genre', 'like', '%'.$request['genre'].'%')
-
         ->where('isbn', 'like', '%'.$request['isbn'].'%')
         ->where('delet', false)
         ->leftjoin('books_publ', 'library.publ', '=', 'books_publ.id')

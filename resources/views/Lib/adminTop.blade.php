@@ -44,6 +44,11 @@
                 <p class="adTopText">アカウント検索<br>編集・削除</p>
             </a>
         </div>
+        <div class="col-12 mx-auto">
+            <a href="#" v-on:click="popGraph()">
+                <h2 class="adTopText" target="newtab">グラフを表示する</h2>
+            </a>
+        </div>
     </div>
 </div>
 @endsection

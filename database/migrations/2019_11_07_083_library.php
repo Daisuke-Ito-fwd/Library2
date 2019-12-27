@@ -19,6 +19,11 @@ class Library extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->bigInteger('isbn');
+            $table->integer('stock');
+            $table->boolean('delet');
+            $table->date('s_date');
+            $table->datetime('updated_at');
+            $table->datetime('created_at');
             $table->string('title', 255)->nullable()->default('');
             $table->string('kana', 255)->nullable()->default('');
             $table->string('auth', 100)->nullable()->default('');

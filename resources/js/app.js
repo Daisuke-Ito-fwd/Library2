@@ -1,14 +1,15 @@
 require('./bootstrap');
-require('./jquery');
 require('./resetPass.js');
 import Paginate from 'vuejs-paginate'
-// import Axios from "axios"
+import Axios from "axios"
 Vue.component('paginate', Paginate)
-Vue.component('paginate', VuejsPaginate)
+// Vue.component('paginate', VuejsPaginate)
 require('./addBook');
 
-// ###########################################
-// ###########################################
+require('./chart.js')
+
+// // ###########################################
+// // ###########################################
 
 // ユーザー検索ページ
 // ログアウト##################################################################
@@ -48,7 +49,7 @@ new Vue({
 var deleteModal = {
     template: `
       <div id="overlay">
-        
+
           <div id="content">
           <p><slot></slot></p>
           <div class='deleteConf'>
@@ -133,9 +134,9 @@ for (var i = 1; i <= 105; i++) {
 new Vue({
     el: '#main',
     data: {
-        fullGuard:false,
+        fullGuard: false,
         ClearLoading: false,
-        mailResult :'',
+        mailResult: '',
         // main
         result: [],
         name2: '',
@@ -145,7 +146,7 @@ new Vue({
         email: '',
         typ: '',
         errorMsg: '',
-        errorMsgModal : "",
+        errorMsgModal: "",
         // delete
         deleteId: [],
         deleteData: '',
@@ -161,8 +162,8 @@ new Vue({
         editKana1: '',
         editEmail: '',
         editPass: '',
-        editPassConf:'',
-        editPassMess:'',
+        editPassConf: '',
+        editPassMess: '',
         //     //paginate用         
         parPage: 10, //paginate用 
         currentPage: 1, //paginate用 
@@ -175,7 +176,7 @@ new Vue({
         deleteButton: false, //削除ボタン用
         hiddenId: [],
         mainSwitch: false,
-        showDeleteButton:false,
+        showDeleteButton: false,
 
         // sort
         desc: false,
@@ -328,7 +329,7 @@ new Vue({
                 this.errorMsg = "";
 
                 this.CLOpen();
-                
+
 
 
                 var form = new FormData();
@@ -359,7 +360,7 @@ new Vue({
             }
         },
 
-        CLOpen: function(){
+        CLOpen: function () {
             this.ClearLoading = true;
         },
 
@@ -387,8 +388,8 @@ new Vue({
             this.editKana2 = this.editData[0]['kana2'];
             this.editKana1 = this.editData[0]['kana1'];
             this.editEmail = this.editData[0]['email'];
-            
-           
+
+
             this.editShowContent = true
 
         },
@@ -405,7 +406,7 @@ new Vue({
             this.showContent = false
             this.editShowContent = false
             this.editConfShowContent = false
-            this.errorMsgModal="";
+            this.errorMsgModal = "";
         },
 
         deleteEnd: function () {
@@ -414,7 +415,7 @@ new Vue({
             // var arr = _.values(this.deleteId);
             params.append("id", this.deleteId);
             //    var delForm=JSON.stringify(arr);
-            
+
             axios.post('/api/deleteUsers', params).then((res) => {
                 alert('ユーザー情報を' + this.countDelete + '件削除しました。')
                 this.showContent = false;
@@ -440,18 +441,18 @@ new Vue({
             }, 1000);
 
             if (this.editKana2.match(/^[ァ-ヶー　]*$/) && this.editKana1.match(/^[ァ-ヶー　]*$/)) {
-                if(this.editEmail.match(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/)){
-                    if(this.editPass == this.editPassConf){
-                        if(this.editPass == ''){
+                if (this.editEmail.match(/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/)) {
+                    if (this.editPass == this.editPassConf) {
+                        if (this.editPass == '') {
                             this.editPassMess = '変更しない'
-                        }else{
+                        } else {
                             this.editPassMess = 'セキュリティ保護のため表示されません'
                         }
                         var mailConf = new FormData();
                         mailConf.append('email', this.editEmail);
                         axios.post('/api/checkEmail', mailConf).then((res) => {
-                            this.mailResult=res;
-                            if(this.mailResult['data'] == 0){
+                            this.mailResult = res;
+                            if (this.mailResult['data'] == 0) {
                                 this.errorMsgModal = "";
                                 var form = new FormData();
                                 form.append('id', this.editId);
@@ -463,25 +464,25 @@ new Vue({
                                 form.append('password', this.editPass);
                                 this.editConf = form;
                                 // this.closeModal();
-                                this.editConfShowContent = true;                           
-                            }else{
-                                this.errorMsgModal='このメールアドレスは既に使用されています。'
+                                this.editConfShowContent = true;
+                            } else {
+                                this.errorMsgModal = 'このメールアドレスは既に使用されています。'
                             }
-                    
+
                         }).catch((error) => {
                             alert('通信エラーが発生しました。時間をおいて再度試みてください。')
                         });
 
-                    }else{
-                        this.errorMsgModal='パスワードが一致しません。'
+                    } else {
+                        this.errorMsgModal = 'パスワードが一致しません。'
                     }
-                }else{
+                } else {
                     this.errorMsgModal = "メールアドレスの形式が正しくありません。"
                     this.editPassMess = ''
-                }   
+                }
 
-            }else{
-                this.errorMsgModal="フリガナは全角カタカナで入力してください。"
+            } else {
+                this.errorMsgModal = "フリガナは全角カタカナで入力してください。"
             }
 
         },
@@ -544,9 +545,9 @@ new Vue({
             this.display = false;
         }
 
-        if(this.deleteId == ''){
+        if (this.deleteId == '') {
             this.showDeleteButton = false;
-        }else{
+        } else {
             this.showDeleteButton = true;
         }
 

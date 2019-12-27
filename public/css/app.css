@@ -11127,6 +11127,183 @@ textarea:focus::-webkit-input-placeholder {
   transition: 0.1s;
 }
 
+#overlay,
+#overlay-edit,
+#overlay-edit {
+  z-index: 111111;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#content,
+#content-edit,
+#content-edit-conf {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  justify-content: space-around;
+  position: fixed;
+  top: 8%;
+  left: 14%;
+  z-index: 1111111;
+  padding: 1em;
+  background: #fff;
+  border-radius: 3px;
+  width: 70%;
+  min-height: 320px;
+  min-width: 480px;
+  max-height: 85%;
+  /* スクロール指定 */
+  overflow-y: scroll;
+  /* transition */
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+#content #editTable,
+#content #resTable,
+#content-edit #editTable,
+#content-edit #resTable,
+#content-edit-conf #editTable,
+#content-edit-conf #resTable {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 15px;
+  border-collapse: collapse;
+}
+
+#content #editTable td,
+#content #resTable td,
+#content-edit #editTable td,
+#content-edit #resTable td,
+#content-edit-conf #editTable td,
+#content-edit-conf #resTable td {
+  height: 35px;
+}
+
+#content #editTable td input,
+#content #editTable td select,
+#content #resTable td input,
+#content #resTable td select,
+#content-edit #editTable td input,
+#content-edit #editTable td select,
+#content-edit #resTable td input,
+#content-edit #resTable td select,
+#content-edit-conf #editTable td input,
+#content-edit-conf #editTable td select,
+#content-edit-conf #resTable td input,
+#content-edit-conf #resTable td select {
+  width: 70%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#content #resTable th,
+#content-edit #resTable th,
+#content-edit-conf #resTable th {
+  border-bottom: solid lightgray;
+}
+
+#book-edit {
+  width: 70%;
+  height: 484px;
+  min-width: 480px;
+  max-height: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  justify-content: space-around;
+  position: fixed;
+  top: 8%;
+  left: 14%;
+  z-index: 11111111;
+  padding: 1em;
+  background: #fff;
+  border-radius: 3px;
+  /* スクロール指定 */
+  overflow-y: scroll;
+  /* transition */
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+#book-edit #editTable {
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 15px;
+  border-collapse: collapse;
+}
+
+#book-edit #editTable td {
+  height: 40px;
+}
+
+h4 {
+  text-align: center;
+}
+
+.tdInput {
+  width: 100%;
+}
+
+#editTable {
+  min-width: 350px;
+}
+
+.deleteConf,
+.editConf {
+  width: 50%;
+  max-width: 220px;
+  display: -webkit-box;
+  display: flex;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.um-enter,
+.um-leave-active,
+.uem-enter,
+.uem-leave-active,
+.bm-enter,
+.bm-leave-active,
+.loading-enter,
+.bem-enter,
+.bem-leave-active,
+.loading-leave-active {
+  opacity: 0;
+}
+
+.uecm-enter,
+.uecm-leave-active,
+.becm-enter,
+.becm-leave-active {
+  opacity: 0;
+}
+
+/* sort */
+
+.checkSort {
+  position: relative;
+  left: 3px;
+  border-radius: 10px 10px 10px 10px;
+  border-color: #ececec;
+  background-color: white;
+}
+
 a,
 a:visited,
 a:focus,
@@ -11137,6 +11314,26 @@ button:visited,
 a:hover {
   color: #4b4b4b;
   text-decoration: none;
+}
+
+.fullGuard {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  background-color: rgba(255, 255, 255, 0);
+}
+
+#loadingGif {
+  width: 80px;
+  height: 80px;
+  position: fixed;
+  left: 47%;
+  top: 50%;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 #ClearLoading {
@@ -11264,6 +11461,7 @@ main #logForm {
 
 main .col-12 {
   margin-top: 5px;
+  text-align: center;
 }
 
 main #adminMenu img {
@@ -11277,7 +11475,12 @@ main #resetPassForm {
   width: 70%;
 }
 
-#booksMain {
+main #box2 #endReset .container p {
+  text-align: center;
+}
+
+#booksMain,
+#main {
   width: 100%;
   min-width: 370px;
   max-width: 1000px;
@@ -11285,18 +11488,21 @@ main #resetPassForm {
   margin-left: auto;
 }
 
-#booksMain .pagination {
+#booksMain .pagination,
+#main .pagination {
   text-align: center;
   list-style: none;
   position: relative;
   right: 20px;
 }
 
-#booksMain li {
+#booksMain li,
+#main li {
   display: inline-block;
 }
 
-#booksMain li a {
+#booksMain li a,
+#main li a {
   margin: 2px;
   min-width: 25px;
   padding: 3px;
@@ -11309,7 +11515,8 @@ main #resetPassForm {
   outline: none;
 }
 
-#booksMain .page-item.active {
+#booksMain .page-item.active,
+#main .page-item.active {
   background-color: #d1d1d1;
   border: 0px solid #d1d1d1;
   border-radius: 2px;
@@ -11320,147 +11527,267 @@ main #resetPassForm {
   outline: none;
 }
 
-#booksMain #adminMenu .col-sm-5 {
+#booksMain #adminMenu .col-sm-5,
+#main #adminMenu .col-sm-5 {
   text-align: center;
 }
 
-#booksMain .error {
+#booksMain .error,
+#main .error {
   color: red;
   text-align: center;
 }
 
-#booksMain #addBook #addBookTable {
-  margin-right: auto;
+#booksMain p,
+#main p {
+  text-align: center;
+}
+
+#booksMain #confUser #addBookTable,
+#main #confUser #addBookTable {
   margin-left: auto;
+  margin-right: auto;
+}
+
+#booksMain #confUser #addBookTable th,
+#booksMain #confUser #addBookTable td,
+#main #confUser #addBookTable th,
+#main #confUser #addBookTable td {
+  width: 200px;
+  border-bottom: solid 1.5px #8f8f8f5c;
+  height: 50px;
+  text-align: center;
+}
+
+#booksMain #confUser #addBookTable th .etc,
+#booksMain #confUser #addBookTable td .etc,
+#main #confUser #addBookTable th .etc,
+#main #confUser #addBookTable td .etc {
+  text-align: start;
+}
+
+#booksMain #confUser #addBookTable th,
+#main #confUser #addBookTable th {
+  text-align: start;
+  max-width: 86px;
+}
+
+#booksMain #addBook #addBookTable,
+#main #addBook #addBookTable {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #booksMain #addBook #addBookTable th,
-#booksMain #addBook #addBookTable td {
+#booksMain #addBook #addBookTable td,
+#main #addBook #addBookTable th,
+#main #addBook #addBookTable td {
   width: 100px;
   border-bottom: solid 1.5px #8f8f8f5c;
   height: 50px;
 }
 
-#booksMain #addBook #addBookTable th {
+#booksMain #addBook #addBookTable th,
+#main #addBook #addBookTable th {
   text-align: end;
 }
 
-#booksMain #addBookButton {
+#booksMain #addBookButton,
+#main #addBookButton {
   margin-top: 20px;
   min-width: 330px;
 }
 
-#booksMain .itemTitle p {
+#booksMain .itemTitle p,
+#main .itemTitle p {
   margin-bottom: 5px;
   margin-top: 20px;
 }
 
-#booksMain .itemTitle .etc {
+#booksMain .itemTitle .etc,
+#main .itemTitle .etc {
   margin-top: 0;
   font-size: 12px;
 }
 
-#booksMain .itemTitle .error {
+#booksMain .itemTitle .error,
+#main .itemTitle .error {
   margin-top: 0;
   font-size: 12px;
   color: red;
 }
 
 #booksMain .itemTitle input,
-#booksMain .itemTitle select {
+#booksMain .itemTitle select,
+#main .itemTitle input,
+#main .itemTitle select {
   width: 210px;
 }
 
-#booksMain #box1 p {
+#booksMain #box1 p,
+#main #box1 p {
   text-align: center;
 }
 
-#booksMain #box1 #searchBox #tables {
+#booksMain #box1 #searchBox #tables,
+#main #box1 #searchBox #tables {
   display: -webkit-box;
   display: flex;
   justify-content: space-around;
 }
 
-#booksMain #box1 #tables tr {
+#booksMain #box1 #tables tr,
+#main #box1 #tables tr {
   text-align: center;
 }
 
 #booksMain #box1 #tables tr select,
-#booksMain #box1 #tables tr input {
+#booksMain #box1 #tables tr input,
+#main #box1 #tables tr select,
+#main #box1 #tables tr input {
   margin-top: 2px;
   margin-bottom: 2px;
   width: 90%;
   height: 28px;
 }
 
-#booksMain #box1 #searchButton {
+#booksMain #box1 #searchButton,
+#main #box1 #searchButton {
   margin-top: 35px;
   margin-bottom: 0px;
 }
 
-#booksMain #box2 .sortButton {
+#booksMain #box2 #addUser,
+#main #box2 #addUser {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#booksMain #box2 #addUser .etc,
+#main #box2 #addUser .etc {
+  margin-top: 0;
+  font-size: 12px;
+}
+
+#booksMain #box2 #addUser .error,
+#main #box2 #addUser .error {
+  text-align: start;
+  margin-bottom: 0;
+  font-size: 12px;
+  color: red;
+}
+
+#booksMain #box2 .sortButton,
+#main #box2 .sortButton {
   border: none;
   font-size: 12px;
   background-color: #f3f3f3;
 }
 
-#booksMain #box2 .delchk {
+#booksMain #box2 .delchk,
+#main #box2 .delchk {
   border-right: solid 1px rgba(151, 151, 151, 0.692);
 }
 
-#booksMain #box2 #resTable {
+#booksMain #box2 #srcTable,
+#main #box2 #srcTable {
+  max-width: 430px;
+}
+
+#booksMain #box2 #srcTable th,
+#main #box2 #srcTable th {
+  width: 110px;
+  text-align: center;
+}
+
+#booksMain #box2 #srcTable td,
+#main #box2 #srcTable td {
+  height: 40px;
+}
+
+#booksMain #box2 #srcTable td label,
+#main #box2 #srcTable td label {
+  margin-bottom: 0;
+}
+
+#booksMain #box2 #srcTable .nameTd,
+#main #box2 #srcTable .nameTd {
+  height: 80px;
+}
+
+#booksMain #box2 #resCount,
+#main #box2 #resCount {
+  min-width: 180px;
+}
+
+#booksMain #box2 #resTable,
+#main #box2 #resTable {
   width: 100%;
   min-width: 580px;
   text-align: center;
   border-bottom: double 2px rgba(151, 151, 151, 0.692);
 }
 
-#booksMain #box2 #resTable th {
+#booksMain #box2 #resTable th,
+#main #box2 #resTable th {
   border-bottom: double 2px rgba(151, 151, 151, 0.692);
   height: 50px;
   background-color: #f3f3f3;
 }
 
-#booksMain #box2 #resTable td {
+#booksMain #box2 #resTable td,
+#main #box2 #resTable td {
   border-bottom: solid 1px rgba(151, 151, 151, 0.692);
   height: 50px;
 }
 
-#booksMain #box2 #resTable #resBody:nth-child(even) #editTr:nth-child(even) {
+#booksMain #box2 #resTable #resBody:nth-child(even) #editTr:nth-child(even),
+#main #box2 #resTable #resBody:nth-child(even) #editTr:nth-child(even) {
   background-color: white;
 }
 
 #booksMain #box2 #resTable #resBody:nth-child(odd),
-#booksMain #box2 #resTable #editTr:nth-child(odd) {
+#booksMain #box2 #resTable #editTr:nth-child(odd),
+#main #box2 #resTable #resBody:nth-child(odd),
+#main #box2 #resTable #editTr:nth-child(odd) {
   background-color: #f3f3f3;
 }
 
-#booksMain #box2 #resTable2 {
+#booksMain #box2 #resTable2,
+#main #box2 #resTable2 {
   padding: 0;
 }
 
 #booksMain #box2 #resTable2 #thHr,
-#booksMain #box2 #resTable2 #tdHr {
+#booksMain #box2 #resTable2 #tdHr,
+#main #box2 #resTable2 #thHr,
+#main #box2 #resTable2 #tdHr {
   margin: 0;
 }
 
 #booksMain #box2 #resTable2 th,
-#booksMain #box2 #resTable2 td {
+#booksMain #box2 #resTable2 td,
+#main #box2 #resTable2 th,
+#main #box2 #resTable2 td {
   height: 70px;
 }
 
 #booksMain #box2 #resTable2 th div,
-#booksMain #box2 #resTable2 td div {
+#booksMain #box2 #resTable2 td div,
+#main #box2 #resTable2 th div,
+#main #box2 #resTable2 td div {
   height: auto;
   padding-top: 6px;
   padding-bottom: 6px;
 }
 
-#booksMain #box2 #resultRow {
+#booksMain #box2 #resultRow,
+#main #box2 #resultRow {
   width: 100%;
 }
 
-#booksMain #box2 #paginateBox {
+#booksMain #box2 #paginateBox,
+#main #box2 #paginateBox {
   margin-top: 30px;
 }
 
